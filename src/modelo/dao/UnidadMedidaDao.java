@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelo.entidad.entradas;
+package modelo.dao;
+
+import modelo.entidad.UnidadMedida;
 
 /**
  *
  * @author Fekilo
  */
-public class DetalleCompra {
-    
+public interface UnidadMedidaDao extends Crud<UnidadMedida>{
+    public UnidadMedida leerNombre(String nombre);
 }

@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelo.entidad.inventario;
+package modelo.dao;
+
+import modelo.entidad.Marca;
 
 /**
  *
  * @author Fekilo
  */
-public class UnidadMedida {
-    
+public interface MarcaDao extends Crud<Marca>{
+    public Marca leerNombre(String nombre);
 }

@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelo.entidad.entradas;
+package modelo.entidad;
 
 /**
  *
  * @author Fekilo
  */
-public class DocumentoCompra {
+public class GuiaRemision {
     
 }
