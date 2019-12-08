@@ -13,5 +13,5 @@ import modelo.entidad.DetalleVenta;
  * @author Fekilo
  */
 public interface DetalleVentaDao extends Crud<DetalleVenta>{
-    public void registrarDetalles(List<DetalleVenta> detalleVenta);
+    public int registrarDetalles(List<DetalleVenta> detalleVenta);
 }

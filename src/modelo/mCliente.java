@@ -43,7 +43,7 @@ public class mCliente implements ClienteDao {
     }
 
     @Override
-    public void registrar(Cliente obj) {
+    public int registrar(Cliente obj) {
         Connection con = Conexion.getConexion();
         try {
             con.setAutoCommit(false);
@@ -54,20 +54,21 @@ public class mCliente implements ClienteDao {
             ps.setInt(4, obj.getSexo());
             ps.executeUpdate();
             con.commit();
-            System.out.println("listo");
+            return 1;
         } catch (Exception e) {
             System.out.println("error modelo: " + e.getMessage());
             Transacciones.usarRollback(con);
+            return -1;
         }
     }
 
     @Override
-    public void actualizar(Cliente obj) {
+    public int actualizar(Cliente obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void eliminar(int id) {
+    public int eliminar(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

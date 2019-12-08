@@ -68,7 +68,7 @@ public class mProducto implements ProductoDao {
     }
 
     @Override
-    public void registrar(Producto obj) {
+    public int registrar(Producto obj) {
         Connection con = Conexion.getConexion();
         try {
             con.setAutoCommit(false);
@@ -83,34 +83,47 @@ public class mProducto implements ProductoDao {
             ps.setInt(8, obj.getUnidadMedida().getIdUnidadMedidad());
             ps.executeUpdate();
             con.commit();
-            System.out.println("listo");
+            return 1;
         } catch (Exception e) {
-            System.out.println("error modelo: " + e.getMessage());
             Transacciones.usarRollback(con);
+            return -1;
         }
     }
 
     @Override
-    public void actualizar(Producto obj) {
+    public int actualizar(Producto obj) {
         try {
-            Transacciones.comandos_Update_Delete("UPDATE producto SET "
-                + "descripcion='" + obj.getDescripcion()
-                + "' , precioVenta='" + obj.getPrecioVenta()
-                + "' , codigoBarras='" + obj.getCodigoBarras()
-                + "' , idCategoria='" + obj.getCategoria().getIdCategoria()
-                + "' , idMarca='" + obj.getMarca().getIdMarca()
-                + "' , idUnidadMedida='" + obj.getUnidadMedida().getIdUnidadMedidad()
-                + "' WHERE idProducto=" + obj.getIdProducto());
-            System.out.println("actualizacion lista");
+            int band = Transacciones.comandos_Update_Delete("UPDATE producto SET "
+                    + "descripcion='" + obj.getDescripcion()
+                    + "' , precioVenta='" + obj.getPrecioVenta()
+                    + "' , codigoBarras='" + obj.getCodigoBarras()
+                    + "' , idCategoria='" + obj.getCategoria().getIdCategoria()
+                    + "' , idMarca='" + obj.getMarca().getIdMarca()
+                    + "' , idUnidadMedida='" + obj.getUnidadMedida().getIdUnidadMedidad()
+                    + "' WHERE idProducto=" + obj.getIdProducto());
+            if (band != -1) {
+                return 1;
+            } else {
+                return -1;
+            }
         } catch (Exception e) {
-            System.out.println("error actualizar modelo" + e.getMessage());
+            return -1;
         }
-        
     }
 
     @Override
-    public void eliminar(int id) {
-        Transacciones.comandos_Update_Delete("DELETE FROM producto WHERE idProducto=" + id);
+    public int eliminar(int id) {
+        try {
+            int band = Transacciones.comandos_Update_Delete("DELETE FROM producto WHERE idProducto=" + id);
+            if (band != -1) {
+                return 1;
+            } else {
+                return -1;
+            }
+        } catch (Exception e) {
+            return -1;
+        }
+
     }
 
     @Override

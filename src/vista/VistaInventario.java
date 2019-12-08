@@ -48,13 +48,13 @@ public class VistaInventario extends javax.swing.JDialog {
         jPanel3 = new javax.swing.JPanel();
         jcboxCategoria = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jtbnRegistrarCategoria = new javax.swing.JButton();
+        jbtnRegistrarMarca = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jcboxMarca = new javax.swing.JComboBox<>();
         jcboxUnidadMedida = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        jbtnRegistrarUndMedida = new javax.swing.JButton();
         jbtnEliminar = new javax.swing.JButton();
         jbtnActualizar = new javax.swing.JButton();
         jtxtFiltroDescripcion = new javax.swing.JTextField();
@@ -113,23 +113,23 @@ public class VistaInventario extends javax.swing.JDialog {
         jLabel6.setForeground(new java.awt.Color(51, 8, 8));
         jLabel6.setText("Categoría");
 
-        jButton1.setBackground(new java.awt.Color(192, 47, 47));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("+");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jtbnRegistrarCategoria.setBackground(new java.awt.Color(192, 47, 47));
+        jtbnRegistrarCategoria.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jtbnRegistrarCategoria.setForeground(new java.awt.Color(255, 255, 255));
+        jtbnRegistrarCategoria.setText("+");
+        jtbnRegistrarCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jtbnRegistrarCategoriaActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(35, 124, 57));
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("+");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jbtnRegistrarMarca.setBackground(new java.awt.Color(35, 124, 57));
+        jbtnRegistrarMarca.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jbtnRegistrarMarca.setForeground(new java.awt.Color(255, 255, 255));
+        jbtnRegistrarMarca.setText("+");
+        jbtnRegistrarMarca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jbtnRegistrarMarcaActionPerformed(evt);
             }
         });
 
@@ -157,13 +157,13 @@ public class VistaInventario extends javax.swing.JDialog {
         jLabel8.setForeground(new java.awt.Color(46, 46, 6));
         jLabel8.setText("Ud Medida");
 
-        jButton4.setBackground(new java.awt.Color(149, 149, 38));
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("+");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jbtnRegistrarUndMedida.setBackground(new java.awt.Color(149, 149, 38));
+        jbtnRegistrarUndMedida.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jbtnRegistrarUndMedida.setForeground(new java.awt.Color(255, 255, 255));
+        jbtnRegistrarUndMedida.setText("+");
+        jbtnRegistrarUndMedida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jbtnRegistrarUndMedidaActionPerformed(evt);
             }
         });
 
@@ -173,19 +173,19 @@ public class VistaInventario extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addComponent(jtbnRegistrarCategoria)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jcboxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(jbtnRegistrarMarca)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jcboxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4)
+                .addComponent(jbtnRegistrarUndMedida)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -199,20 +199,20 @@ public class VistaInventario extends javax.swing.JDialog {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jcboxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
+                    .addComponent(jtbnRegistrarCategoria)
                     .addComponent(jLabel7)
                     .addComponent(jcboxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3)
+                    .addComponent(jbtnRegistrarMarca)
                     .addComponent(jLabel8)
                     .addComponent(jcboxUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4))
+                    .addComponent(jbtnRegistrarUndMedida))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jbtnEliminar.setBackground(new java.awt.Color(255, 51, 51));
-        jbtnEliminar.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jbtnEliminar.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jbtnEliminar.setForeground(new java.awt.Color(255, 255, 255));
-        jbtnEliminar.setText("ELIMINAR");
+        jbtnEliminar.setText("X");
         jbtnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnEliminarActionPerformed(evt);
@@ -273,8 +273,8 @@ public class VistaInventario extends javax.swing.JDialog {
                         .addComponent(jbtnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                        .addComponent(jbtnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+                        .addComponent(jbtnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jbtnActualizar)))
                 .addContainerGap())
@@ -291,11 +291,10 @@ public class VistaInventario extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jbtnActualizar)
-                        .addComponent(jbtnEliminar)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbtnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbtnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(76, 76, 76))
         );
 
@@ -349,25 +348,27 @@ public class VistaInventario extends javax.swing.JDialog {
     private void jbtnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRegistrarActionPerformed
         VistaRegistroProducto vRegistroProducto = new VistaRegistroProducto(null, rootPaneCheckingEnabled);
         vRegistroProducto.setVisible(true);
+        
     }//GEN-LAST:event_jbtnRegistrarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jtbnRegistrarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbnRegistrarCategoriaActionPerformed
         VistaCategoria vCategoria = new VistaCategoria(null, rootPaneCheckingEnabled);
         vCategoria.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jtbnRegistrarCategoriaActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jbtnRegistrarMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRegistrarMarcaActionPerformed
         VistaMarca vMarca = new VistaMarca(null, rootPaneCheckingEnabled);
         vMarca.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jbtnRegistrarMarcaActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jbtnRegistrarUndMedidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRegistrarUndMedidaActionPerformed
         VistaUnidadMedida vUnidadMedida = new VistaUnidadMedida(null, rootPaneCheckingEnabled);
         vUnidadMedida.setVisible(true);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jbtnRegistrarUndMedidaActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         actualizarComboBox();
+        actualizarTablaProductos();
     }//GEN-LAST:event_formWindowActivated
 
     private void jbtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEliminarActionPerformed
@@ -375,9 +376,8 @@ public class VistaInventario extends javax.swing.JDialog {
         if (fila > -1) {
             String id = jtbProductos.getValueAt(fila, 0).toString();
             cProducto.eliminar(id);
-            JOptionPane.showMessageDialog(this, "Eliminación correcta !!");
         } else {
-            JOptionPane.showMessageDialog(this, "Seleccione una fila !!");
+            JOptionPane.showMessageDialog(this, "Seleccione un PRODUCTO !!");
         }
     }//GEN-LAST:event_jbtnEliminarActionPerformed
 
@@ -393,9 +393,8 @@ public class VistaInventario extends javax.swing.JDialog {
             String unidadMedida = jtbProductos.getValueAt(fila, 6).toString();
             //MODIFICAR Y HACERLO CON CONBOBOX, actualizar marca, categoria y unidad de medida no funciona---------------------------------------------------------------------------
             cProducto.actualizar(idArticulo, descripcion, precioVenta, codigoBarras, categoria, marca, unidadMedida);
-            JOptionPane.showMessageDialog(this, "Actualización lista !!");
         } else {
-            JOptionPane.showMessageDialog(this, "Seleccione una marca !!");
+            JOptionPane.showMessageDialog(this, "Seleccione un PRODUCTO !!");
         }
     }//GEN-LAST:event_jbtnActualizarActionPerformed
 
@@ -420,7 +419,10 @@ public class VistaInventario extends javax.swing.JDialog {
     }//GEN-LAST:event_jbtnListarTodosActionPerformed
 
     private void jbtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBuscarActionPerformed
-        actualizarTablaBuscar();
+        if (jtxtFiltroDescripcion.getText().length() > 3) {
+            actualizarTablaBuscar();
+        }
+        
     }//GEN-LAST:event_jbtnBuscarActionPerformed
 
     private void jtxtFiltroDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtFiltroDescripcionActionPerformed
@@ -470,9 +472,6 @@ public class VistaInventario extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -486,10 +485,13 @@ public class VistaInventario extends javax.swing.JDialog {
     private javax.swing.JButton jbtnEliminar;
     private javax.swing.JButton jbtnListarTodos;
     private javax.swing.JButton jbtnRegistrar;
+    private javax.swing.JButton jbtnRegistrarMarca;
+    private javax.swing.JButton jbtnRegistrarUndMedida;
     private javax.swing.JComboBox<String> jcboxCategoria;
     private javax.swing.JComboBox<String> jcboxMarca;
     private javax.swing.JComboBox<String> jcboxUnidadMedida;
     private javax.swing.JTable jtbProductos;
+    private javax.swing.JButton jtbnRegistrarCategoria;
     private javax.swing.JTextField jtxtFiltroDescripcion;
     // End of variables declaration//GEN-END:variables
 

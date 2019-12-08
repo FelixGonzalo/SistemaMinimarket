@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import javax.swing.JOptionPane;
 import modelo.dao.ClienteDao;
 import modelo.entidad.Cliente;
 import modelo.mCliente;
@@ -22,13 +23,15 @@ public class cCliente {
         }
         try {
             ClienteDao dao = new mCliente();
-            Cliente cliente = dao.leerId(Integer.parseInt(id));
+            int idCliente = Integer.parseInt(id);
+            Cliente cliente = dao.leerId(idCliente);
+            int condicion = Integer.parseInt(cliente.getIdClienteDniRuc());//permite controlar error de busqueda
             datos[0] = cliente.getIdClienteDniRuc();
             datos[1] = cliente.getNombres();
             datos[2] = cliente.getApellidos();
             datos[3] = Integer.toString(cliente.getSexo());
         } catch (Exception e) {
-            System.out.println(" error leer cCliente");
+            JOptionPane.showMessageDialog(null, "Error controlador Cliente -> leer: \n NO HAY CLIENTE!");
         }
         return datos;
     }
@@ -36,7 +39,12 @@ public class cCliente {
     public static void registrar(String id, String nombres, String apellidos, int sexo) {
         ClienteDao dao = new mCliente();
         Cliente obj = new Cliente(id, nombres, apellidos, sexo);
-        dao.registrar(obj);
+        int band = dao.registrar(obj);
+        if (band != -1) {
+            JOptionPane.showMessageDialog(null, "Registro de Cliente listo!!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Error en modelo Cliente -> registrar!!");
+        }
 
     }
 ;

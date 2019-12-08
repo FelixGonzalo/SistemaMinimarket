@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.bd.Conexion;
 import modelo.bd.Transacciones;
@@ -29,7 +30,7 @@ import modelo.mDocumentoVenta;
 public class cVenta {
     //FALTA TRABAJAR SERIE y NUMERO
 
-    public static void registrarVenta(DefaultTableModel tablaVenta, String idCliente) {
+    public static int registrarVenta(DefaultTableModel tablaVenta, String idCliente) {
         DocumentoVentaDao documento = new mDocumentoVenta();
         DetalleVentaDao detalles = new mDetalleVenta();
 
@@ -40,7 +41,7 @@ public class cVenta {
 
         Cliente cliente = new Cliente();
         cliente.setIdClienteDniRuc(idCliente);
-        
+
         Connection con = Conexion.getConexion();
         try {
 
@@ -52,13 +53,11 @@ public class cVenta {
             ps.setInt(2, documentoVenta.getNumero());
             ps.setString(3, documentoVenta.getFecha());
             ps.setDouble(4, documentoVenta.getIgv());
-            ps.setString(5, documentoVenta.getCliente().getIdClienteDniRuc());//ps.setInt(5, obj.getCliente().getIdClienteDniRuc());
+            ps.setString(5, documentoVenta.getCliente().getIdClienteDniRuc());
             ps.executeUpdate();
-            con.commit();
-            System.out.println("listo DocumentoVenta");
+            con.commit();// si falla ya no realizar los detalle Venta
 
             int id = documento.obtenerIDUltimoRegistro();//obteniendo el id del registro
-            System.out.println("id: " + id);
             documentoVenta.setIdDocumentoVenta(id);
             List<DetalleVenta> listaDetalle = new ArrayList<DetalleVenta>();
             for (int i = 0; i < tablaVenta.getRowCount(); i++) {
@@ -66,13 +65,19 @@ public class cVenta {
                 prod.setIdProducto(Integer.parseInt(tablaVenta.getValueAt(i, 0).toString()));
                 DetalleVenta detalle = new DetalleVenta(documentoVenta, prod, Integer.parseInt(tablaVenta.getValueAt(i, 4).toString()), Double.parseDouble(tablaVenta.getValueAt(i, 5).toString()));
                 listaDetalle.add(detalle);
-                System.out.println("i: " + i);
             }
-            detalles.registrarDetalles(listaDetalle);
+
+            int band = detalles.registrarDetalles(listaDetalle);
+            if (band != -1) {
+                return 1;
+            } else {
+                JOptionPane.showMessageDialog(null, "Error en modelo DetalleVenta -> registrarDetalles!!");
+            }
         } catch (Exception e) {
-            System.out.println("errorrrrr cVenta: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error controlador venta -> registrarVenta: \n" + e.getMessage());
             Transacciones.usarRollback(con);
         }
+        return -1;
     }
 
 //Control de la Selección de productos a vender
@@ -101,8 +106,23 @@ public class cVenta {
     }
 
     public static DefaultTableModel addProducto(Object[] obj) {
-        dt.addRow(obj);
+        if (!existe((String) obj[0])) {
+             dt.addRow(obj);
+        }else{
+            JOptionPane.showMessageDialog(null, "El producto ya ha sido seleccionado!!");
+        }
         return dt;
+    }
+
+    public static boolean existe(String nombre) {
+        boolean encontrado = false;
+        for (int i = 0; i < dt.getRowCount(); i++) {
+            if (dt.getValueAt(i, 0).toString().equalsIgnoreCase(nombre)) {
+                encontrado = true;
+                break;
+            }
+        }
+        return encontrado;
     }
 
     public static DefaultTableModel deleteProducto(int fila) {

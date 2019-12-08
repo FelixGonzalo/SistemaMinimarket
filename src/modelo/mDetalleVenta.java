@@ -30,7 +30,7 @@ public class mDetalleVenta implements DetalleVentaDao {
     }
 
     @Override
-    public void registrar(DetalleVenta obj) {
+    public int registrar(DetalleVenta obj) {
         Connection con = Conexion.getConexion();
         try {
             con.setAutoCommit(false);
@@ -41,25 +41,25 @@ public class mDetalleVenta implements DetalleVentaDao {
             ps.setDouble(4, obj.getPrecioVenta());
             ps.executeUpdate();
             con.commit();
-            System.out.println("listo DetalleVenta");
+            return 1;
         } catch (Exception e) {
-            System.out.println("error modelo: " + e.getMessage());
             Transacciones.usarRollback(con);
+            return -1;
         }
     }
 
     @Override
-    public void actualizar(DetalleVenta obj) {
+    public int actualizar(DetalleVenta obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void eliminar(int id) {
+    public int eliminar(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void registrarDetalles(List<DetalleVenta> detalleVenta) {
+    public int registrarDetalles(List<DetalleVenta> detalleVenta) {
         Connection con = Conexion.getConexion();
         try {
             con.setAutoCommit(false);
@@ -81,9 +81,10 @@ public class mDetalleVenta implements DetalleVentaDao {
                 ps.executeUpdate();
             }//controla el fallo cuando es un solo registro
             con.commit();
+            return 1;
         } catch (Exception e) {
-            System.out.println("error modelo DetalleVENTA: " + e.getMessage());
             Transacciones.usarRollback(con);
+            return -1;
         }
 
     }

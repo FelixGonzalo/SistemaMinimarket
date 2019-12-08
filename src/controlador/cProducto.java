@@ -6,6 +6,7 @@
 package controlador;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.dao.CategoriaDao;
 import modelo.dao.MarcaDao;
@@ -67,47 +68,62 @@ public class cProducto {
     }
 
     public static void registrar(String descripcion, String precioVenta, String codigoBarras, int cantidadAlmacen, int cantidadMostrador, String nombreCategoria, String nombreMarca, String nombreUnidadMedida) {
-        ProductoDao dao = new mProducto();
-        CategoriaDao categoriaDao = new mCategoria();
-        MarcaDao marcaDao = new mMarca();
-        UnidadMedidaDao unidaMedidaDao = new mUnidadMedida();
-        Categoria categoria = categoriaDao.leerNombre(nombreCategoria);
-        Marca marca = marcaDao.leerNombre(nombreMarca);
-        UnidadMedida unidadMedida = unidaMedidaDao.leerNombre(nombreUnidadMedida);
         try {
+            ProductoDao dao = new mProducto();
+            CategoriaDao categoriaDao = new mCategoria();
+            MarcaDao marcaDao = new mMarca();
+            UnidadMedidaDao unidaMedidaDao = new mUnidadMedida();
+            Categoria categoria = categoriaDao.leerNombre(nombreCategoria);
+            Marca marca = marcaDao.leerNombre(nombreMarca);
+            UnidadMedida unidadMedida = unidaMedidaDao.leerNombre(nombreUnidadMedida);
             Producto producto = new Producto(descripcion, Double.parseDouble(precioVenta), codigoBarras, cantidadAlmacen, cantidadMostrador, categoria, marca, unidadMedida);
-            dao.registrar(producto);
+            int band = dao.registrar(producto);
+            if (band != -1) {
+                JOptionPane.showMessageDialog(null, "Registro de Producto listo!!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error en modelo Producto -> registrar!!");
+            }
         } catch (Exception e) {
-            System.out.println("errorrrrr controlador: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error en controlador Producto -> registrar: \n" + e.getMessage());
         }
     }
 
     public static void actualizar(String idProducto, String descripcion, String precioVenta, String codigoBarras, String nombreCategoria, String nombreMarca, String nombreUnidadMedida) {
-        ProductoDao dao = new mProducto();
-        CategoriaDao categoriaDao = new mCategoria();
-        MarcaDao marcaDao = new mMarca();
-        UnidadMedidaDao unidaMedidaDao = new mUnidadMedida();
-        Categoria categoria = categoriaDao.leerNombre(nombreCategoria);
-        Marca marca = marcaDao.leerNombre(nombreMarca);
-        UnidadMedida unidadMedida = unidaMedidaDao.leerNombre(nombreUnidadMedida);
         try {
-            Producto producto = new Producto(Integer.parseInt(idProducto), descripcion, Double.parseDouble(precioVenta), codigoBarras,categoria,marca,unidadMedida);
-            dao.actualizar(producto);
+            ProductoDao dao = new mProducto();
+            CategoriaDao categoriaDao = new mCategoria();
+            MarcaDao marcaDao = new mMarca();
+            UnidadMedidaDao unidaMedidaDao = new mUnidadMedida();
+            Categoria categoria = categoriaDao.leerNombre(nombreCategoria);
+            Marca marca = marcaDao.leerNombre(nombreMarca);
+            UnidadMedida unidadMedida = unidaMedidaDao.leerNombre(nombreUnidadMedida);
+            Producto producto = new Producto(Integer.parseInt(idProducto), descripcion, Double.parseDouble(precioVenta), codigoBarras, categoria, marca, unidadMedida);
+            int band = dao.actualizar(producto);
+            if (band != -1) {
+                JOptionPane.showMessageDialog(null, "Actualización de Producto lista!!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error en modelo Producto -> actualizar!!");
+            }
         } catch (Exception e) {
-            System.out.println("error ");
+            JOptionPane.showMessageDialog(null, "Error en controlador Producto -> actualizar: \n" + e.getMessage());
         }
     }
 
     public static void eliminar(String id) {
-        ProductoDao dao = new mProducto();
         try {
-            dao.eliminar(Integer.parseInt(id));
+            ProductoDao dao = new mProducto();
+            int band = dao.eliminar(Integer.parseInt(id));
+            if (band != -1) {
+                JOptionPane.showMessageDialog(null, "Eliminación de Producto lista!!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error en modelo Producto -> eliminar!!");
+            }
         } catch (Exception e) {
-            System.out.println("error ");
+            JOptionPane.showMessageDialog(null, "Error en controlador Producto -> eliminar: \n" + e.getMessage());
         }
     }
-    
-    public static DefaultTableModel leerFiltro(String nombreCategoria,String nombreMarca,String nombreUnidadMedida){
+
+    public static DefaultTableModel leerFiltro(String nombreCategoria, String nombreMarca, String nombreUnidadMedida) {
         ProductoDao dao = new mProducto();
         List<Producto> lista = dao.leerFiltro(nombreCategoria, nombreMarca, nombreUnidadMedida);
 
@@ -146,8 +162,8 @@ public class cProducto {
         }
         return dt;
     }
-    
-    public static DefaultTableModel leerDescripcion(String descripcion){
+
+    public static DefaultTableModel leerDescripcion(String descripcion) {
         ProductoDao dao = new mProducto();
         List<Producto> lista = dao.leerDescripcion(descripcion);
 

@@ -44,7 +44,7 @@ public class mCategoria implements CategoriaDao {
     }
 
     @Override
-    public void registrar(Categoria obj) {
+    public int registrar(Categoria obj) {
         Connection con = Conexion.getConexion();
         try {
             con.setAutoCommit(false);
@@ -52,34 +52,45 @@ public class mCategoria implements CategoriaDao {
             ps.setString(1, obj.getNombre());
             ps.executeUpdate();
             con.commit();
-            System.out.println("listo");
+            return 1;
         } catch (Exception e) {
-            System.out.println("error modelo: " + e.getMessage());
             Transacciones.usarRollback(con);
+            return -1;
         }
     }
 
     @Override
-    public void actualizar(Categoria obj) {
-        Transacciones.comandos_Update_Delete("UPDATE categoria SET "
-                + "nombre='" + obj.getNombre()
-                + "' WHERE idCategoria=" + obj.getIdCategoria());
+    public int actualizar(Categoria obj) {
+        try {
+            Transacciones.comandos_Update_Delete("UPDATE categoria SET "
+                    + "nombre='" + obj.getNombre()
+                    + "' WHERE idCategoria=" + obj.getIdCategoria());
+            return 1;
+        } catch (Exception e) {
+            return -1;
+        }
+
     }
 
     @Override
-    public void eliminar(int id) {
-        Transacciones.comandos_Update_Delete("DELETE FROM categoria WHERE idCategoria=" + id);
+    public int eliminar(int id) {
+        try {
+            Transacciones.comandos_Update_Delete("DELETE FROM categoria WHERE idCategoria=" + id);
+            return 1;
+        } catch (Exception e) {
+            return -1;
+        }
     }
 
     @Override
     public Categoria leerNombre(String nombre) {
-        ResultSet rs = Transacciones.consulta("SELECT idCategoria, nombre FROM categoria WHERE nombre = '" + nombre+"'");
+        ResultSet rs = Transacciones.consulta("SELECT idCategoria, nombre FROM categoria WHERE nombre = '" + nombre + "'");
         Categoria categoria = new Categoria();
         try {
-             while (rs.next()) {
-            categoria.setIdCategoria(Integer.parseInt(rs.getString(1)));
-            categoria.setNombre(rs.getString(2));
-             }
+            while (rs.next()) {
+                categoria.setIdCategoria(Integer.parseInt(rs.getString(1)));
+                categoria.setNombre(rs.getString(2));
+            }
         } catch (Exception e) {
             System.out.println("error en lectura: " + e.getMessage());
         }

@@ -29,26 +29,27 @@ public class Transacciones {
         return rs;
     }
 
-    public static void comandos_Update_Delete(String consultaDML) {
+    public static int comandos_Update_Delete(String consultaDML) {
         Connection con = Conexion.getConexion();
         try {
             con.setAutoCommit(false);
             PreparedStatement ps = con.prepareStatement(consultaDML);
             ps.executeUpdate();
             con.commit();
+            return 1;
         } catch (Exception e) {
-            System.out.println("Error en modelo aqui bota el error");
+            System.out.println("ERROR TRANSACCIONES comandos_Update_Delte");
             usarRollback(con);
+            System.out.println("paso aqui");
+            return -1;
         }
     }
 
     public static void usarRollback(Connection con) {
         try {
             con.rollback();
-            System.out.println("rollback exitoso");
         } catch (SQLException e) {
-            System.out.println("fallo user rollbaack");
-
+            System.out.println("ERROR TRANSACCIONES usarRollBack");
         }
     }
 }

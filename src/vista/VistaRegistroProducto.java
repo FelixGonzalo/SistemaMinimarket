@@ -9,7 +9,6 @@ import controlador.cCategoria;
 import controlador.cMarca;
 import controlador.cProducto;
 import controlador.cUnidadMedida;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -206,12 +205,7 @@ public class VistaRegistroProducto extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        try {
-            cProducto.registrar(jtxtDescripcion.getText(), jtxtPrecioVenta.getText(), jtxtCodigoBarras.getText(), 0, 0, jcboxCategoria.getSelectedItem().toString(), jcboxMarca.getSelectedItem().toString(), jcboxUnidadMedida.getSelectedItem().toString());
-            JOptionPane.showMessageDialog(this, "registro lista !!");
-        } catch (Exception e) {
-        }
-
+        cProducto.registrar(jtxtDescripcion.getText(), jtxtPrecioVenta.getText(), jtxtCodigoBarras.getText(), 0, 0, jcboxCategoria.getSelectedItem().toString(), jcboxMarca.getSelectedItem().toString(), jcboxUnidadMedida.getSelectedItem().toString());
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
@@ -274,5 +268,5 @@ public class VistaRegistroProducto extends javax.swing.JDialog {
     private javax.swing.JTextField jtxtDescripcion;
     private javax.swing.JTextField jtxtPrecioVenta;
     // End of variables declaration//GEN-END:variables
-    
+
 }

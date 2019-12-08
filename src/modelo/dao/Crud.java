@@ -6,7 +6,6 @@
 package modelo.dao;
 
 import java.util.List;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 public interface Crud<Objeto> {
     public List<Objeto> leer();
     public Objeto leerId(int id);
-    public void registrar(Objeto obj);
-    public void actualizar(Objeto obj);
-    public void eliminar(int id);
+    public int registrar(Objeto obj);
+    public int actualizar(Objeto obj);
+    public int eliminar(int id);
 }

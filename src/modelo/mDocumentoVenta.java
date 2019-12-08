@@ -70,7 +70,7 @@ public class mDocumentoVenta implements DocumentoVentaDao {
     }
 
     @Override
-    public void registrar(DocumentoVenta obj) {
+    public int registrar(DocumentoVenta obj) {
         Connection con = Conexion.getConexion();
         try {
             con.setAutoCommit(false);
@@ -82,20 +82,20 @@ public class mDocumentoVenta implements DocumentoVentaDao {
             ps.setString(5, obj.getCliente().getIdClienteDniRuc());//ps.setInt(5, obj.getCliente().getIdClienteDniRuc());
             ps.executeUpdate();
             con.commit();
-            System.out.println("listo DocumentoVenta");
+            return 1;
         } catch (Exception e) {
-            System.out.println("error modelo: " + e.getMessage());
             Transacciones.usarRollback(con);
+            return -1;
         }
     }
 
     @Override
-    public void actualizar(DocumentoVenta obj) {
+    public int actualizar(DocumentoVenta obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void eliminar(int id) {
+    public int eliminar(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -107,10 +107,8 @@ public class mDocumentoVenta implements DocumentoVentaDao {
             while (rs.next()) {
                 id = Integer.parseInt(rs.getString(1));
             }
-            System.out.println("mDocumento el ID-> " +id);
             return id;
         } catch (Exception e) {
-            System.out.println("enviando comodin de ultimo registro");
             return -1;
         }
     }

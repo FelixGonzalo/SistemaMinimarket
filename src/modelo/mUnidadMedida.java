@@ -19,7 +19,7 @@ import modelo.entidad.UnidadMedida;
  *
  * @author Fekilo
  */
-public class mUnidadMedida implements UnidadMedidaDao{
+public class mUnidadMedida implements UnidadMedidaDao {
 
     @Override
     public List<UnidadMedida> leer() {
@@ -45,7 +45,7 @@ public class mUnidadMedida implements UnidadMedidaDao{
     }
 
     @Override
-    public void registrar(UnidadMedida obj) {
+    public int registrar(UnidadMedida obj) {
         Connection con = Conexion.getConexion();
         try {
             con.setAutoCommit(false);
@@ -54,39 +54,49 @@ public class mUnidadMedida implements UnidadMedidaDao{
             ps.setString(2, obj.getAbreviatura());
             ps.executeUpdate();
             con.commit();
-            System.out.println("listo");
+            return 1;
         } catch (Exception e) {
-            System.out.println("error modelo: " + e.getMessage());
             Transacciones.usarRollback(con);
+            return -1;
         }
     }
 
     @Override
-    public void actualizar(UnidadMedida obj) {
-        Transacciones.comandos_Update_Delete("UPDATE unidadMedida SET "
-                + "nombre='" + obj.getNombre()
-                + "' , abreviatura='" + obj.getAbreviatura()
-                + "' WHERE idUnidadMedida=" + obj.getIdUnidadMedidad());
+    public int actualizar(UnidadMedida obj) {
+        try {
+            Transacciones.comandos_Update_Delete("UPDATE unidadMedida SET "
+                    + "nombre='" + obj.getNombre()
+                    + "' , abreviatura='" + obj.getAbreviatura()
+                    + "' WHERE idUnidadMedida=" + obj.getIdUnidadMedidad());
+            return 1;
+        } catch (Exception e) {
+            return -1;
+        }
     }
 
     @Override
-    public void eliminar(int id) {
-        Transacciones.comandos_Update_Delete("DELETE FROM unidadMedida WHERE idUnidadMedida=" + id);
+    public int eliminar(int id) {
+        try {
+            Transacciones.comandos_Update_Delete("DELETE FROM unidadMedida WHERE idUnidadMedida=" + id);
+            return 1;
+        } catch (Exception e) {
+            return -1;
+        }
     }
 
     @Override
     public UnidadMedida leerNombre(String nombre) {
-        ResultSet rs = Transacciones.consulta("SELECT idUnidadMedida, nombre FROM unidadMedida WHERE nombre = '" + nombre+"'");
+        ResultSet rs = Transacciones.consulta("SELECT idUnidadMedida, nombre FROM unidadMedida WHERE nombre = '" + nombre + "'");
         UnidadMedida unidadMedida = new UnidadMedida();
         try {
-             while (rs.next()) {
-            unidadMedida.setIdUnidadMedidad(Integer.parseInt(rs.getString(1)));
-            unidadMedida.setNombre(rs.getString(2));
-             }
+            while (rs.next()) {
+                unidadMedida.setIdUnidadMedidad(Integer.parseInt(rs.getString(1)));
+                unidadMedida.setNombre(rs.getString(2));
+            }
         } catch (Exception e) {
             System.out.println("error en lectura: " + e.getMessage());
         }
         return unidadMedida;
     }
-    
+
 }
