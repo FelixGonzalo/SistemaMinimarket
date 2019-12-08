@@ -5,10 +5,14 @@
  */
 package controlador;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import modelo.bd.Conexion;
+import modelo.bd.Transacciones;
 import modelo.dao.DetalleVentaDao;
 import modelo.dao.DocumentoVentaDao;
 import modelo.entidad.Cliente;
@@ -24,23 +28,37 @@ import modelo.mDocumentoVenta;
  */
 public class cVenta {
     //FALTA TRABAJAR SERIE y NUMERO
-    
+
     public static void registrarVenta(DefaultTableModel tablaVenta, String idCliente) {
         DocumentoVentaDao documento = new mDocumentoVenta();
         DetalleVentaDao detalles = new mDetalleVenta();
-        
+
         Calendar c = Calendar.getInstance();
         String dia = Integer.toString(c.get(Calendar.DATE));
-        String mes = Integer.toString(c.get(Calendar.MONTH)+1);
+        String mes = Integer.toString(c.get(Calendar.MONTH) + 1);
         String anio = Integer.toString(c.get(Calendar.YEAR));
 
         Cliente cliente = new Cliente();
         cliente.setIdClienteDniRuc(idCliente);
+        
+        Connection con = Conexion.getConexion();
         try {
-            int id = documento.obtenerIDUltimoRegistro()+1;//obteniendo el id del registro
-            DocumentoVenta documentoVenta = new DocumentoVenta(11, 11, anio +"-"+ mes +"-"+ dia, 0.18, cliente);
-            documento.registrar(documentoVenta);
-            
+
+            DocumentoVenta documentoVenta = new DocumentoVenta(11, 11, anio + "-" + mes + "-" + dia, 0.18, cliente);
+            //documento.registrar(documentoVenta);
+            con.setAutoCommit(false);
+            PreparedStatement ps = con.prepareStatement("INSERT INTO documentoVenta (serie,numero,fecha,igv,idClienteDniRuc) VALUES (?,?,?,?,?)");
+            ps.setInt(1, documentoVenta.getSerie());
+            ps.setInt(2, documentoVenta.getNumero());
+            ps.setString(3, documentoVenta.getFecha());
+            ps.setDouble(4, documentoVenta.getIgv());
+            ps.setString(5, documentoVenta.getCliente().getIdClienteDniRuc());//ps.setInt(5, obj.getCliente().getIdClienteDniRuc());
+            ps.executeUpdate();
+            con.commit();
+            System.out.println("listo DocumentoVenta");
+
+            int id = documento.obtenerIDUltimoRegistro();//obteniendo el id del registro
+            System.out.println("id: " + id);
             documentoVenta.setIdDocumentoVenta(id);
             List<DetalleVenta> listaDetalle = new ArrayList<DetalleVenta>();
             for (int i = 0; i < tablaVenta.getRowCount(); i++) {
@@ -53,6 +71,7 @@ public class cVenta {
             detalles.registrarDetalles(listaDetalle);
         } catch (Exception e) {
             System.out.println("errorrrrr cVenta: " + e.getMessage());
+            Transacciones.usarRollback(con);
         }
     }
 

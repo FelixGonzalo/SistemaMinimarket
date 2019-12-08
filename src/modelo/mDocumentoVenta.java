@@ -107,6 +107,7 @@ public class mDocumentoVenta implements DocumentoVentaDao {
             while (rs.next()) {
                 id = Integer.parseInt(rs.getString(1));
             }
+            System.out.println("mDocumento el ID-> " +id);
             return id;
         } catch (Exception e) {
             System.out.println("enviando comodin de ultimo registro");

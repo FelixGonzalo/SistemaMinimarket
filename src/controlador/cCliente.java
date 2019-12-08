@@ -18,7 +18,7 @@ public class cCliente {
     public static String[] leer(String id) {
         String[] datos = new String[4];
         for (int i = 0; i < datos.length; i++) {
-            datos[i]="";
+            datos[i] = "";
         }
         try {
             ClienteDao dao = new mCliente();
@@ -27,9 +27,17 @@ public class cCliente {
             datos[1] = cliente.getNombres();
             datos[2] = cliente.getApellidos();
             datos[3] = Integer.toString(cliente.getSexo());
-        } catch (Exception e) { 
+        } catch (Exception e) {
             System.out.println(" error leer cCliente");
         }
         return datos;
     }
+
+    public static void registrar(String id, String nombres, String apellidos, int sexo) {
+        ClienteDao dao = new mCliente();
+        Cliente obj = new Cliente(id, nombres, apellidos, sexo);
+        dao.registrar(obj);
+
+    }
+;
 }
