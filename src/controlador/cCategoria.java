@@ -27,7 +27,7 @@ public class cCategoria {
         dt.addColumn("Nombre");
 
         for (Categoria obj : lista) {
-            Object[] fila = new Object[9];
+            Object[] fila = new Object[2];
             fila[0] = obj.getIdCategoria();
             fila[1] = obj.getNombre();
             dt.addRow(fila);

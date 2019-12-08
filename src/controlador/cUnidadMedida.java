@@ -28,7 +28,7 @@ public class cUnidadMedida {
         dt.addColumn("Abreviatura");
 
         for (UnidadMedida obj : lista) {
-            Object[] fila = new Object[9];
+            Object[] fila = new Object[3];
             fila[0] = obj.getIdUnidadMedidad();
             fila[1] = obj.getNombre();
             fila[2] = obj.getAbreviatura();

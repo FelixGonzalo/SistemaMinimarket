@@ -44,11 +44,14 @@ public class Producto {
         this.unidadMedida = unidadMedida;
     }
 
-    public Producto(int idProducto, String descripcion, double precioVenta, String codigoBarras) {
+    public Producto(int idProducto, String descripcion, double precioVenta, String codigoBarras, Categoria categoria, Marca marca, UnidadMedida unidadMedida) {
         this.idProducto = idProducto;
         this.descripcion = descripcion;
         this.precioVenta = precioVenta;
         this.codigoBarras = codigoBarras;
+        this.categoria = categoria;
+        this.marca = marca;
+        this.unidadMedida = unidadMedida;
     }
 
     public Producto() {

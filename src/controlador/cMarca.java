@@ -27,7 +27,7 @@ public class cMarca {
         dt.addColumn("Nombre");
 
         for (Marca obj : lista) {
-            Object[] fila = new Object[9];
+            Object[] fila = new Object[2];
             fila[0] = obj.getIdMarca();
             fila[1] = obj.getNombre();
             dt.addRow(fila);

@@ -37,6 +37,7 @@ public class Transacciones {
             ps.executeUpdate();
             con.commit();
         } catch (Exception e) {
+            System.out.println("Error en modelo aqui bota el error");
             usarRollback(con);
         }
     }
@@ -44,7 +45,9 @@ public class Transacciones {
     public static void usarRollback(Connection con) {
         try {
             con.rollback();
+            System.out.println("rollback exitoso");
         } catch (SQLException e) {
+            System.out.println("fallo user rollbaack");
 
         }
     }

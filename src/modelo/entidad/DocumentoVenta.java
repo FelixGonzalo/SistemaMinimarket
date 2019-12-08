@@ -5,10 +5,127 @@
  */
 package modelo.entidad;
 
+import java.util.Date;
+
 /**
  *
  * @author Fekilo
  */
 public class DocumentoVenta {
+
+    private int idDocumentoVenta;
+    private int serie;
+    private int numero;
+    private String fecha;
+    private double igv;
+    private Cliente cliente;
+    ///campos calculados
+    private String cantidadProductos;//suma de cantidad de productos
+    private String subtotal; // total / 1.18
+    private String montoIGV; // subTotal * 0.18
+    private String total;// la suma de cantidad * precio de productos
+
+    public DocumentoVenta(int idDocumentoVenta, int serie, int numero, String fecha, double igv, Cliente cliente) {
+        this.idDocumentoVenta = idDocumentoVenta;
+        this.serie = serie;
+        this.numero = numero;
+        this.fecha = fecha;
+        this.igv = igv;
+        this.cliente = cliente;
+    }
+
+    public DocumentoVenta(int serie, int numero, String fecha, double igv, Cliente cliente) {
+        this.serie = serie;
+        this.numero = numero;
+        this.fecha = fecha;
+        this.igv = igv;
+        this.cliente = cliente;
+    }
+
+    public DocumentoVenta() {
+    }
+
+    public int getIdDocumentoVenta() {
+        return idDocumentoVenta;
+    }
+
+    public void setIdDocumentoVenta(int idDocumentoVenta) {
+        this.idDocumentoVenta = idDocumentoVenta;
+    }
+
+    public int getSerie() {
+        return serie;
+    }
+
+    public void setSerie(int serie) {
+        this.serie = serie;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public double getIgv() {
+        return igv;
+    }
+
+    public void setIgv(double igv) {
+        this.igv = igv;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    //campos calculados
+    public String getCantidadProductos() {
+        return cantidadProductos;
+    }
+
+    public void setCantidadProductos(String cantidadProductos) {
+        this.cantidadProductos = cantidadProductos;
+    }
+
+    public String getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(String subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    public String getMontoIGV() {
+        return montoIGV;
+    }
+
+    public void setMontoIGV(String montoIGV) {
+        this.montoIGV = montoIGV;
+    }
+
+    public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
+    }
+
     
+
 }

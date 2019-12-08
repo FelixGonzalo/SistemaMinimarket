@@ -82,10 +82,16 @@ public class cProducto {
         }
     }
 
-    public static void actualizar(String idProducto, String descripcion, String precioVenta, String codigoBarras, int idCategoria, int idMarca, int idUnidadMedida) {
+    public static void actualizar(String idProducto, String descripcion, String precioVenta, String codigoBarras, String nombreCategoria, String nombreMarca, String nombreUnidadMedida) {
         ProductoDao dao = new mProducto();
+        CategoriaDao categoriaDao = new mCategoria();
+        MarcaDao marcaDao = new mMarca();
+        UnidadMedidaDao unidaMedidaDao = new mUnidadMedida();
+        Categoria categoria = categoriaDao.leerNombre(nombreCategoria);
+        Marca marca = marcaDao.leerNombre(nombreMarca);
+        UnidadMedida unidadMedida = unidaMedidaDao.leerNombre(nombreUnidadMedida);
         try {
-            Producto producto = new Producto(Integer.parseInt(idProducto), descripcion, Double.parseDouble(precioVenta), codigoBarras);
+            Producto producto = new Producto(Integer.parseInt(idProducto), descripcion, Double.parseDouble(precioVenta), codigoBarras,categoria,marca,unidadMedida);
             dao.actualizar(producto);
         } catch (Exception e) {
             System.out.println("error ");

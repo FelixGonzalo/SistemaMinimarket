@@ -72,13 +72,10 @@ public class VistaInventario extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(251, 247, 247));
 
-        jtbProductos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jtbProductos.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jtbProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
@@ -229,6 +226,12 @@ public class VistaInventario extends javax.swing.JDialog {
         jbtnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnActualizarActionPerformed(evt);
+            }
+        });
+
+        jtxtFiltroDescripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtFiltroDescripcionActionPerformed(evt);
             }
         });
 
@@ -385,11 +388,11 @@ public class VistaInventario extends javax.swing.JDialog {
             String codigoBarras = jtbProductos.getValueAt(fila, 1).toString();
             String descripcion = jtbProductos.getValueAt(fila, 2).toString();
             String precioVenta = jtbProductos.getValueAt(fila, 3).toString();
-            //int categoria = jtbProductos.getValueAt(fila, 4).toString();
-            //int marca = jtbProductos.getValueAt(fila, 5).toString();
-            //int unidadMedida = jtbProductos.getValueAt(fila, 6).toString();
-            //MODIFICAR Y HACERLO CON CONBOBOX---------------------------------------------------------------------------
-            cProducto.actualizar(idArticulo, descripcion, precioVenta, codigoBarras, 0, 0, 0);
+            String categoria = jtbProductos.getValueAt(fila, 4).toString();
+            String marca = jtbProductos.getValueAt(fila, 5).toString();
+            String unidadMedida = jtbProductos.getValueAt(fila, 6).toString();
+            //MODIFICAR Y HACERLO CON CONBOBOX, actualizar marca, categoria y unidad de medida no funciona---------------------------------------------------------------------------
+            cProducto.actualizar(idArticulo, descripcion, precioVenta, codigoBarras, categoria, marca, unidadMedida);
             JOptionPane.showMessageDialog(this, "Actualización lista !!");
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione una marca !!");
@@ -419,6 +422,10 @@ public class VistaInventario extends javax.swing.JDialog {
     private void jbtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBuscarActionPerformed
         actualizarTablaBuscar();
     }//GEN-LAST:event_jbtnBuscarActionPerformed
+
+    private void jtxtFiltroDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtFiltroDescripcionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtFiltroDescripcionActionPerformed
 
     /**
      * @param args the command line arguments

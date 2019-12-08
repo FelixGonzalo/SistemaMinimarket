@@ -92,11 +92,20 @@ public class mProducto implements ProductoDao {
 
     @Override
     public void actualizar(Producto obj) {
-        Transacciones.comandos_Update_Delete("UPDATE producto SET "
+        try {
+            Transacciones.comandos_Update_Delete("UPDATE producto SET "
                 + "descripcion='" + obj.getDescripcion()
                 + "' , precioVenta='" + obj.getPrecioVenta()
                 + "' , codigoBarras='" + obj.getCodigoBarras()
+                + "' , idCategoria='" + obj.getCategoria().getIdCategoria()
+                + "' , idMarca='" + obj.getMarca().getIdMarca()
+                + "' , idUnidadMedida='" + obj.getUnidadMedida().getIdUnidadMedidad()
                 + "' WHERE idProducto=" + obj.getIdProducto());
+            System.out.println("actualizacion lista");
+        } catch (Exception e) {
+            System.out.println("error actualizar modelo" + e.getMessage());
+        }
+        
     }
 
     @Override
@@ -105,15 +114,15 @@ public class mProducto implements ProductoDao {
     }
 
     @Override
-    public List<Producto> leerFiltro(String nombreCategoria,String nombreMarca,String nombreUnidadMedida) {
+    public List<Producto> leerFiltro(String nombreCategoria, String nombreMarca, String nombreUnidadMedida) {
         ResultSet rs = Transacciones.consulta("SELECT p.idProducto, p.descripcion, p.precioVenta, p.codigoBarras, p.cantidadAlmacen, p.cantidadMostrador , c.nombre, m.nombre, u.nombre "
                 + "FROM producto as p "
                 + "join categoria as c "
-                + "	on c.idCategoria = p.idCategoria and c.nombre = '"+nombreCategoria+"' "
+                + "	on c.idCategoria = p.idCategoria and c.nombre = '" + nombreCategoria + "' "
                 + "join marca as m "
-                + "	on m.idMarca = p.idMarca and m.nombre = '"+nombreMarca+"' "
+                + "	on m.idMarca = p.idMarca and m.nombre = '" + nombreMarca + "' "
                 + "join unidadmedida as u "
-                + "	on u.idUnidadMedida = p.idUnidadMedida and u.nombre = '"+nombreUnidadMedida+"' "
+                + "	on u.idUnidadMedida = p.idUnidadMedida and u.nombre = '" + nombreUnidadMedida + "' "
                 + "ORDER BY p.descripcion;");
         List<Producto> lista = new ArrayList<Producto>();
         try {
@@ -151,7 +160,7 @@ public class mProducto implements ProductoDao {
                 + "join marca as m "
                 + "	on m.idMarca = p.idMarca "
                 + "join unidadmedida as u "
-                + "	on u.idUnidadMedida = p.idUnidadMedida and p.descripcion LIKE '%"+descripcion+"%' "
+                + "	on u.idUnidadMedida = p.idUnidadMedida and p.descripcion LIKE '%" + descripcion + "%' "
                 + "ORDER BY p.descripcion;");
         List<Producto> lista = new ArrayList<Producto>();
         try {
