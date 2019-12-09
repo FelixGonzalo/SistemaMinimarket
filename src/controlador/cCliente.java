@@ -37,15 +37,22 @@ public class cCliente {
     }
 
     public static void registrar(String id, String nombres, String apellidos, int sexo) {
-        ClienteDao dao = new mCliente();
-        Cliente obj = new Cliente(id, nombres, apellidos, sexo);
-        int band = dao.registrar(obj);
-        if (band != -1) {
-            JOptionPane.showMessageDialog(null, "Registro de Cliente listo!!");
-        } else {
-            JOptionPane.showMessageDialog(null, "Error en modelo Cliente -> registrar!!");
+        try {
+            int verifica = Integer.parseInt(id);//si es numero
+            if (!id.equalsIgnoreCase("") && !nombres.equalsIgnoreCase("") && sexo != 0) {
+                ClienteDao dao = new mCliente();
+                Cliente obj = new Cliente(id, nombres, apellidos, sexo);
+                int band = dao.registrar(obj);
+                if (band != -1) {
+                    JOptionPane.showMessageDialog(null, "Registro de Cliente listo!!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error en modelo Cliente -> registrar!!");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Especifique CODIGO, Nombres y Sexo!!");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "El CODIGO no acepta letras!!");
         }
-
     }
-;
 }

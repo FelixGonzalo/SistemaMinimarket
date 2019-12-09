@@ -86,7 +86,6 @@ public class mDetalleVenta implements DetalleVentaDao {
             Transacciones.usarRollback(con);
             return -1;
         }
-
     }
 
 }

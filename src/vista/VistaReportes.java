@@ -5,6 +5,7 @@
  */
 package vista;
 
+import controlador.cDocumentoCompra;
 import controlador.cDocumentoVenta;
 import java.awt.Font;
 
@@ -22,7 +23,8 @@ public class VistaReportes extends javax.swing.JDialog {
         initComponents();
         this.setSize(this.getToolkit().getScreenSize());
         this.setLocationRelativeTo(null);
-        actualizarTablaProductos();
+        actualizarTablaReporteVenta();
+        actualizarTablaReporteCompra();
     }
 
     /**
@@ -37,6 +39,8 @@ public class VistaReportes extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbReportes = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtbCompraReporte = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -61,21 +65,38 @@ public class VistaReportes extends javax.swing.JDialog {
         jtbReportes.setSelectionBackground(new java.awt.Color(133, 133, 93));
         jScrollPane1.setViewportView(jtbReportes);
 
+        jtbCompraReporte.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jtbCompraReporte);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1315, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1315, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(209, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+                .addGap(42, 42, 42)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(230, 230, 230));
@@ -174,10 +195,12 @@ public class VistaReportes extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jtbCompraReporte;
     private javax.swing.JTable jtbReportes;
     // End of variables declaration//GEN-END:variables
 
-    public void actualizarTablaProductos() {
+    public void actualizarTablaReporteVenta() {
         this.jtbReportes.setModel(cDocumentoVenta.leer());
         jtbReportes.getTableHeader().setFont(new Font("Verdana", 1, 15));
         //ocultar ID
@@ -190,5 +213,15 @@ public class VistaReportes extends javax.swing.JDialog {
         jtbReportes.getColumnModel().getColumn(4).setMinWidth(0);
         jtbReportes.getTableHeader().getColumnModel().getColumn(4).setMaxWidth(0);
         jtbReportes.getTableHeader().getColumnModel().getColumn(4).setMinWidth(0);
+    }
+    
+    public void actualizarTablaReporteCompra() {
+        this.jtbCompraReporte.setModel(cDocumentoCompra.leer());
+        jtbCompraReporte.getTableHeader().setFont(new Font("Verdana", 1, 15));
+        //ocultar ID
+        jtbCompraReporte.getColumnModel().getColumn(0).setMaxWidth(0);
+        jtbCompraReporte.getColumnModel().getColumn(0).setMinWidth(0);
+        jtbCompraReporte.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+        jtbCompraReporte.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
     }
 }

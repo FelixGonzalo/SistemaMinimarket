@@ -5,47 +5,41 @@
  */
 package controlador;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import modelo.bd.Conexion;
-import modelo.bd.Transacciones;
-import modelo.dao.DetalleVentaDao;
-import modelo.dao.DocumentoVentaDao;
-import modelo.entidad.Cliente;
-import modelo.entidad.DetalleVenta;
-import modelo.entidad.DocumentoVenta;
+import modelo.dao.DetalleCompraDao;
+import modelo.dao.DocumentoCompraDao;
+import modelo.entidad.DetalleCompra;
+import modelo.entidad.DocumentoCompra;
+import modelo.entidad.Proveedor;
+import modelo.mDetalleCompra;
+import modelo.mDocumentoCompra;
 import modelo.entidad.Producto;
-import modelo.mDetalleVenta;
-import modelo.mDocumentoVenta;
 
 /**
  *
  * @author Fekilo
  */
-public class cVenta {
-    //FALTA TRABAJAR SERIE y NUMERO
-
-    public static int registrarVenta(DefaultTableModel tablaVenta, String idCliente) {
-        DocumentoVentaDao documento = new mDocumentoVenta();
-        DetalleVentaDao detalles = new mDetalleVenta();
+public class cCompra {
+    public static int registrarCompra(DefaultTableModel tablaCompra, String idProveedor) {
+        DocumentoCompraDao documento = new mDocumentoCompra();
+        DetalleCompraDao detalles = new mDetalleCompra();
 
         Calendar c = Calendar.getInstance();
         String dia = Integer.toString(c.get(Calendar.DATE));
         String mes = Integer.toString(c.get(Calendar.MONTH) + 1);
         String anio = Integer.toString(c.get(Calendar.YEAR));
 
-        Cliente cliente = new Cliente();
-        cliente.setIdClienteDniRuc(idCliente);
+        Proveedor proveedor = new Proveedor();
+        proveedor.setRucProveedor(idProveedor);
 
         /*Connection con = Conexion.getConexion();123*/
         try {
-            DocumentoVenta documentoVenta = new DocumentoVenta(11, 11, anio + "-" + mes + "-" + dia, 0.18, cliente);
-            documento.registrar(documentoVenta);
+            DocumentoCompra documentocompra = new DocumentoCompra(1, 1, anio + "-" + mes + "-" + dia, proveedor);
+            documento.registrar(documentocompra);
             /*con.setAutoCommit(false);
             PreparedStatement ps = con.prepareStatement("INSERT INTO documentoVenta (serie,numero,fecha,igv,idClienteDniRuc) VALUES (?,?,?,?,?)");
             ps.setInt(1, documentoVenta.getSerie());
@@ -56,14 +50,13 @@ public class cVenta {
             ps.executeUpdate();
             con.commit();// si falla ya no realizar los detalle Venta123*/
             
-            
             int id = documento.obtenerIDUltimoRegistro();//obteniendo el id del registro
-            documentoVenta.setIdDocumentoVenta(id);
-            List<DetalleVenta> listaDetalle = new ArrayList<DetalleVenta>();
-            for (int i = 0; i < tablaVenta.getRowCount(); i++) {
+            documentocompra.setIdDocumentoCompra(id);
+            List<DetalleCompra> listaDetalle = new ArrayList<DetalleCompra>();
+            for (int i = 0; i < tablaCompra.getRowCount(); i++) {
                 Producto prod = new Producto();
-                prod.setIdProducto(Integer.parseInt(tablaVenta.getValueAt(i, 0).toString()));
-                DetalleVenta detalle = new DetalleVenta(documentoVenta, prod, Integer.parseInt(tablaVenta.getValueAt(i, 4).toString()), Double.parseDouble(tablaVenta.getValueAt(i, 5).toString()));
+                prod.setIdProducto(Integer.parseInt(tablaCompra.getValueAt(i, 0).toString()));
+                DetalleCompra detalle = new DetalleCompra(documentocompra, prod, Integer.parseInt(tablaCompra.getValueAt(i, 4).toString()), Double.parseDouble(tablaCompra.getValueAt(i, 5).toString()));
                 listaDetalle.add(detalle);
             }
 
@@ -71,10 +64,10 @@ public class cVenta {
             if (band != -1) {
                 return 1;
             } else {
-                JOptionPane.showMessageDialog(null, "Error en modelo DetalleVenta -> registrarDetalles!!");
+                JOptionPane.showMessageDialog(null, "Error en modelo DetalleCompra -> registrarDetalles!!");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error controlador venta -> registrarVenta: \n" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error controlador Compra -> registrarCompra: \n" + e.getMessage());
             /*Transacciones.usarRollback(con);123*/
         }
         return -1;
@@ -83,7 +76,7 @@ public class cVenta {
 //Control de la Selección de productos a vender
     static DefaultTableModel dt;
 
-    public static void controlTablaVenta() {
+    public static void controlTablaCompra() {
         dt = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int fila, int columna) {
@@ -129,5 +122,4 @@ public class cVenta {
         dt.removeRow(fila);
         return dt;
     }
-
 }

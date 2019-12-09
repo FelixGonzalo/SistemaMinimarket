@@ -35,10 +35,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jmenu = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
+        jmenVenta = new javax.swing.JMenu();
+        jmenCompra = new javax.swing.JMenu();
+        jmenInventario = new javax.swing.JMenu();
+        jmenReportes = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,40 +60,45 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jmenu.setBorderPainted(false);
         jmenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/img/carritoCompra.png"))); // NOI18N
-        jMenu1.setText("Venta");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jmenVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/img/carritoCompra.png"))); // NOI18N
+        jmenVenta.setText("Venta");
+        jmenVenta.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jmenVenta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu1MouseClicked(evt);
+                jmenVentaMouseClicked(evt);
             }
         });
-        jmenu.add(jMenu1);
+        jmenu.add(jmenVenta);
 
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/img/camion.png"))); // NOI18N
-        jMenu2.setText("Compra");
-        jMenu2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jmenu.add(jMenu2);
-
-        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/img/inventario.png"))); // NOI18N
-        jMenu5.setText("Inventario");
-        jMenu5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
+        jmenCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/img/camion.png"))); // NOI18N
+        jmenCompra.setText("Compra");
+        jmenCompra.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jmenCompra.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu5MouseClicked(evt);
+                jmenCompraMouseClicked(evt);
             }
         });
-        jmenu.add(jMenu5);
+        jmenu.add(jmenCompra);
 
-        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/img/reporte.png"))); // NOI18N
-        jMenu3.setText("Reportes");
-        jMenu3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+        jmenInventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/img/inventario.png"))); // NOI18N
+        jmenInventario.setText("Inventario");
+        jmenInventario.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jmenInventario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu3MouseClicked(evt);
+                jmenInventarioMouseClicked(evt);
             }
         });
-        jmenu.add(jMenu3);
+        jmenu.add(jmenInventario);
+
+        jmenReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/img/reporte.png"))); // NOI18N
+        jmenReportes.setText("Reportes");
+        jmenReportes.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jmenReportes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jmenReportesMouseClicked(evt);
+            }
+        });
+        jmenu.add(jmenReportes);
 
         setJMenuBar(jmenu);
 
@@ -111,21 +116,25 @@ public class VistaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+    private void jmenVentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmenVentaMouseClicked
         VistaVenta vVenta = new VistaVenta(this, rootPaneCheckingEnabled);
         vVenta.setVisible(true);
-    }//GEN-LAST:event_jMenu1MouseClicked
+    }//GEN-LAST:event_jmenVentaMouseClicked
 
-    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
+    private void jmenReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmenReportesMouseClicked
         VistaReportes vReportes = new VistaReportes(this, rootPaneCheckingEnabled);
         vReportes.setVisible(true);
-    }//GEN-LAST:event_jMenu3MouseClicked
+    }//GEN-LAST:event_jmenReportesMouseClicked
 
-    private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
+    private void jmenInventarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmenInventarioMouseClicked
         VistaInventario vInventario = new VistaInventario(this, rootPaneCheckingEnabled);
         vInventario.setVisible(true);
-        
-    }//GEN-LAST:event_jMenu5MouseClicked
+    }//GEN-LAST:event_jmenInventarioMouseClicked
+
+    private void jmenCompraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmenCompraMouseClicked
+        VistaCompra vCompra = new VistaCompra(this, rootPaneCheckingEnabled);
+        vCompra.setVisible(true);
+    }//GEN-LAST:event_jmenCompraMouseClicked
 
     /**
      * @param args the command line arguments
@@ -163,11 +172,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenu jmenCompra;
+    private javax.swing.JMenu jmenInventario;
+    private javax.swing.JMenu jmenReportes;
+    private javax.swing.JMenu jmenVenta;
     private javax.swing.JMenuBar jmenu;
     // End of variables declaration//GEN-END:variables
 

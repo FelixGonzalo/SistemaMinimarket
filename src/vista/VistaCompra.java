@@ -6,11 +6,11 @@
 package vista;
 
 import controlador.cCategoria;
-import controlador.cCliente;
+import controlador.cCompra;
 import controlador.cMarca;
 import controlador.cProducto;
+import controlador.cProveedor;
 import controlador.cUnidadMedida;
-import controlador.cVenta;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -21,16 +21,16 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Fekilo
  */
-public class VistaVenta extends javax.swing.JDialog {
+public class VistaCompra extends javax.swing.JDialog {
 
     //DefaultTableModel dtm;
-    public VistaVenta(java.awt.Frame parent, boolean modal) {
+    public VistaCompra(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.setSize(this.getToolkit().getScreenSize());
         this.setLocationRelativeTo(null);
         eventosEscuchaComboBox();
-        cVenta.controlTablaVenta();
+        cCompra.controlTablaCompra();
         actualizarTablaVenta();
         actualizarComboBox();
         //controlarTablaVenta();
@@ -49,7 +49,7 @@ public class VistaVenta extends javax.swing.JDialog {
         jPanel11 = new javax.swing.JPanel();
         jbtnEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jtbVenta = new javax.swing.JTable();
+        jtbCompra = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtbProductos = new javax.swing.JTable();
@@ -68,17 +68,21 @@ public class VistaVenta extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jtxtCodigoCliente = new javax.swing.JTextField();
-        jtxtNombreCliente = new javax.swing.JTextField();
+        jtxtCodigoProveedor = new javax.swing.JTextField();
+        jtxtRazonSocial = new javax.swing.JTextField();
         jbtnBuscarCliente = new javax.swing.JButton();
-        jtxtApellidosCliente = new javax.swing.JTextField();
+        jtxtTelefono = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jcboxSexoCliente = new javax.swing.JComboBox<>();
         jbtnRegistrarCliente = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        jtxtCelular = new javax.swing.JTextField();
+        jtxtCorreo = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jbtnVender = new javax.swing.JButton();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jbtnRegistrarCompra = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
@@ -109,8 +113,8 @@ public class VistaVenta extends javax.swing.JDialog {
             }
         });
 
-        jtbVenta.setFont(new java.awt.Font("Tahoma", 1, 25)); // NOI18N
-        jtbVenta.setModel(new javax.swing.table.DefaultTableModel(
+        jtbCompra.setFont(new java.awt.Font("Tahoma", 1, 25)); // NOI18N
+        jtbCompra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -118,9 +122,9 @@ public class VistaVenta extends javax.swing.JDialog {
                 "id", "Codigo", "Descripcion", "Und", "Cantidad", "precio", "total"
             }
         ));
-        jtbVenta.setRowHeight(35);
-        jtbVenta.setSelectionBackground(new java.awt.Color(255, 102, 0));
-        jScrollPane1.setViewportView(jtbVenta);
+        jtbCompra.setRowHeight(35);
+        jtbCompra.setSelectionBackground(new java.awt.Color(255, 102, 0));
+        jScrollPane1.setViewportView(jtbCompra);
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -132,7 +136,7 @@ public class VistaVenta extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jbtnEliminar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 868, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 834, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -159,7 +163,7 @@ public class VistaVenta extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jPanel1.setBackground(new java.awt.Color(245, 245, 245));
+        jPanel1.setBackground(new java.awt.Color(236, 236, 236));
 
         jtbProductos.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jtbProductos.setModel(new javax.swing.table.DefaultTableModel(
@@ -292,7 +296,7 @@ public class VistaVenta extends javax.swing.JDialog {
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jcboxUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 69, Short.MAX_VALUE)))
+                            .addGap(0, 35, Short.MAX_VALUE)))
                     .addContainerGap())
             );
             jPanel1Layout.setVerticalGroup(
@@ -321,17 +325,18 @@ public class VistaVenta extends javax.swing.JDialog {
                     .addGap(37, 37, 37))
             );
 
-            jPanel3.setBackground(new java.awt.Color(245, 245, 245));
+            jPanel3.setBackground(new java.awt.Color(236, 236, 236));
+            jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
             jLabel1.setText("CODIGO");
 
-            jLabel2.setText("NOMBRES");
+            jLabel2.setText("RAZON SOCIAL");
 
-            jLabel3.setText("SEXO");
+            jLabel3.setText("CELULAR");
 
-            jtxtCodigoCliente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+            jtxtCodigoProveedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-            jtxtNombreCliente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+            jtxtRazonSocial.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
             jbtnBuscarCliente.setBackground(new java.awt.Color(204, 204, 204));
             jbtnBuscarCliente.setText("BUSCAR");
@@ -341,12 +346,9 @@ public class VistaVenta extends javax.swing.JDialog {
                 }
             });
 
-            jtxtApellidosCliente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+            jtxtTelefono.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-            jLabel4.setText("APELLIDOS");
-
-            jcboxSexoCliente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-            jcboxSexoCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---", "Hombre", "Mujer" }));
+            jLabel4.setText("TELEFONO");
 
             jbtnRegistrarCliente.setText("REGISTRAR");
             jbtnRegistrarCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -360,7 +362,7 @@ public class VistaVenta extends javax.swing.JDialog {
             jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
             jLabel5.setForeground(new java.awt.Color(255, 255, 255));
             jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            jLabel5.setText("CLIENTE");
+            jLabel5.setText("PROVEEDOR");
 
             javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
             jPanel4.setLayout(jPanel4Layout);
@@ -376,6 +378,12 @@ public class VistaVenta extends javax.swing.JDialog {
                 .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
             );
 
+            jtxtCelular.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+            jtxtCorreo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+            jLabel13.setText("CORREO");
+
             javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
             jPanel3.setLayout(jPanel3Layout);
             jPanel3Layout.setHorizontalGroup(
@@ -385,17 +393,19 @@ public class VistaVenta extends javax.swing.JDialog {
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jtxtCodigoCliente)
-                                .addComponent(jtxtNombreCliente)
-                                .addComponent(jtxtApellidosCliente)
-                                .addComponent(jcboxSexoCliente, 0, 185, Short.MAX_VALUE))
+                                .addComponent(jtxtCodigoProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                                .addComponent(jtxtRazonSocial)
+                                .addComponent(jtxtTelefono)
+                                .addComponent(jtxtCelular)
+                                .addComponent(jtxtCorreo))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jbtnBuscarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -411,33 +421,59 @@ public class VistaVenta extends javax.swing.JDialog {
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(jtxtCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jtxtCodigoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jbtnBuscarCliente))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
-                        .addComponent(jtxtNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jtxtRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jbtnRegistrarCliente))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
-                        .addComponent(jtxtApellidosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jtxtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3)
-                        .addComponent(jcboxSexoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(53, Short.MAX_VALUE))
+                        .addComponent(jtxtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel13)
+                        .addComponent(jtxtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(22, Short.MAX_VALUE))
             );
 
-            jPanel6.setBackground(new java.awt.Color(245, 245, 245));
+            jPanel6.setBackground(new java.awt.Color(236, 236, 236));
+            jPanel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-            jbtnVender.setBackground(new java.awt.Color(204, 102, 0));
-            jbtnVender.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-            jbtnVender.setForeground(new java.awt.Color(255, 255, 255));
-            jbtnVender.setText("VENDER");
-            jbtnVender.addActionListener(new java.awt.event.ActionListener() {
+            jPanel9.setBackground(new java.awt.Color(102, 102, 102));
+
+            jLabel12.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+            jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+            jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            jLabel12.setText("----");
+
+            javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+            jPanel9.setLayout(jPanel9Layout);
+            jPanel9Layout.setHorizontalGroup(
+                jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel9Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                    .addContainerGap())
+            );
+            jPanel9Layout.setVerticalGroup(
+                jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+            );
+
+            jbtnRegistrarCompra.setBackground(new java.awt.Color(204, 102, 0));
+            jbtnRegistrarCompra.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+            jbtnRegistrarCompra.setForeground(new java.awt.Color(255, 255, 255));
+            jbtnRegistrarCompra.setText("REGISTRAR COMPRA");
+            jbtnRegistrarCompra.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    jbtnVenderActionPerformed(evt);
+                    jbtnRegistrarCompraActionPerformed(evt);
                 }
             });
 
@@ -445,16 +481,23 @@ public class VistaVenta extends javax.swing.JDialog {
             jPanel6.setLayout(jPanel6Layout);
             jPanel6Layout.setHorizontalGroup(
                 jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jbtnVender, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel6Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                            .addGap(0, 0, Short.MAX_VALUE)
+                            .addComponent(jbtnRegistrarCompra)))
+                    .addContainerGap())
             );
             jPanel6Layout.setVerticalGroup(
                 jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel6Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jbtnVender, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(35, Short.MAX_VALUE))
+                    .addGap(10, 10, 10)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jbtnRegistrarCompra)
+                    .addContainerGap(14, Short.MAX_VALUE))
             );
 
             jPanel8.setBackground(new java.awt.Color(29, 28, 28));
@@ -518,13 +561,14 @@ public class VistaVenta extends javax.swing.JDialog {
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             );
 
-            jPanel10.setBackground(new java.awt.Color(245, 245, 245));
+            jPanel10.setBackground(new java.awt.Color(236, 236, 236));
+            jPanel10.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
             javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
             jPanel10.setLayout(jPanel10Layout);
             jPanel10Layout.setHorizontalGroup(
                 jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGap(0, 393, Short.MAX_VALUE)
+                .addGap(0, 423, Short.MAX_VALUE)
             );
             jPanel10Layout.setVerticalGroup(
                 jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -613,54 +657,55 @@ public class VistaVenta extends javax.swing.JDialog {
             obj[5] = jtbProductos.getValueAt(fila, 3).toString();//precio
             //total
             //dtm.addRow(obj);
-            jtbVenta.setModel(cVenta.addProducto(obj));
+            jtbCompra.setModel(cCompra.addProducto(obj));
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione un producto !!");
         }
     }//GEN-LAST:event_jbtnSeleccionarProductoActionPerformed
 
     private void jbtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEliminarActionPerformed
-        int fila = jtbVenta.getSelectedRow();
+        int fila = jtbCompra.getSelectedRow();
         if (fila > -1) {
-            jtbVenta.setModel(cVenta.deleteProducto(fila));
+            jtbCompra.setModel(cCompra.deleteProducto(fila));
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione un producto !!");
         }
     }//GEN-LAST:event_jbtnEliminarActionPerformed
 
-    private void jbtnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnVenderActionPerformed
+    private void jbtnRegistrarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRegistrarCompraActionPerformed
         try {
-            int especificarCantidad = Integer.parseInt(jtbVenta.getValueAt(jtbVenta.getSelectedRow(), 4).toString());
+            int especificarCantidad = Integer.parseInt(jtbCompra.getValueAt(jtbCompra.getSelectedRow(), 4).toString());
             int band = -1;
-            if (jtbVenta.getRowCount() > 0 && especificarCantidad > 0) {
-                String[] datosCliente = cCliente.leer(jtxtCodigoCliente.getText());//Comprobar cliente
-                if (!datosCliente[0].equalsIgnoreCase("")) {
-                    band = cVenta.registrarVenta((DefaultTableModel) jtbVenta.getModel(), jtxtCodigoCliente.getText());
+            if (jtbCompra.getRowCount() > 0 && especificarCantidad > 0) {
+                String[] datosProveedor = cProveedor.leer(jtxtCodigoProveedor.getText());//Comprobar proveedor
+                if (!datosProveedor[0].equalsIgnoreCase("")) {
+                    band = cCompra.registrarCompra((DefaultTableModel) jtbCompra.getModel(), jtxtCodigoProveedor.getText());
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Selecciona productos para vender y especifique cantidad!!");
+                JOptionPane.showMessageDialog(this, "Selecciona productos y especifique cantidad!!");
             }
             if (band != -1) {
-                JOptionPane.showMessageDialog(null, "Registro de Venta lista!!");
-                jtbVenta.setModel(new DefaultTableModel());
-                cVenta.controlTablaVenta();
+                JOptionPane.showMessageDialog(null, "Registro de Compra lista!!");
+                jtbCompra.setModel(new DefaultTableModel());
+                cCompra.controlTablaCompra();
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Especifique cantidad del producto a vender!!");
+            JOptionPane.showMessageDialog(this, "Especifique cantidad del producto!!");
         }
-    }//GEN-LAST:event_jbtnVenderActionPerformed
+    }//GEN-LAST:event_jbtnRegistrarCompraActionPerformed
 
     private void jbtnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBuscarClienteActionPerformed
-        String[] datosCliente = cCliente.leer(jtxtCodigoCliente.getText());
-        if (!datosCliente[0].equalsIgnoreCase("")) {
-            jtxtNombreCliente.setText(datosCliente[1]);
-            jtxtApellidosCliente.setText(datosCliente[2]);
-            jcboxSexoCliente.setSelectedIndex(Integer.parseInt(datosCliente[3]));
+        String[] datosProveedor = cProveedor.leer(jtxtCodigoProveedor.getText());
+        if (!datosProveedor[0].equalsIgnoreCase("")) {
+            jtxtRazonSocial.setText(datosProveedor[1]);
+            jtxtTelefono.setText(datosProveedor[2]);
+            jtxtCelular.setText(datosProveedor[3]);
+            jtxtCorreo.setText(datosProveedor[4]);
         }
     }//GEN-LAST:event_jbtnBuscarClienteActionPerformed
 
     private void jbtnRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRegistrarClienteActionPerformed
-        cCliente.registrar(jtxtCodigoCliente.getText(), jtxtNombreCliente.getText(), jtxtApellidosCliente.getText(), jcboxSexoCliente.getSelectedIndex());
+        cProveedor.registrar(jtxtCodigoProveedor.getText(), jtxtRazonSocial.getText(), jtxtTelefono.getText(), jtxtCelular.getText(), jtxtCorreo.getText());
     }//GEN-LAST:event_jbtnRegistrarClienteActionPerformed
 
     private void jtxtCodigoBarrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtCodigoBarrasActionPerformed
@@ -684,20 +729,21 @@ public class VistaVenta extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VistaVenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VistaVenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VistaVenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VistaVenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                VistaVenta dialog = new VistaVenta(new javax.swing.JFrame(), true);
+                VistaCompra dialog = new VistaCompra(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -713,6 +759,8 @@ public class VistaVenta extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -731,6 +779,7 @@ public class VistaVenta extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
@@ -738,27 +787,28 @@ public class VistaVenta extends javax.swing.JDialog {
     private javax.swing.JButton jbtnBuscarCliente;
     private javax.swing.JButton jbtnEliminar;
     private javax.swing.JButton jbtnRegistrarCliente;
+    private javax.swing.JButton jbtnRegistrarCompra;
     private javax.swing.JButton jbtnSeleccionarProducto;
-    private javax.swing.JButton jbtnVender;
     private javax.swing.JComboBox<String> jcboxCategoria;
     private javax.swing.JComboBox<String> jcboxMarca;
-    private javax.swing.JComboBox<String> jcboxSexoCliente;
     private javax.swing.JComboBox<String> jcboxUnidadMedida;
+    public javax.swing.JTable jtbCompra;
     private javax.swing.JTable jtbProductos;
-    public javax.swing.JTable jtbVenta;
-    private javax.swing.JTextField jtxtApellidosCliente;
+    private javax.swing.JTextField jtxtCelular;
     private javax.swing.JTextField jtxtCodigoBarras;
-    private javax.swing.JTextField jtxtCodigoCliente;
+    private javax.swing.JTextField jtxtCodigoProveedor;
+    private javax.swing.JTextField jtxtCorreo;
     private javax.swing.JTextField jtxtFiltroDescripcion;
-    private javax.swing.JTextField jtxtNombreCliente;
+    private javax.swing.JTextField jtxtRazonSocial;
+    private javax.swing.JTextField jtxtTelefono;
     // End of variables declaration//GEN-END:variables
     
     public void actualizarTablaVenta() {
-        jtbVenta.getTableHeader().setFont(new Font("Verdana", 1, 18));
-        jtbVenta.getColumnModel().getColumn(0).setMaxWidth(0);
-        jtbVenta.getColumnModel().getColumn(0).setMinWidth(0);
-        jtbVenta.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
-        jtbVenta.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+        jtbCompra.getTableHeader().setFont(new Font("Verdana", 1, 18));
+        jtbCompra.getColumnModel().getColumn(0).setMaxWidth(0);
+        jtbCompra.getColumnModel().getColumn(0).setMinWidth(0);
+        jtbCompra.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+        jtbCompra.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
     }
 
     public void actualizarTablaBuscar() {

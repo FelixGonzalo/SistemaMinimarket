@@ -235,7 +235,7 @@ public class VistaInventario extends javax.swing.JDialog {
             }
         });
 
-        jbtnBuscar.setBackground(new java.awt.Color(94, 113, 169));
+        jbtnBuscar.setBackground(new java.awt.Color(77, 98, 159));
         jbtnBuscar.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jbtnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         jbtnBuscar.setText("BUSCAR");
@@ -245,7 +245,7 @@ public class VistaInventario extends javax.swing.JDialog {
             }
         });
 
-        jbtnListarTodos.setBackground(new java.awt.Color(105, 163, 152));
+        jbtnListarTodos.setBackground(new java.awt.Color(86, 148, 136));
         jbtnListarTodos.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jbtnListarTodos.setForeground(new java.awt.Color(255, 255, 255));
         jbtnListarTodos.setText("LISTAR TODOS");
