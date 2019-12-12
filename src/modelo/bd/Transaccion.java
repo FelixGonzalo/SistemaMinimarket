@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 public class Transaccion {
 
@@ -14,7 +15,7 @@ public class Transaccion {
             PreparedStatement ps = con.prepareStatement(consulta);
             rs = ps.executeQuery();
         } catch (Exception e) {
-            System.out.println("ERROR Transaccion -> consulta \n" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "ERROR Transaccion -> consulta: \n" + e.getMessage());
         }
         return rs;
     }
@@ -29,7 +30,7 @@ public class Transaccion {
             con.close();
             return 1;
         } catch (Exception e) {
-            System.out.println("ERROR Transaccion -> actualización \n" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "ERROR Transaccion -> actualización: \n" + e.getMessage());
             usarRollback(con);
             return -1;
         }
@@ -40,7 +41,7 @@ public class Transaccion {
             con.rollback();
             con.close();
         } catch (SQLException e) {
-            System.out.println("ERROR Transaccion -> usarRollBack \n" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "ERROR Transaccion -> usarRollBack: \n" + e.getMessage());
         }
     }
 }

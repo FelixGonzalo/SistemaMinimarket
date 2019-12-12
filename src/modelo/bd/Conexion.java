@@ -17,7 +17,7 @@ public class Conexion {
             Class.forName(driver);
             con = (Connection) DriverManager.getConnection(url, user, password);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error Conexión -> getConexion \n" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error Conexión -> getConexion: \n" + e.getMessage());
         }
         return con;
     }

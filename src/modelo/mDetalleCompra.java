@@ -9,31 +9,22 @@ public class mDetalleCompra implements DetalleCompraDao {
 
     @Override
     public int registrarLista(List<DetalleCompra> detalle) {
-        try {
-            int band = -1;
-            if (detalle.size() > 1) {
-                for (DetalleCompra objDetalle : detalle) {
-                    band = Transaccion.actualizacion("INSERT INTO detalleCompra (idDocumentoCompra,idProducto,cantidad,precioCompra) VALUES ('"
-                            + objDetalle.getDocumentoCompra().getIdDocumentoCompra() + "','"
-                            + objDetalle.getProducto().getIdProducto() + "','"
-                            + objDetalle.getCantidad() + "','"
-                            + objDetalle.getPrecioVenta() + "')");
-                }
-            } else {
+        int band = -1;
+        if (detalle.size() > 1) {
+            for (DetalleCompra objDetalle : detalle) {
                 band = Transaccion.actualizacion("INSERT INTO detalleCompra (idDocumentoCompra,idProducto,cantidad,precioCompra) VALUES ('"
-                        + detalle.get(0).getDocumentoCompra().getIdDocumentoCompra() + "','"
-                        + detalle.get(0).getProducto().getIdProducto() + "','"
-                        + detalle.get(0).getCantidad() + "','"
-                        + detalle.get(0).getPrecioVenta() + "')");
+                        + objDetalle.getDocumentoCompra().getIdDocumentoCompra() + "','"
+                        + objDetalle.getProducto().getIdProducto() + "','"
+                        + objDetalle.getCantidad() + "','"
+                        + objDetalle.getPrecioVenta() + "')");
             }
-            if (band != -1) {
-                return 1;
-            } else {
-                return -1;
-            }
-        } catch (Exception e) {
-            return -1;
+        } else {
+            band = Transaccion.actualizacion("INSERT INTO detalleCompra (idDocumentoCompra,idProducto,cantidad,precioCompra) VALUES ('"
+                    + detalle.get(0).getDocumentoCompra().getIdDocumentoCompra() + "','"
+                    + detalle.get(0).getProducto().getIdProducto() + "','"
+                    + detalle.get(0).getCantidad() + "','"
+                    + detalle.get(0).getPrecioVenta() + "')");
         }
+        return band;
     }
-
 }

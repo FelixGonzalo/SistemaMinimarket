@@ -1,6 +1,7 @@
 package modelo;
 
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 import modelo.bd.Transaccion;
 import modelo.dao.ClienteDao;
 import modelo.entidad.Cliente;
@@ -19,26 +20,18 @@ public class mCliente implements ClienteDao {
                 cliente.setSexo(Integer.parseInt(rs.getString(4)));
             }
         } catch (Exception e) {
-            System.out.println("error en lectura: " + e.getMessage());
+            //JOptionPane.showMessageDialog(null, "ERROR mCliente -> leerId \n" + e.getMessage());
         }
         return cliente;
     }
 
     @Override
     public int registrar(Cliente obj) {
-        try {
-            int band = Transaccion.actualizacion("INSERT INTO cliente (idClienteDniRuc,nombres,apellidos,sexo) VALUES ('"
-                    + obj.getIdClienteDniRuc() + "','"
-                    + obj.getNombres() + "','"
-                    + obj.getApellidos() + "','"
-                    + obj.getSexo() + "')");
-            if (band != -1) {
-                return 1;
-            } else {
-                return -1;
-            }
-        } catch (Exception e) {
-            return -1;
-        }
+        int band = Transaccion.actualizacion("INSERT INTO cliente (idClienteDniRuc,nombres,apellidos,sexo) VALUES ('"
+                + obj.getIdClienteDniRuc() + "','"
+                + obj.getNombres() + "','"
+                + obj.getApellidos() + "','"
+                + obj.getSexo() + "')");
+        return band;
     }
 }

@@ -21,42 +21,30 @@ public class mMarca implements MarcaDao {
                 lista.add(marca);
             }
         } catch (Exception e) {
-            System.out.println("error en lectura: " + e.getMessage());
+            //System.out.println("ERROR mMarca -> leer: \n" + e.getMessage());
         }
         return lista;
     }
 
     @Override
     public int registrar(Marca obj) {
-        try {
-            Transaccion.actualizacion("INSERT INTO marca (nombre) VALUES ('"
-                    + obj.getNombre() + "')");
-            return 1;
-        } catch (Exception e) {
-            return -1;
-        }
+        int band = Transaccion.actualizacion("INSERT INTO marca (nombre) VALUES ('"
+                + obj.getNombre() + "')");
+        return band;
     }
 
     @Override
     public int actualizar(Marca obj) {
-        try {
-            Transaccion.actualizacion("UPDATE marca SET "
-                    + "nombre='" + obj.getNombre()
-                    + "' WHERE idMarca=" + obj.getIdMarca());
-            return 1;
-        } catch (Exception e) {
-            return -1;
-        }
+        int band = Transaccion.actualizacion("UPDATE marca SET "
+                + "nombre='" + obj.getNombre()
+                + "' WHERE idMarca=" + obj.getIdMarca());
+        return band;
     }
 
     @Override
     public int eliminar(int id) {
-        try {
-            Transaccion.actualizacion("DELETE FROM marca WHERE idMarca=" + id);
-            return 1;
-        } catch (Exception e) {
-            return -1;
-        }
+        int band = Transaccion.actualizacion("DELETE FROM marca WHERE idMarca=" + id);
+        return band;
     }
 
     @Override
@@ -69,7 +57,7 @@ public class mMarca implements MarcaDao {
                 marca.setNombre(rs.getString(2));
             }
         } catch (Exception e) {
-            System.out.println("error en lectura: " + e.getMessage());
+            //System.out.println("ERROR mMarca -> leerDescripcion: \n" + e.getMessage());
         }
         return marca;
     }

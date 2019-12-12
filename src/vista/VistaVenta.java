@@ -639,7 +639,7 @@ public class VistaVenta extends javax.swing.JDialog {
             int especificarCantidad = Integer.parseInt(jtbVenta.getValueAt(jtbVenta.getSelectedRow(), 4).toString());
             int band = -1;
             if (jtbVenta.getRowCount() > 0 && especificarCantidad > 0) {
-                String[] datosCliente = cCliente.leer(jtxtCodigoCliente.getText());//Comprobar cliente
+                String[] datosCliente = cCliente.leerId(jtxtCodigoCliente.getText());//Comprobar cliente
                 if (!datosCliente[0].equalsIgnoreCase("")) {
                     band = cVenta.registrarVenta((DefaultTableModel) jtbVenta.getModel(), jtxtCodigoCliente.getText());
                 }
@@ -657,7 +657,7 @@ public class VistaVenta extends javax.swing.JDialog {
     }//GEN-LAST:event_jbtnVenderActionPerformed
 
     private void jbtnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBuscarClienteActionPerformed
-        String[] datosCliente = cCliente.leer(jtxtCodigoCliente.getText());
+        String[] datosCliente = cCliente.leerId(jtxtCodigoCliente.getText());
         if (!datosCliente[0].equalsIgnoreCase("")) {
             jtxtNombreCliente.setText(datosCliente[1]);
             jtxtApellidosCliente.setText(datosCliente[2]);

@@ -16,7 +16,7 @@ import modelo.mCliente;
  */
 public class cCliente {
 
-    public static String[] leer(String id) {
+    public static String[] leerId(String id) {
         String[] datos = new String[4];
         for (int i = 0; i < datos.length; i++) {
             datos[i] = "";
@@ -25,13 +25,13 @@ public class cCliente {
             ClienteDao dao = new mCliente();
             int idCliente = Integer.parseInt(id);
             Cliente cliente = dao.leerId(idCliente);
-            int condicion = Integer.parseInt(cliente.getIdClienteDniRuc());//permite controlar error de busqueda
+            int condicion = Integer.parseInt(cliente.getIdClienteDniRuc());// ID Solo debe aceptar Números
             datos[0] = cliente.getIdClienteDniRuc();
             datos[1] = cliente.getNombres();
             datos[2] = cliente.getApellidos();
             datos[3] = Integer.toString(cliente.getSexo());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error controlador Cliente -> leer: \n NO HAY CLIENTE!");
+            JOptionPane.showMessageDialog(null, "ERROR cCliente -> leerId: \n NO HAY CLIENTE!");
         }
         return datos;
     }
@@ -45,8 +45,6 @@ public class cCliente {
                 int band = dao.registrar(obj);
                 if (band != -1) {
                     JOptionPane.showMessageDialog(null, "Registro de Cliente listo!!");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error en modelo Cliente -> registrar!!");
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Especifique CODIGO, Nombres y Sexo!!");

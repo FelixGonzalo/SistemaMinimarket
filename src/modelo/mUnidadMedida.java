@@ -22,44 +22,32 @@ public class mUnidadMedida implements UnidadMedidaDao {
                 lista.add(unidadMedida);
             }
         } catch (Exception e) {
-            System.out.println("error en lectura: " + e.getMessage());
+            //System.out.println("ERROR mUnidadMedida -> leer: \n" + e.getMessage());
         }
         return lista;
     }
 
     @Override
     public int registrar(UnidadMedida obj) {
-        try {
-            Transaccion.actualizacion("INSERT INTO unidadMedida (nombre, abreviatura) VALUES ('"
-                    + obj.getNombre() + "','"
-                    + obj.getAbreviatura() + "')");
-            return 1;
-        } catch (Exception e) {
-            return -1;
-        }
+        int band = Transaccion.actualizacion("INSERT INTO unidadMedida (nombre, abreviatura) VALUES ('"
+                + obj.getNombre() + "','"
+                + obj.getAbreviatura() + "')");
+        return band;
     }
 
     @Override
     public int actualizar(UnidadMedida obj) {
-        try {
-            Transaccion.actualizacion("UPDATE unidadMedida SET "
-                    + "nombre='" + obj.getNombre()
-                    + "' , abreviatura='" + obj.getAbreviatura()
-                    + "' WHERE idUnidadMedida=" + obj.getIdUnidadMedidad());
-            return 1;
-        } catch (Exception e) {
-            return -1;
-        }
+        int band = Transaccion.actualizacion("UPDATE unidadMedida SET "
+                + "nombre='" + obj.getNombre()
+                + "' , abreviatura='" + obj.getAbreviatura()
+                + "' WHERE idUnidadMedida=" + obj.getIdUnidadMedidad());
+        return band;
     }
 
     @Override
     public int eliminar(int id) {
-        try {
-            Transaccion.actualizacion("DELETE FROM unidadMedida WHERE idUnidadMedida=" + id);
-            return 1;
-        } catch (Exception e) {
-            return -1;
-        }
+        int band = Transaccion.actualizacion("DELETE FROM unidadMedida WHERE idUnidadMedida=" + id);
+        return band;
     }
 
     @Override
@@ -72,7 +60,7 @@ public class mUnidadMedida implements UnidadMedidaDao {
                 unidadMedida.setNombre(rs.getString(2));
             }
         } catch (Exception e) {
-            System.out.println("error en lectura: " + e.getMessage());
+            //System.out.println("ERROR mUnidadMedida -> leerDescripcion: \n" + e.getMessage());
         }
         return unidadMedida;
     }

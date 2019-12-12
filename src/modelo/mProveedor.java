@@ -20,27 +20,19 @@ public class mProveedor implements ProveedorDao {
                 cliente.setCorreo(rs.getString(5));
             }
         } catch (Exception e) {
-            System.out.println("error en lectura: " + e.getMessage());
+            //System.out.println("ERROR mProveedor -> leerId: \n" + e.getMessage());
         }
         return cliente;
     }
 
     @Override
     public int registrar(Proveedor obj) {
-        try {
-            int band = Transaccion.actualizacion("INSERT INTO proveedor (rucProveedor,razonSocial,telefono,celular,correo) VALUES ('"
-                    + obj.getRucProveedor() + "','"
-                    + obj.getRazonSocial() + "','"
-                    + obj.getTelefono() + "','"
-                    + obj.getCelular() + "','"
-                    + obj.getCorreo() + "')");
-            if (band != -1) {
-                return 1;
-            } else {
-                return -1;
-            }
-        } catch (Exception e) {
-            return -1;
-        }
+        int band = Transaccion.actualizacion("INSERT INTO proveedor (rucProveedor,razonSocial,telefono,celular,correo) VALUES ('"
+                + obj.getRucProveedor() + "','"
+                + obj.getRazonSocial() + "','"
+                + obj.getTelefono() + "','"
+                + obj.getCelular() + "','"
+                + obj.getCorreo() + "')");
+        return band;
     }
 }

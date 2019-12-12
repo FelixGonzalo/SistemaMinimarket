@@ -40,27 +40,19 @@ public class mDocumentoCompra implements DocumentoCompraDao {
                 lista.add(documentoCompra);
             }
         } catch (Exception e) {
-            System.out.println("error en lectura: " + e.getMessage());
+            //System.out.println("ERROR mDocumentoCompra -> leer: \n" + e.getMessage());
         }
         return lista;
     }
 
     @Override
     public int registrar(DocumentoCompra obj) {
-        try {
-            int band = Transaccion.actualizacion("INSERT INTO documentoCompra (serie,numero,fecha,rucProveedor) VALUES ('"
-                    + obj.getSerie() + "','"
-                    + obj.getNumero() + "','"
-                    + obj.getFecha() + "','"
-                    + obj.getProveedor().getRucProveedor() + "')");
-            if (band != -1) {
-                return 1;
-            } else {
-                return -1;
-            }
-        } catch (Exception e) {
-            return -1;
-        }
+        int band = Transaccion.actualizacion("INSERT INTO documentoCompra (serie,numero,fecha,rucProveedor) VALUES ('"
+                + obj.getSerie() + "','"
+                + obj.getNumero() + "','"
+                + obj.getFecha() + "','"
+                + obj.getProveedor().getRucProveedor() + "')");
+        return band;
     }
 
     @Override

@@ -46,28 +46,20 @@ public class mDocumentoVenta implements DocumentoVentaDao {
                 lista.add(documentoVenta);
             }
         } catch (Exception e) {
-            System.out.println("error en lectura: " + e.getMessage());
+            //System.out.println("ERROR mDocumentoVenta -> leer: \n" + e.getMessage());
         }
         return lista;
     }
 
     @Override
     public int registrar(DocumentoVenta obj) {
-        try {
-            int band = Transaccion.actualizacion("INSERT INTO documentoVenta (serie,numero,fecha,igv,idClienteDniRuc) VALUES ('"
-                    + obj.getSerie() + "','"
-                    + obj.getNumero() + "','"
-                    + obj.getFecha() + "','"
-                    + obj.getIgv() + "','"
-                    + obj.getCliente().getIdClienteDniRuc() + "')");
-            if (band != -1) {
-                return 1;
-            } else {
-                return -1;
-            }
-        } catch (Exception e) {
-            return -1;
-        }
+        int band = Transaccion.actualizacion("INSERT INTO documentoVenta (serie,numero,fecha,igv,idClienteDniRuc) VALUES ('"
+                + obj.getSerie() + "','"
+                + obj.getNumero() + "','"
+                + obj.getFecha() + "','"
+                + obj.getIgv() + "','"
+                + obj.getCliente().getIdClienteDniRuc() + "')");
+        return band;
     }
 
     @Override

@@ -21,42 +21,30 @@ public class mCategoria implements CategoriaDao {
                 lista.add(categoria);
             }
         } catch (Exception e) {
-            System.out.println("error en lectura: " + e.getMessage());
+            //System.out.println("ERROR mCategoria -> leer: \n" + e.getMessage());
         }
         return lista;
     }
 
     @Override
     public int registrar(Categoria obj) {
-        try {
-            Transaccion.actualizacion("INSERT INTO categoria (nombre) VALUES ('"
-                    + obj.getNombre() + "')");
-            return 1;
-        } catch (Exception e) {
-            return -1;
-        }
+        int band = Transaccion.actualizacion("INSERT INTO categoria (nombre) VALUES ('"
+                + obj.getNombre() + "')");
+        return band;
     }
 
     @Override
     public int actualizar(Categoria obj) {
-        try {
-            Transaccion.actualizacion("UPDATE categoria SET "
-                    + "nombre='" + obj.getNombre()
-                    + "' WHERE idCategoria=" + obj.getIdCategoria());
-            return 1;
-        } catch (Exception e) {
-            return -1;
-        }
+        int band = Transaccion.actualizacion("UPDATE categoria SET "
+                + "nombre='" + obj.getNombre()
+                + "' WHERE idCategoria=" + obj.getIdCategoria());
+        return band;
     }
 
     @Override
     public int eliminar(int id) {
-        try {
-            Transaccion.actualizacion("DELETE FROM categoria WHERE idCategoria=" + id);
-            return 1;
-        } catch (Exception e) {
-            return -1;
-        }
+        int band = Transaccion.actualizacion("DELETE FROM categoria WHERE idCategoria=" + id);
+        return band;
     }
 
     @Override
@@ -69,7 +57,7 @@ public class mCategoria implements CategoriaDao {
                 categoria.setNombre(rs.getString(2));
             }
         } catch (Exception e) {
-            System.out.println("error en lectura: " + e.getMessage());
+            //System.out.println("ERROR mCategoria -> leerDescripcion: \n" + e.getMessage());
         }
         return categoria;
     }

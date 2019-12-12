@@ -45,67 +45,42 @@ public class mProducto implements ProductoDao {
                 lista.add(producto);
             }
         } catch (Exception e) {
-            System.out.println("error en lectura: " + e.getMessage());
+            //System.out.println("ERROR mProducto -> leer: \n" + e.getMessage());
         }
         return lista;
     }
 
     @Override
     public int registrar(Producto obj) {
-        try {
-            int band = Transaccion.actualizacion("INSERT INTO producto (descripcion, precioVenta, codigoBarras, cantidadAlmacen, cantidadMostrador, idCategoria, idMarca, idUnidadMedida) VALUES ('"
-                    + obj.getDescripcion() + "','"
-                    + obj.getPrecioVenta() + "','"
-                    + obj.getCodigoBarras() + "','"
-                    + obj.getCantidadAlmacen() + "','"
-                    + obj.getCantidadMostrador() + "','"
-                    + obj.getCategoria().getIdCategoria() + "','"
-                    + obj.getMarca().getIdMarca() + "','"
-                    + obj.getUnidadMedida().getIdUnidadMedidad() + "')");
-            if (band != -1) {
-                return 1;
-            } else {
-                return -1;
-            }
-        } catch (Exception e) {
-            return -1;
-        }
+        int band = Transaccion.actualizacion("INSERT INTO producto (descripcion, precioVenta, codigoBarras, cantidadAlmacen, cantidadMostrador, idCategoria, idMarca, idUnidadMedida) VALUES ('"
+                + obj.getDescripcion() + "','"
+                + obj.getPrecioVenta() + "','"
+                + obj.getCodigoBarras() + "','"
+                + obj.getCantidadAlmacen() + "','"
+                + obj.getCantidadMostrador() + "','"
+                + obj.getCategoria().getIdCategoria() + "','"
+                + obj.getMarca().getIdMarca() + "','"
+                + obj.getUnidadMedida().getIdUnidadMedidad() + "')");
+        return band;
     }
 
     @Override
     public int actualizar(Producto obj) {
-        try {
-            int band = Transaccion.actualizacion("UPDATE producto SET "
-                    + "descripcion='" + obj.getDescripcion()
-                    + "' , precioVenta='" + obj.getPrecioVenta()
-                    + "' , codigoBarras='" + obj.getCodigoBarras()
-                    + "' , idCategoria='" + obj.getCategoria().getIdCategoria()
-                    + "' , idMarca='" + obj.getMarca().getIdMarca()
-                    + "' , idUnidadMedida='" + obj.getUnidadMedida().getIdUnidadMedidad()
-                    + "' WHERE idProducto=" + obj.getIdProducto());
-            if (band != -1) {
-                return 1;
-            } else {
-                return -1;
-            }
-        } catch (Exception e) {
-            return -1;
-        }
+        int band = Transaccion.actualizacion("UPDATE producto SET "
+                + "descripcion='" + obj.getDescripcion()
+                + "' , precioVenta='" + obj.getPrecioVenta()
+                + "' , codigoBarras='" + obj.getCodigoBarras()
+                + "' , idCategoria='" + obj.getCategoria().getIdCategoria()
+                + "' , idMarca='" + obj.getMarca().getIdMarca()
+                + "' , idUnidadMedida='" + obj.getUnidadMedida().getIdUnidadMedidad()
+                + "' WHERE idProducto=" + obj.getIdProducto());
+        return band;
     }
 
     @Override
     public int eliminar(int id) {
-        try {
-            int band = Transaccion.actualizacion("DELETE FROM producto WHERE idProducto=" + id);
-            if (band != -1) {
-                return 1;
-            } else {
-                return -1;
-            }
-        } catch (Exception e) {
-            return -1;
-        }
-
+        int band = Transaccion.actualizacion("DELETE FROM producto WHERE idProducto=" + id);
+        return band;
     }
 
     @Override
@@ -141,7 +116,7 @@ public class mProducto implements ProductoDao {
                 lista.add(producto);
             }
         } catch (Exception e) {
-            System.out.println("error en lectura: " + e.getMessage());
+            //System.out.println("ERROR mProducto -> leerFiltro: \n" + e.getMessage());
         }
         return lista;
     }
@@ -179,7 +154,7 @@ public class mProducto implements ProductoDao {
                 lista.add(producto);
             }
         } catch (Exception e) {
-            System.out.println("error en lectura: " + e.getMessage());
+            //System.out.println("ERROR mProducto -> leerFiltro: \n" + e.getMessage());
         }
         return lista;
     }
