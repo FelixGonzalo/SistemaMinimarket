@@ -1,16 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo.dao;
 
+import modelo.dao.crud.Leer;
+import modelo.dao.crud.LeerUltimoRegistro;
+import modelo.dao.crud.Registrar;
 import modelo.entidad.DocumentoCompra;
 
-/**
- *
- * @author Fekilo
- */
-public interface DocumentoCompraDao extends Crud<DocumentoCompra>{
-    public int obtenerIDUltimoRegistro();
+public interface DocumentoCompraDao extends Registrar<DocumentoCompra>, Leer<DocumentoCompra>, LeerUltimoRegistro<DocumentoCompra> {
+
 }

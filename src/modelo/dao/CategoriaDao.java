@@ -1,16 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo.dao;
 
+import modelo.dao.crud.Actualizar;
+import modelo.dao.crud.Registrar;
+import modelo.dao.crud.Eliminar;
+import modelo.dao.crud.Leer;
+import modelo.dao.crud.LeerDescripcion;
 import modelo.entidad.Categoria;
 
-/**
- *
- * @author Fekilo
- */
-public interface CategoriaDao extends Crud<Categoria>{
-    public Categoria leerNombre(String nombre);
+public interface CategoriaDao extends Registrar<Categoria>, Leer<Categoria>, LeerDescripcion<Categoria>, Actualizar<Categoria>, Eliminar<Categoria> {
+
 }

@@ -1,30 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import modelo.bd.Conexion;
-import modelo.bd.Transacciones;
+import modelo.bd.Transaccion;
 import modelo.dao.DocumentoCompraDao;
 import modelo.entidad.DocumentoCompra;
 import modelo.entidad.Proveedor;
 
-/**
- *
- * @author Fekilo
- */
 public class mDocumentoCompra implements DocumentoCompraDao {
 
     @Override
     public List<DocumentoCompra> leer() {
-        ResultSet rs = Transacciones.consulta("SELECT doc.idDocumentoCompra,doc.serie, "
+        ResultSet rs = Transaccion.consulta("SELECT doc.idDocumentoCompra,doc.serie, "
                 + "	doc.numero,doc.fecha, doc.rucProveedor, p.RazonSocial, "
                 + "	SUM(dc.cantidad) as cantidadProductos, "
                 + "     SUM(dc.cantidad*dc.preciocompra) as importeTotal "
@@ -58,44 +46,28 @@ public class mDocumentoCompra implements DocumentoCompraDao {
     }
 
     @Override
-    public DocumentoCompra leerId(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public int registrar(DocumentoCompra obj) {
-        Connection con = Conexion.getConexion();
         try {
-            con.setAutoCommit(false);
-            PreparedStatement ps = con.prepareStatement("INSERT INTO documentoCompra (serie,numero,fecha,rucProveedor) VALUES (?,?,?,?)");
-            ps.setInt(1, obj.getSerie());
-            ps.setInt(2, obj.getNumero());
-            ps.setString(3, obj.getFecha());
-            ps.setString(4, obj.getProveedor().getRucProveedor());
-            ps.executeUpdate();
-            con.commit();
-            return 1;
+            int band = Transaccion.actualizacion("INSERT INTO documentoCompra (serie,numero,fecha,rucProveedor) VALUES ('"
+                    + obj.getSerie() + "','"
+                    + obj.getNumero() + "','"
+                    + obj.getFecha() + "','"
+                    + obj.getProveedor().getRucProveedor() + "')");
+            if (band != -1) {
+                return 1;
+            } else {
+                return -1;
+            }
         } catch (Exception e) {
-            Transacciones.usarRollback(con);
             return -1;
         }
     }
 
     @Override
-    public int actualizar(DocumentoCompra obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int eliminar(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int obtenerIDUltimoRegistro() {
+    public int leerIdUltimoRegistro() {
         int id = 0;
         try {
-            ResultSet rs = Transacciones.consulta("SELECT MAX(idDocumentoCompra) FROM documentoCompra");
+            ResultSet rs = Transaccion.consulta("SELECT MAX(idDocumentoCompra) FROM documentoCompra");
             while (rs.next()) {
                 id = Integer.parseInt(rs.getString(1));
             }
@@ -104,5 +76,4 @@ public class mDocumentoCompra implements DocumentoCompraDao {
             return -1;
         }
     }
-
 }

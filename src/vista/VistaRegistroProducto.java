@@ -23,9 +23,7 @@ public class VistaRegistroProducto extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
-        jcboxCategoria.setModel(cCategoria.leerCombo());
-        jcboxMarca.setModel(cMarca.leerCombo());
-        jcboxUnidadMedida.setModel(cUnidadMedida.leerCombo());
+        
     }
 
     /**
@@ -52,21 +50,29 @@ public class VistaRegistroProducto extends javax.swing.JDialog {
         jcboxUnidadMedida = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
+        jtbnRegistrarCategoria = new javax.swing.JButton();
+        jbtnRegistrarMarca = new javax.swing.JButton();
+        jbtnRegistrarUndMedida = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(203, 218, 217));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(84, 128, 149), 5));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setText("Descripcion");
+        jLabel3.setText("   Descripcion");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("CodigoBarras");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel5.setText("PrecioVenta");
+        jLabel5.setText("   PrecioVenta");
 
         jtxtDescripcion.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
@@ -107,19 +113,61 @@ public class VistaRegistroProducto extends javax.swing.JDialog {
             }
         });
 
+        jtbnRegistrarCategoria.setBackground(new java.awt.Color(192, 47, 47));
+        jtbnRegistrarCategoria.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jtbnRegistrarCategoria.setForeground(new java.awt.Color(255, 255, 255));
+        jtbnRegistrarCategoria.setText("+");
+        jtbnRegistrarCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtbnRegistrarCategoriaActionPerformed(evt);
+            }
+        });
+
+        jbtnRegistrarMarca.setBackground(new java.awt.Color(35, 124, 57));
+        jbtnRegistrarMarca.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jbtnRegistrarMarca.setForeground(new java.awt.Color(255, 255, 255));
+        jbtnRegistrarMarca.setText("+");
+        jbtnRegistrarMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnRegistrarMarcaActionPerformed(evt);
+            }
+        });
+
+        jbtnRegistrarUndMedida.setBackground(new java.awt.Color(149, 149, 38));
+        jbtnRegistrarUndMedida.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jbtnRegistrarUndMedida.setForeground(new java.awt.Color(255, 255, 255));
+        jbtnRegistrarUndMedida.setText("+");
+        jbtnRegistrarUndMedida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnRegistrarUndMedidaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jtbnRegistrarCategoria)
+                                    .addComponent(jbtnRegistrarMarca))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jbtnRegistrarUndMedida)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jtxtPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -128,10 +176,10 @@ public class VistaRegistroProducto extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jtxtCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jcboxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcboxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcboxUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jcboxCategoria, 0, 173, Short.MAX_VALUE)
+                            .addComponent(jcboxMarca, 0, 173, Short.MAX_VALUE)
+                            .addComponent(jcboxUnidadMedida, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jtxtDescripcion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -156,20 +204,23 @@ public class VistaRegistroProducto extends javax.swing.JDialog {
                     .addComponent(jtxtPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
+                        .addGap(7, 7, 7)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jcboxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jcboxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtbnRegistrarCategoria))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(jcboxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(22, 22, 22)
+                            .addComponent(jcboxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbtnRegistrarMarca))
+                        .addGap(17, 17, 17)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(jcboxUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jcboxUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbtnRegistrarUndMedida))))
                 .addGap(18, 18, 18)
                 .addComponent(jButton4)
                 .addContainerGap(29, Short.MAX_VALUE))
@@ -207,6 +258,25 @@ public class VistaRegistroProducto extends javax.swing.JDialog {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         cProducto.registrar(jtxtDescripcion.getText(), jtxtPrecioVenta.getText(), jtxtCodigoBarras.getText(), 0, 0, jcboxCategoria.getSelectedItem().toString(), jcboxMarca.getSelectedItem().toString(), jcboxUnidadMedida.getSelectedItem().toString());
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jtbnRegistrarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbnRegistrarCategoriaActionPerformed
+        VistaCategoria vCategoria = new VistaCategoria(null, rootPaneCheckingEnabled);
+        vCategoria.setVisible(true);
+    }//GEN-LAST:event_jtbnRegistrarCategoriaActionPerformed
+
+    private void jbtnRegistrarMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRegistrarMarcaActionPerformed
+        VistaMarca vMarca = new VistaMarca(null, rootPaneCheckingEnabled);
+        vMarca.setVisible(true);
+    }//GEN-LAST:event_jbtnRegistrarMarcaActionPerformed
+
+    private void jbtnRegistrarUndMedidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRegistrarUndMedidaActionPerformed
+        VistaUnidadMedida vUnidadMedida = new VistaUnidadMedida(null, rootPaneCheckingEnabled);
+        vUnidadMedida.setVisible(true);
+    }//GEN-LAST:event_jbtnRegistrarUndMedidaActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        actualizarComboBox();
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -261,12 +331,21 @@ public class VistaRegistroProducto extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton jbtnRegistrarMarca;
+    private javax.swing.JButton jbtnRegistrarUndMedida;
     private javax.swing.JComboBox<String> jcboxCategoria;
     private javax.swing.JComboBox<String> jcboxMarca;
     private javax.swing.JComboBox<String> jcboxUnidadMedida;
+    private javax.swing.JButton jtbnRegistrarCategoria;
     private javax.swing.JTextField jtxtCodigoBarras;
     private javax.swing.JTextField jtxtDescripcion;
     private javax.swing.JTextField jtxtPrecioVenta;
     // End of variables declaration//GEN-END:variables
 
+    public void actualizarComboBox(){
+        jcboxCategoria.setModel(cCategoria.leerCombo());
+        jcboxMarca.setModel(cMarca.leerCombo());
+        jcboxUnidadMedida.setModel(cUnidadMedida.leerCombo());
+    }
+    
 }

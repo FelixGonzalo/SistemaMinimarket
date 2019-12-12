@@ -78,7 +78,7 @@ public class VistaInventario extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "CodigoBarras", "Descripcion", "PrecioVenta", "Categoria", "Marca", "UnidadMedida", "En almacen", "En mostrador"
             }
         ));
         jtbProductos.setGridColor(new java.awt.Color(51, 51, 51));
@@ -235,9 +235,9 @@ public class VistaInventario extends javax.swing.JDialog {
             }
         });
 
-        jbtnBuscar.setBackground(new java.awt.Color(77, 98, 159));
+        jbtnBuscar.setBackground(new java.awt.Color(204, 204, 204));
         jbtnBuscar.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jbtnBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        jbtnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/img/lupaProducto.png"))); // NOI18N
         jbtnBuscar.setText("BUSCAR");
         jbtnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -289,7 +289,7 @@ public class VistaInventario extends javax.swing.JDialog {
                     .addComponent(jbtnBuscar)
                     .addComponent(jbtnListarTodos))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

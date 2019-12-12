@@ -1,31 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import modelo.bd.Conexion;
-import modelo.bd.Transacciones;
+import modelo.bd.Transaccion;
 import modelo.dao.DocumentoVentaDao;
 import modelo.entidad.Cliente;
 import modelo.entidad.DocumentoVenta;
 
-/**
- *
- * @author Fekilo
- */
 public class mDocumentoVenta implements DocumentoVentaDao {
 
     @Override
     public List<DocumentoVenta> leer() {
-        ResultSet rs = Transacciones.consulta("SELECT doc.idDocumentoVenta,doc.serie, "
+        ResultSet rs = Transaccion.consulta("SELECT doc.idDocumentoVenta,doc.serie, "
                 + "doc.numero,doc.fecha, doc.igv, doc.idClienteDniRuc,c.nombres, c.apellidos, "
                 + "SUM(dv.cantidad) as cantidadProductos, "
                 + "CAST(SUM(dv.cantidad*dv.precioVenta) /(doc.igv+1) as decimal(6,2)) as subTotal, "
@@ -65,45 +52,29 @@ public class mDocumentoVenta implements DocumentoVentaDao {
     }
 
     @Override
-    public DocumentoVenta leerId(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public int registrar(DocumentoVenta obj) {
-        Connection con = Conexion.getConexion();
         try {
-            con.setAutoCommit(false);
-            PreparedStatement ps = con.prepareStatement("INSERT INTO documentoVenta (serie,numero,fecha,igv,idClienteDniRuc) VALUES (?,?,?,?,?)");
-            ps.setInt(1, obj.getSerie());
-            ps.setInt(2, obj.getNumero());
-            ps.setString(3, obj.getFecha());
-            ps.setDouble(4, obj.getIgv());
-            ps.setString(5, obj.getCliente().getIdClienteDniRuc());//ps.setInt(5, obj.getCliente().getIdClienteDniRuc());
-            ps.executeUpdate();
-            con.commit();
-            return 1;
+            int band = Transaccion.actualizacion("INSERT INTO documentoVenta (serie,numero,fecha,igv,idClienteDniRuc) VALUES ('"
+                    + obj.getSerie() + "','"
+                    + obj.getNumero() + "','"
+                    + obj.getFecha() + "','"
+                    + obj.getIgv() + "','"
+                    + obj.getCliente().getIdClienteDniRuc() + "')");
+            if (band != -1) {
+                return 1;
+            } else {
+                return -1;
+            }
         } catch (Exception e) {
-            Transacciones.usarRollback(con);
             return -1;
         }
     }
 
     @Override
-    public int actualizar(DocumentoVenta obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int eliminar(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    @Override
-    public int obtenerIDUltimoRegistro(){
+    public int leerIdUltimoRegistro() {
         int id = 0;
         try {
-            ResultSet rs = Transacciones.consulta("SELECT MAX(idDocumentoVenta) FROM documentoVenta");
+            ResultSet rs = Transaccion.consulta("SELECT MAX(idDocumentoVenta) FROM documentoVenta");
             while (rs.next()) {
                 id = Integer.parseInt(rs.getString(1));
             }

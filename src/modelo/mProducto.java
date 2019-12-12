@@ -1,32 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import modelo.bd.Transacciones;
+import modelo.bd.Transaccion;
 import modelo.entidad.Categoria;
 import modelo.entidad.Marca;
 import modelo.entidad.Producto;
 import modelo.entidad.UnidadMedida;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import modelo.bd.Conexion;
 import modelo.dao.ProductoDao;
 
-/**
- *
- * @author Fekilo
- */
 public class mProducto implements ProductoDao {
 
     @Override
     public List<Producto> leer() {
-        ResultSet rs = Transacciones.consulta("SELECT p.idProducto, p.descripcion, p.precioVenta, p.codigoBarras, p.cantidadAlmacen, p.cantidadMostrador , c.nombre, m.nombre, u.nombre "
+        ResultSet rs = Transaccion.consulta("SELECT p.idProducto, p.descripcion, p.precioVenta, p.codigoBarras, p.cantidadAlmacen, p.cantidadMostrador , c.nombre, m.nombre, u.nombre "
                 + "FROM producto as p "
                 + "join marca as m "
                 + "	on m.idMarca = p.idMarca "
@@ -63,29 +51,23 @@ public class mProducto implements ProductoDao {
     }
 
     @Override
-    public Producto leerId(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public int registrar(Producto obj) {
-        Connection con = Conexion.getConexion();
         try {
-            con.setAutoCommit(false);
-            PreparedStatement ps = con.prepareStatement("INSERT INTO producto (descripcion, precioVenta, codigoBarras, cantidadAlmacen, cantidadMostrador, idCategoria, idMarca, idUnidadMedida) VALUES (?,?,?,?,?,?,?,?)");
-            ps.setString(1, obj.getDescripcion());
-            ps.setDouble(2, obj.getPrecioVenta());
-            ps.setString(3, obj.getCodigoBarras());
-            ps.setInt(4, obj.getCantidadAlmacen());
-            ps.setInt(5, obj.getCantidadMostrador());
-            ps.setInt(6, obj.getCategoria().getIdCategoria());
-            ps.setInt(7, obj.getMarca().getIdMarca());
-            ps.setInt(8, obj.getUnidadMedida().getIdUnidadMedidad());
-            ps.executeUpdate();
-            con.commit();
-            return 1;
+            int band = Transaccion.actualizacion("INSERT INTO producto (descripcion, precioVenta, codigoBarras, cantidadAlmacen, cantidadMostrador, idCategoria, idMarca, idUnidadMedida) VALUES ('"
+                    + obj.getDescripcion() + "','"
+                    + obj.getPrecioVenta() + "','"
+                    + obj.getCodigoBarras() + "','"
+                    + obj.getCantidadAlmacen() + "','"
+                    + obj.getCantidadMostrador() + "','"
+                    + obj.getCategoria().getIdCategoria() + "','"
+                    + obj.getMarca().getIdMarca() + "','"
+                    + obj.getUnidadMedida().getIdUnidadMedidad() + "')");
+            if (band != -1) {
+                return 1;
+            } else {
+                return -1;
+            }
         } catch (Exception e) {
-            Transacciones.usarRollback(con);
             return -1;
         }
     }
@@ -93,7 +75,7 @@ public class mProducto implements ProductoDao {
     @Override
     public int actualizar(Producto obj) {
         try {
-            int band = Transacciones.comandos_Update_Delete("UPDATE producto SET "
+            int band = Transaccion.actualizacion("UPDATE producto SET "
                     + "descripcion='" + obj.getDescripcion()
                     + "' , precioVenta='" + obj.getPrecioVenta()
                     + "' , codigoBarras='" + obj.getCodigoBarras()
@@ -114,7 +96,7 @@ public class mProducto implements ProductoDao {
     @Override
     public int eliminar(int id) {
         try {
-            int band = Transacciones.comandos_Update_Delete("DELETE FROM producto WHERE idProducto=" + id);
+            int band = Transaccion.actualizacion("DELETE FROM producto WHERE idProducto=" + id);
             if (band != -1) {
                 return 1;
             } else {
@@ -128,7 +110,7 @@ public class mProducto implements ProductoDao {
 
     @Override
     public List<Producto> leerFiltro(String nombreCategoria, String nombreMarca, String nombreUnidadMedida) {
-        ResultSet rs = Transacciones.consulta("SELECT p.idProducto, p.descripcion, p.precioVenta, p.codigoBarras, p.cantidadAlmacen, p.cantidadMostrador , c.nombre, m.nombre, u.nombre "
+        ResultSet rs = Transaccion.consulta("SELECT p.idProducto, p.descripcion, p.precioVenta, p.codigoBarras, p.cantidadAlmacen, p.cantidadMostrador , c.nombre, m.nombre, u.nombre "
                 + "FROM producto as p "
                 + "join categoria as c "
                 + "	on c.idCategoria = p.idCategoria and c.nombre = '" + nombreCategoria + "' "
@@ -165,8 +147,8 @@ public class mProducto implements ProductoDao {
     }
 
     @Override
-    public List<Producto> leerDescripcion(String descripcion) {
-        ResultSet rs = Transacciones.consulta("SELECT p.idProducto, p.descripcion, p.precioVenta, p.codigoBarras, p.cantidadAlmacen, p.cantidadMostrador , c.nombre, m.nombre, u.nombre "
+    public List<Producto> leerFiltro(String descripcion) {
+        ResultSet rs = Transaccion.consulta("SELECT p.idProducto, p.descripcion, p.precioVenta, p.codigoBarras, p.cantidadAlmacen, p.cantidadMostrador , c.nombre, m.nombre, u.nombre "
                 + "FROM producto as p "
                 + "join categoria as c "
                 + "	on c.idCategoria = p.idCategoria "

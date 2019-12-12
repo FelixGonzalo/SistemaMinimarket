@@ -1,15 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo.entidad;
 
-/**
- *
- * @author Fekilo
- */
 public class Proveedor {
+
     private String rucProveedor;
     private String razonSocial;
     private String telefono;
@@ -66,7 +58,5 @@ public class Proveedor {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-    
-    
-    
+
 }

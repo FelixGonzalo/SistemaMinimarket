@@ -50,7 +50,7 @@ public class cCompra {
             ps.executeUpdate();
             con.commit();// si falla ya no realizar los detalle Venta123*/
             
-            int id = documento.obtenerIDUltimoRegistro();//obteniendo el id del registro
+            int id = documento.leerIdUltimoRegistro();//obteniendo el id del registro
             documentocompra.setIdDocumentoCompra(id);
             List<DetalleCompra> listaDetalle = new ArrayList<DetalleCompra>();
             for (int i = 0; i < tablaCompra.getRowCount(); i++) {
@@ -60,7 +60,7 @@ public class cCompra {
                 listaDetalle.add(detalle);
             }
 
-            int band = detalles.registrarDetalles(listaDetalle);
+            int band = detalles.registrarLista(listaDetalle);
             if (band != -1) {
                 return 1;
             } else {

@@ -1,18 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo.dao;
 
 import java.util.List;
+import modelo.dao.crud.Actualizar;
+import modelo.dao.crud.Eliminar;
+import modelo.dao.crud.Leer;
+import modelo.dao.crud.LeerFiltro;
+import modelo.dao.crud.Registrar;
 import modelo.entidad.Producto;
 
-/**
- *
- * @author Fekilo
- */
-public interface ProductoDao extends Crud<Producto>{
-    public List<Producto> leerFiltro(String nombreCategoria,String nombreMarca,String nombreUnidadMedida);
-    public List<Producto> leerDescripcion(String descripcion);
+public interface ProductoDao extends Registrar<Producto>, Leer<Producto>, LeerFiltro<Producto>, Actualizar<Producto>, Eliminar<Producto> {
+
+    public List<Producto> leerFiltro(String nombreCategoria, String nombreMarca, String nombreUnidadMedida);
 }

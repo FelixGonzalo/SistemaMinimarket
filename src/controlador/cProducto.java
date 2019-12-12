@@ -73,9 +73,9 @@ public class cProducto {
             CategoriaDao categoriaDao = new mCategoria();
             MarcaDao marcaDao = new mMarca();
             UnidadMedidaDao unidaMedidaDao = new mUnidadMedida();
-            Categoria categoria = categoriaDao.leerNombre(nombreCategoria);
-            Marca marca = marcaDao.leerNombre(nombreMarca);
-            UnidadMedida unidadMedida = unidaMedidaDao.leerNombre(nombreUnidadMedida);
+            Categoria categoria = categoriaDao.leerDescripcion(nombreCategoria);
+            Marca marca = marcaDao.leerDescripcion(nombreMarca);
+            UnidadMedida unidadMedida = unidaMedidaDao.leerDescripcion(nombreUnidadMedida);
             Producto producto = new Producto(descripcion, Double.parseDouble(precioVenta), codigoBarras, cantidadAlmacen, cantidadMostrador, categoria, marca, unidadMedida);
             int band = dao.registrar(producto);
             if (band != -1) {
@@ -94,9 +94,9 @@ public class cProducto {
             CategoriaDao categoriaDao = new mCategoria();
             MarcaDao marcaDao = new mMarca();
             UnidadMedidaDao unidaMedidaDao = new mUnidadMedida();
-            Categoria categoria = categoriaDao.leerNombre(nombreCategoria);
-            Marca marca = marcaDao.leerNombre(nombreMarca);
-            UnidadMedida unidadMedida = unidaMedidaDao.leerNombre(nombreUnidadMedida);
+            Categoria categoria = categoriaDao.leerDescripcion(nombreCategoria);
+            Marca marca = marcaDao.leerDescripcion(nombreMarca);
+            UnidadMedida unidadMedida = unidaMedidaDao.leerDescripcion(nombreUnidadMedida);
             Producto producto = new Producto(Integer.parseInt(idProducto), descripcion, Double.parseDouble(precioVenta), codigoBarras, categoria, marca, unidadMedida);
             int band = dao.actualizar(producto);
             if (band != -1) {
@@ -165,7 +165,7 @@ public class cProducto {
 
     public static DefaultTableModel leerDescripcion(String descripcion) {
         ProductoDao dao = new mProducto();
-        List<Producto> lista = dao.leerDescripcion(descripcion);
+        List<Producto> lista = dao.leerFiltro(descripcion);
 
         DefaultTableModel dt = new DefaultTableModel() {
             @Override

@@ -5,15 +5,11 @@
  */
 package controlador;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import modelo.bd.Conexion;
-import modelo.bd.Transacciones;
 import modelo.dao.DetalleVentaDao;
 import modelo.dao.DocumentoVentaDao;
 import modelo.entidad.Cliente;
@@ -55,9 +51,8 @@ public class cVenta {
             ps.setString(5, documentoVenta.getCliente().getIdClienteDniRuc());
             ps.executeUpdate();
             con.commit();// si falla ya no realizar los detalle Venta123*/
-            
-            
-            int id = documento.obtenerIDUltimoRegistro();//obteniendo el id del registro
+
+            int id = documento.leerIdUltimoRegistro();//obteniendo el id del registro
             documentoVenta.setIdDocumentoVenta(id);
             List<DetalleVenta> listaDetalle = new ArrayList<DetalleVenta>();
             for (int i = 0; i < tablaVenta.getRowCount(); i++) {
@@ -67,7 +62,7 @@ public class cVenta {
                 listaDetalle.add(detalle);
             }
 
-            int band = detalles.registrarDetalles(listaDetalle);
+            int band = detalles.registrarLista(listaDetalle);
             if (band != -1) {
                 return 1;
             } else {
@@ -107,8 +102,8 @@ public class cVenta {
 
     public static DefaultTableModel addProducto(Object[] obj) {
         if (!existe((String) obj[0])) {
-             dt.addRow(obj);
-        }else{
+            dt.addRow(obj);
+        } else {
             JOptionPane.showMessageDialog(null, "El producto ya ha sido seleccionado!!");
         }
         return dt;

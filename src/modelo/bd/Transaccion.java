@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo.bd;
 
 import java.sql.Connection;
@@ -10,13 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- *
- * @author Fekilo
- */
-public class Transacciones {
+public class Transaccion {
 
-    //CREATE no se considera, por que cambia acorde a los atributos
     public static ResultSet consulta(String consulta) {
         Connection con = Conexion.getConexion();
         ResultSet rs = null;
@@ -24,23 +14,23 @@ public class Transacciones {
             PreparedStatement ps = con.prepareStatement(consulta);
             rs = ps.executeQuery();
         } catch (Exception e) {
-
+            System.out.println("ERROR Transaccion -> consulta \n" + e.getMessage());
         }
         return rs;
     }
 
-    public static int comandos_Update_Delete(String consultaDML) {
+    public static int actualizacion(String consulta) {
         Connection con = Conexion.getConexion();
         try {
             con.setAutoCommit(false);
-            PreparedStatement ps = con.prepareStatement(consultaDML);
+            PreparedStatement ps = con.prepareStatement(consulta);
             ps.executeUpdate();
             con.commit();
+            con.close();
             return 1;
         } catch (Exception e) {
-            System.out.println("ERROR TRANSACCIONES comandos_Update_Delte");
+            System.out.println("ERROR Transaccion -> actualización \n" + e.getMessage());
             usarRollback(con);
-            System.out.println("paso aqui");
             return -1;
         }
     }
@@ -48,8 +38,9 @@ public class Transacciones {
     public static void usarRollback(Connection con) {
         try {
             con.rollback();
+            con.close();
         } catch (SQLException e) {
-            System.out.println("ERROR TRANSACCIONES usarRollBack");
+            System.out.println("ERROR Transaccion -> usarRollBack \n" + e.getMessage());
         }
     }
 }

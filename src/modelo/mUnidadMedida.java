@@ -1,29 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import modelo.bd.Conexion;
-import modelo.bd.Transacciones;
+import modelo.bd.Transaccion;
 import modelo.dao.UnidadMedidaDao;
 import modelo.entidad.UnidadMedida;
 
-/**
- *
- * @author Fekilo
- */
 public class mUnidadMedida implements UnidadMedidaDao {
 
     @Override
     public List<UnidadMedida> leer() {
-        ResultSet rs = Transacciones.consulta("SELECT idUnidadMedida, nombre, UPPER(abreviatura) FROM unidadMedida ORDER BY nombre");
+        ResultSet rs = Transaccion.consulta("SELECT idUnidadMedida, nombre, UPPER(abreviatura) FROM unidadMedida ORDER BY nombre");
         List<UnidadMedida> lista = new ArrayList<UnidadMedida>();
         try {
             while (rs.next()) {
@@ -40,23 +28,13 @@ public class mUnidadMedida implements UnidadMedidaDao {
     }
 
     @Override
-    public UnidadMedida leerId(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public int registrar(UnidadMedida obj) {
-        Connection con = Conexion.getConexion();
         try {
-            con.setAutoCommit(false);
-            PreparedStatement ps = con.prepareStatement("INSERT INTO unidadMedida (nombre, abreviatura) VALUES (?,?)");
-            ps.setString(1, obj.getNombre());
-            ps.setString(2, obj.getAbreviatura());
-            ps.executeUpdate();
-            con.commit();
+            Transaccion.actualizacion("INSERT INTO unidadMedida (nombre, abreviatura) VALUES ('"
+                    + obj.getNombre() + "','"
+                    + obj.getAbreviatura() + "')");
             return 1;
         } catch (Exception e) {
-            Transacciones.usarRollback(con);
             return -1;
         }
     }
@@ -64,7 +42,7 @@ public class mUnidadMedida implements UnidadMedidaDao {
     @Override
     public int actualizar(UnidadMedida obj) {
         try {
-            Transacciones.comandos_Update_Delete("UPDATE unidadMedida SET "
+            Transaccion.actualizacion("UPDATE unidadMedida SET "
                     + "nombre='" + obj.getNombre()
                     + "' , abreviatura='" + obj.getAbreviatura()
                     + "' WHERE idUnidadMedida=" + obj.getIdUnidadMedidad());
@@ -77,7 +55,7 @@ public class mUnidadMedida implements UnidadMedidaDao {
     @Override
     public int eliminar(int id) {
         try {
-            Transacciones.comandos_Update_Delete("DELETE FROM unidadMedida WHERE idUnidadMedida=" + id);
+            Transaccion.actualizacion("DELETE FROM unidadMedida WHERE idUnidadMedida=" + id);
             return 1;
         } catch (Exception e) {
             return -1;
@@ -85,8 +63,8 @@ public class mUnidadMedida implements UnidadMedidaDao {
     }
 
     @Override
-    public UnidadMedida leerNombre(String nombre) {
-        ResultSet rs = Transacciones.consulta("SELECT idUnidadMedida, nombre FROM unidadMedida WHERE nombre = '" + nombre + "'");
+    public UnidadMedida leerDescripcion(String nombre) {
+        ResultSet rs = Transaccion.consulta("SELECT idUnidadMedida, nombre FROM unidadMedida WHERE nombre = '" + nombre + "'");
         UnidadMedida unidadMedida = new UnidadMedida();
         try {
             while (rs.next()) {

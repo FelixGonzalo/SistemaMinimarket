@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo.entidad;
 
-/**
- *
- * @author Fekilo
+/*
+    CAMPOS CALCULADOS:
+    cantidadProductos -> suma de cantidad de productos
+    total             -> la suma de cantidad * precio de productos
  */
 public class DocumentoCompra {
 
@@ -16,9 +12,8 @@ public class DocumentoCompra {
     private int numero;
     private String fecha;
     private Proveedor proveedor;
-    ///campos calculados
-    private String cantidadProductos;//suma de cantidad de productos
-    private String total;// la suma de cantidad * precio de productos
+    private String cantidadProductos;
+    private String total;
 
     public DocumentoCompra(int idDocumentoCompra, int serie, int numero, String fecha, Proveedor proveedor) {
         this.idDocumentoCompra = idDocumentoCompra;
@@ -93,9 +88,5 @@ public class DocumentoCompra {
     public void setTotal(String total) {
         this.total = total;
     }
-    
-    
-    
-    
-    
+
 }
