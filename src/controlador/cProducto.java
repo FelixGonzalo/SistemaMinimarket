@@ -44,12 +44,12 @@ public class cProducto {
         dt.addColumn("ID");
         dt.addColumn("CodigoBarras");
         dt.addColumn("Descripción");
-        dt.addColumn("PrecioVenta");
+        dt.addColumn("Precio");
         dt.addColumn("Categoria");
         dt.addColumn("Marca");
-        dt.addColumn("UnidadMedida");
-        dt.addColumn("En Almacen");
-        dt.addColumn("En Mostrador");
+        dt.addColumn("Medida");
+        dt.addColumn("Almacen");
+        dt.addColumn("Mostrador");
 
         for (Producto obj : lista) {
             Object[] fila = new Object[9];
@@ -140,12 +140,12 @@ public class cProducto {
         dt.addColumn("ID");
         dt.addColumn("CodigoBarras");
         dt.addColumn("Descripción");
-        dt.addColumn("PrecioVenta");
+        dt.addColumn("Precio");
         dt.addColumn("Categoria");
         dt.addColumn("Marca");
-        dt.addColumn("UnidadMedida");
-        dt.addColumn("En Almacen");
-        dt.addColumn("En Mostrador");
+        dt.addColumn("Medida");
+        dt.addColumn("Almacen");
+        dt.addColumn("Mostrador");
 
         for (Producto obj : lista) {
             Object[] fila = new Object[9];
@@ -180,12 +180,12 @@ public class cProducto {
         dt.addColumn("ID");
         dt.addColumn("CodigoBarras");
         dt.addColumn("Descripción");
-        dt.addColumn("PrecioVenta");
+        dt.addColumn("Precio");
         dt.addColumn("Categoria");
         dt.addColumn("Marca");
-        dt.addColumn("UnidadMedida");
-        dt.addColumn("En Almacen");
-        dt.addColumn("En Mostrador");
+        dt.addColumn("Medida");
+        dt.addColumn("Almacen");
+        dt.addColumn("Mostrador");
 
         for (Producto obj : lista) {
             Object[] fila = new Object[9];

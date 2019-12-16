@@ -8,6 +8,7 @@ package controlador;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import modelo.dao.DocumentoVentaDao;
+import modelo.entidad.Cliente;
 import modelo.entidad.DocumentoVenta;
 import modelo.mDocumentoVenta;
 
@@ -16,7 +17,7 @@ import modelo.mDocumentoVenta;
  * @author Fekilo
  */
 public class cDocumentoVenta {
-    
+
     public static DefaultTableModel leer() {
         DocumentoVentaDao dao = new mDocumentoVenta();
         List<DocumentoVenta> lista = dao.leer();
@@ -47,7 +48,7 @@ public class cDocumentoVenta {
             fila[3] = obj.getFecha();
             fila[4] = obj.getIgv();
             fila[5] = obj.getCliente().getIdClienteDniRuc();
-            fila[6] = obj.getCliente().getNombres()+" "+obj.getCliente().getApellidos();
+            fila[6] = obj.getCliente().getNombres() + " " + obj.getCliente().getApellidos();
             fila[7] = obj.getCantidadProductos();
             fila[8] = obj.getSubtotal();
             fila[9] = obj.getMontoIGV();
@@ -56,4 +57,18 @@ public class cDocumentoVenta {
         }
         return dt;
     }//ventas realizas
+
+    public static int registrarDocumentoVenta(Cliente cliente, String fecha) {
+        DocumentoVentaDao documento = new mDocumentoVenta();
+        DocumentoVenta documentoVenta = new DocumentoVenta(documento.leerSerieDoc(), documento.leerNumeroDoc() + 1, fecha, 0.18, cliente);
+        int band = documento.registrar(documentoVenta);
+        return band;
+    }
+    
+    public static int leerIdUltimoRegistro(){
+        DocumentoVentaDao documento = new mDocumentoVenta();
+        int band = documento.leerIdUltimoRegistro();
+        return band;
+    }
+    
 }

@@ -53,4 +53,22 @@ public class cCliente {
             JOptionPane.showMessageDialog(null, "El CODIGO no acepta letras!!");
         }
     }
+
+    public static void actualizar(String id, String nombres, String apellidos, int sexo) {
+        try {
+            int verifica = Integer.parseInt(id);//si es numero
+            if (!id.equalsIgnoreCase("") && !nombres.equalsIgnoreCase("") && !apellidos.equalsIgnoreCase("") && sexo != 0) {
+                ClienteDao dao = new mCliente();
+                Cliente obj = new Cliente(id, nombres, apellidos, sexo);
+                int band = dao.actualizar(obj);
+                if (band != -1) {
+                    JOptionPane.showMessageDialog(null, "Actualización de Cliente listo!!");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Especifique CODIGO, Nombres y Sexo!!");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "El CODIGO no acepta letras!!");
+        }
+    }
 }

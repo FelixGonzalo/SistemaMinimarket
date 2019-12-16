@@ -14,6 +14,7 @@ import controlador.cVenta;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,9 +32,9 @@ public class VistaVenta extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         eventosEscuchaComboBox();
         cVenta.controlTablaVenta();
-        actualizarTablaVenta();
         actualizarComboBox();
-        //controlarTablaVenta();
+        jtxtFecha.setText(cVenta.mostrarFecha());
+        jlbSerieNumero.setText(cVenta.mostrarNumeroSerieDoc());
     }
 
     /**
@@ -50,6 +51,8 @@ public class VistaVenta extends javax.swing.JDialog {
         jbtnEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbVenta = new javax.swing.JTable();
+        jlbTotal = new javax.swing.JLabel();
+        jlbSimboloSoles = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtbProductos = new javax.swing.JTable();
@@ -77,14 +80,17 @@ public class VistaVenta extends javax.swing.JDialog {
         jbtnRegistrarCliente = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        jbtnRegistrarCliente1 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jbtnVender = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        jtxtFecha = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jtxtCodigoBarras = new javax.swing.JTextField();
+        jbtnFecha = new javax.swing.JButton();
+        jlbSerieNumero = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -120,7 +126,24 @@ public class VistaVenta extends javax.swing.JDialog {
         ));
         jtbVenta.setRowHeight(35);
         jtbVenta.setSelectionBackground(new java.awt.Color(255, 102, 0));
+        jtbVenta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtbVentaKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtbVenta);
+        if (jtbVenta.getColumnModel().getColumnCount() > 0) {
+            jtbVenta.getColumnModel().getColumn(6).setMaxWidth(50);
+        }
+
+        jlbTotal.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jlbTotal.setForeground(new java.awt.Color(255, 255, 255));
+        jlbTotal.setText("00.00");
+
+        jlbSimboloSoles.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jlbSimboloSoles.setForeground(new java.awt.Color(255, 255, 255));
+        jlbSimboloSoles.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jlbSimboloSoles.setText("S/");
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -129,20 +152,26 @@ public class VistaVenta extends javax.swing.JDialog {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jbtnEliminar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 837, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 837, Short.MAX_VALUE)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(jbtnEliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jlbSimboloSoles, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jlbTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jbtnEliminar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jbtnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jlbTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jlbSimboloSoles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -153,7 +182,7 @@ public class VistaVenta extends javax.swing.JDialog {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -379,6 +408,14 @@ public class VistaVenta extends javax.swing.JDialog {
             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
         );
 
+        jbtnRegistrarCliente1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jbtnRegistrarCliente1.setText("ACTUALIZAR");
+        jbtnRegistrarCliente1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnRegistrarCliente1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -398,11 +435,13 @@ public class VistaVenta extends javax.swing.JDialog {
                             .addComponent(jtxtCodigoCliente)
                             .addComponent(jtxtNombreCliente)
                             .addComponent(jtxtApellidosCliente)
-                            .addComponent(jcboxSexoCliente, 0, 197, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jcboxSexoCliente, 0, 206, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jbtnBuscarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jbtnRegistrarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jbtnRegistrarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jbtnRegistrarCliente1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -431,8 +470,10 @@ public class VistaVenta extends javax.swing.JDialog {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jbtnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbtnRegistrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(80, Short.MAX_VALUE))
+                        .addComponent(jbtnRegistrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbtnRegistrarCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         jPanel6.setBackground(new java.awt.Color(245, 245, 245));
@@ -452,18 +493,22 @@ public class VistaVenta extends javax.swing.JDialog {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jbtnVender, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbtnVender, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jbtnVender, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jbtnVender, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         jPanel8.setBackground(new java.awt.Color(29, 28, 28));
+
+        jtxtFecha.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jtxtFecha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -498,6 +543,21 @@ public class VistaVenta extends javax.swing.JDialog {
             }
         });
 
+        jbtnFecha.setBackground(new java.awt.Color(255, 255, 255));
+        jbtnFecha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jbtnFecha.setForeground(new java.awt.Color(255, 255, 255));
+        jbtnFecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/img/calendario.png"))); // NOI18N
+        jbtnFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnFechaActionPerformed(evt);
+            }
+        });
+
+        jlbSerieNumero.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jlbSerieNumero.setForeground(new java.awt.Color(255, 255, 255));
+        jlbSerieNumero.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlbSerieNumero.setText("1 - 00001");
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -506,10 +566,14 @@ public class VistaVenta extends javax.swing.JDialog {
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jtxtCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jlbSerieNumero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jbtnFecha)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtxtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -520,8 +584,10 @@ public class VistaVenta extends javax.swing.JDialog {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(jtxtCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtxtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlbSerieNumero))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jbtnFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel10.setBackground(new java.awt.Color(245, 245, 245));
@@ -534,7 +600,7 @@ public class VistaVenta extends javax.swing.JDialog {
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 427, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -558,12 +624,12 @@ public class VistaVenta extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -615,11 +681,13 @@ public class VistaVenta extends javax.swing.JDialog {
             obj[1] = jtbProductos.getValueAt(fila, 1).toString();//codigo barras
             obj[2] = jtbProductos.getValueAt(fila, 2).toString();//descripcion
             obj[3] = jtbProductos.getValueAt(fila, 6).toString();//unidadMedida
-            //cantidad
+            obj[4] = 1;//cantidad
             obj[5] = jtbProductos.getValueAt(fila, 3).toString();//precio
             //total
             //dtm.addRow(obj);
-            jtbVenta.setModel(cVenta.addProducto(obj));
+            jtbVenta.setModel(cVenta.agregarProducto(obj));
+            camposCalculados(jtbVenta.getRowCount() - 1, 6);
+            jtbVenta.getSelectionModel().setSelectionInterval(jtbVenta.getRowCount() - 1, jtbVenta.getRowCount() - 1);//pintar o seleccionar fila al agregar productos
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione un producto !!");
         }
@@ -628,7 +696,7 @@ public class VistaVenta extends javax.swing.JDialog {
     private void jbtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEliminarActionPerformed
         int fila = jtbVenta.getSelectedRow();
         if (fila > -1) {
-            jtbVenta.setModel(cVenta.deleteProducto(fila));
+            jtbVenta.setModel(cVenta.quitarProducto(fila));
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione un producto !!");
         }
@@ -636,12 +704,12 @@ public class VistaVenta extends javax.swing.JDialog {
 
     private void jbtnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnVenderActionPerformed
         try {
-            int especificarCantidad = Integer.parseInt(jtbVenta.getValueAt(jtbVenta.getSelectedRow(), 4).toString());
+            double especificarCantidad = Double.parseDouble(jtbVenta.getValueAt(jtbVenta.getSelectedRow(), 4).toString());
             int band = -1;
             if (jtbVenta.getRowCount() > 0 && especificarCantidad > 0) {
                 String[] datosCliente = cCliente.leerId(jtxtCodigoCliente.getText());//Comprobar cliente
                 if (!datosCliente[0].equalsIgnoreCase("")) {
-                    band = cVenta.registrarVenta((DefaultTableModel) jtbVenta.getModel(), jtxtCodigoCliente.getText());
+                    band = cVenta.registrarVenta((DefaultTableModel) jtbVenta.getModel(), jtxtCodigoCliente.getText(), jtxtFecha.getText());
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Selecciona productos para vender y especifique cantidad!!");
@@ -650,6 +718,7 @@ public class VistaVenta extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null, "Registro de Venta lista!!");
                 jtbVenta.setModel(new DefaultTableModel());
                 cVenta.controlTablaVenta();
+                jlbSerieNumero.setText(cVenta.mostrarNumeroSerieDoc());
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Especifique cantidad del producto a vender!!");
@@ -672,6 +741,24 @@ public class VistaVenta extends javax.swing.JDialog {
     private void jtxtCodigoBarrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtCodigoBarrasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxtCodigoBarrasActionPerformed
+
+    private void jtbVentaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtbVentaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            int fila = jtbVenta.getSelectedRow();
+            if (fila > -1) {
+                camposCalculados(fila, 6);
+                jtbVenta.getSelectionModel().setSelectionInterval(fila - 1, fila - 1);//pintar o seleccionar fila
+            }
+        }
+    }//GEN-LAST:event_jtbVentaKeyPressed
+
+    private void jbtnFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnFechaActionPerformed
+        jtxtFecha.setText(cVenta.mostrarFecha());
+    }//GEN-LAST:event_jbtnFechaActionPerformed
+
+    private void jbtnRegistrarCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRegistrarCliente1ActionPerformed
+         cCliente.actualizar(jtxtCodigoCliente.getText(), jtxtNombreCliente.getText(), jtxtApellidosCliente.getText(), jcboxSexoCliente.getSelectedIndex());
+    }//GEN-LAST:event_jbtnRegistrarCliente1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -739,32 +826,38 @@ public class VistaVenta extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton jbtnBuscar;
     private javax.swing.JButton jbtnBuscarCliente;
     private javax.swing.JButton jbtnEliminar;
+    private javax.swing.JButton jbtnFecha;
     private javax.swing.JButton jbtnRegistrarCliente;
+    private javax.swing.JButton jbtnRegistrarCliente1;
     private javax.swing.JButton jbtnSeleccionarProducto;
     private javax.swing.JButton jbtnVender;
     private javax.swing.JComboBox<String> jcboxCategoria;
     private javax.swing.JComboBox<String> jcboxMarca;
     private javax.swing.JComboBox<String> jcboxSexoCliente;
     private javax.swing.JComboBox<String> jcboxUnidadMedida;
+    private javax.swing.JLabel jlbSerieNumero;
+    private javax.swing.JLabel jlbSimboloSoles;
+    private javax.swing.JLabel jlbTotal;
     private javax.swing.JTable jtbProductos;
     public javax.swing.JTable jtbVenta;
     private javax.swing.JTextField jtxtApellidosCliente;
     private javax.swing.JTextField jtxtCodigoBarras;
     private javax.swing.JTextField jtxtCodigoCliente;
+    private javax.swing.JTextField jtxtFecha;
     private javax.swing.JTextField jtxtFiltroDescripcion;
     private javax.swing.JTextField jtxtNombreCliente;
     // End of variables declaration//GEN-END:variables
-    
-    public void actualizarTablaVenta() {
+
+    public void acomodarTablaVenta() {
         jtbVenta.getTableHeader().setFont(new Font("Verdana", 1, 18));
         jtbVenta.getColumnModel().getColumn(0).setMaxWidth(0);
         jtbVenta.getColumnModel().getColumn(0).setMinWidth(0);
         jtbVenta.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         jtbVenta.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+        jtbVenta.getColumnModel().getColumn(2).setMinWidth(400);
     }
 
     public void actualizarTablaBuscar() {
@@ -774,6 +867,7 @@ public class VistaVenta extends javax.swing.JDialog {
         jtbProductos.getColumnModel().getColumn(0).setMinWidth(0);
         jtbProductos.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         jtbProductos.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+        jtbProductos.getColumnModel().getColumn(2).setMinWidth(400);
     }
 
     public void actualizarTablaFiltro() {
@@ -783,6 +877,7 @@ public class VistaVenta extends javax.swing.JDialog {
         jtbProductos.getColumnModel().getColumn(0).setMinWidth(0);
         jtbProductos.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         jtbProductos.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+        jtbProductos.getColumnModel().getColumn(2).setMinWidth(400);
     }
 
     public void actualizarComboBox() {
@@ -811,5 +906,12 @@ public class VistaVenta extends javax.swing.JDialog {
             }
         });
     }
-;
+
+    ;
+    
+    public void camposCalculados(int fila, int columna) {
+        jtbVenta.setValueAt(cVenta.calcularTotal((DefaultTableModel) jtbVenta.getModel(), fila), fila, columna);
+        jlbTotal.setText(Double.toString(cVenta.calculaSumaTotal((DefaultTableModel) jtbVenta.getModel(), columna)));
+        acomodarTablaVenta();
+    }
 }

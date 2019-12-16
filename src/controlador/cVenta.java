@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -26,53 +27,52 @@ import modelo.mDocumentoVenta;
 public class cVenta {
     //FALTA TRABAJAR SERIE y NUMERO
 
-    public static int registrarVenta(DefaultTableModel tablaVenta, String idCliente) {
-        DocumentoVentaDao documento = new mDocumentoVenta();
-        DetalleVentaDao detalles = new mDetalleVenta();
+    public static int registrarVenta(DefaultTableModel tablaVenta, String idCliente, String fecha) {
+        Cliente cliente = new Cliente();
+        cliente.setIdClienteDniRuc(idCliente);
+        try {
+            int band = cDocumentoVenta.registrarDocumentoVenta(cliente, fecha);
+            if (band != -1) {
+                int id = cDocumentoVenta.leerIdUltimoRegistro();//obteniendo el id del registro
+                DocumentoVenta documentoVenta = new DocumentoVenta();
+                documentoVenta.setIdDocumentoVenta(id);
 
+                List<DetalleVenta> listaDetalle = new ArrayList<DetalleVenta>();
+                for (int i = 0; i < tablaVenta.getRowCount(); i++) {
+                    Producto prod = new Producto();
+                    prod.setIdProducto(Integer.parseInt(tablaVenta.getValueAt(i, 0).toString()));
+                    DetalleVenta detalle = new DetalleVenta(documentoVenta, prod, Integer.parseInt(tablaVenta.getValueAt(i, 4).toString()), Double.parseDouble(tablaVenta.getValueAt(i, 5).toString()));
+                    listaDetalle.add(detalle);
+                }
+
+                int band2 = cDetalleVenta.registrarDetallesVenta(listaDetalle);
+                if (band2 != -1) {
+                    return 1;
+                } else {
+                    //JOptionPane.showMessageDialog(null, "Error en modelo DetalleVenta -> registrarDetalles!!");
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error controlador venta -> registrarVenta: \n" + e.getMessage());
+        }
+        return -1;
+    }
+
+    public static String mostrarNumeroSerieDoc() {
+        DecimalFormat formato1 = new DecimalFormat("0000");//solo sirve para mostrar
+        DecimalFormat formato2 = new DecimalFormat("000000");//solo sirve para mostrar
+        DocumentoVentaDao documento = new mDocumentoVenta();
+        String serieNumero = "";
+        serieNumero = formato1.format(documento.leerSerieDoc()) + " - " + formato2.format(documento.leerNumeroDoc() + 1);
+        return serieNumero;
+    }
+
+    public static String mostrarFecha() {
         Calendar c = Calendar.getInstance();
         String dia = Integer.toString(c.get(Calendar.DATE));
         String mes = Integer.toString(c.get(Calendar.MONTH) + 1);
         String anio = Integer.toString(c.get(Calendar.YEAR));
-
-        Cliente cliente = new Cliente();
-        cliente.setIdClienteDniRuc(idCliente);
-
-        /*Connection con = Conexion.getConexion();123*/
-        try {
-            DocumentoVenta documentoVenta = new DocumentoVenta(11, 11, anio + "-" + mes + "-" + dia, 0.18, cliente);
-            documento.registrar(documentoVenta);
-            /*con.setAutoCommit(false);
-            PreparedStatement ps = con.prepareStatement("INSERT INTO documentoVenta (serie,numero,fecha,igv,idClienteDniRuc) VALUES (?,?,?,?,?)");
-            ps.setInt(1, documentoVenta.getSerie());
-            ps.setInt(2, documentoVenta.getNumero());
-            ps.setString(3, documentoVenta.getFecha());
-            ps.setDouble(4, documentoVenta.getIgv());
-            ps.setString(5, documentoVenta.getCliente().getIdClienteDniRuc());
-            ps.executeUpdate();
-            con.commit();// si falla ya no realizar los detalle Venta123*/
-
-            int id = documento.leerIdUltimoRegistro();//obteniendo el id del registro
-            documentoVenta.setIdDocumentoVenta(id);
-            List<DetalleVenta> listaDetalle = new ArrayList<DetalleVenta>();
-            for (int i = 0; i < tablaVenta.getRowCount(); i++) {
-                Producto prod = new Producto();
-                prod.setIdProducto(Integer.parseInt(tablaVenta.getValueAt(i, 0).toString()));
-                DetalleVenta detalle = new DetalleVenta(documentoVenta, prod, Integer.parseInt(tablaVenta.getValueAt(i, 4).toString()), Double.parseDouble(tablaVenta.getValueAt(i, 5).toString()));
-                listaDetalle.add(detalle);
-            }
-
-            int band = detalles.registrarLista(listaDetalle);
-            if (band != -1) {
-                return 1;
-            } else {
-                JOptionPane.showMessageDialog(null, "Error en modelo DetalleVenta -> registrarDetalles!!");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error controlador venta -> registrarVenta: \n" + e.getMessage());
-            /*Transacciones.usarRollback(con);123*/
-        }
-        return -1;
+        return anio + "-" + mes + "-" + dia;
     }
 
 //Control de la Selección de productos a vender
@@ -91,16 +91,16 @@ public class cVenta {
         };
         Object[] columnas = new Object[7];
         columnas[0] = "ID";
-        columnas[1] = "CodigoBarras";
+        columnas[1] = "Codigo Barras";
         columnas[2] = "Descripción";
-        columnas[3] = "Unidad";
+        columnas[3] = "Medida";
         columnas[4] = "Cantidad";
         columnas[5] = "precio";
         columnas[6] = "total";
         dt.setColumnIdentifiers(columnas);
     }
 
-    public static DefaultTableModel addProducto(Object[] obj) {
+    public static DefaultTableModel agregarProducto(Object[] obj) {
         if (!existe((String) obj[0])) {
             dt.addRow(obj);
         } else {
@@ -120,9 +120,36 @@ public class cVenta {
         return encontrado;
     }
 
-    public static DefaultTableModel deleteProducto(int fila) {
+    public static DefaultTableModel quitarProducto(int fila) {
         dt.removeRow(fila);
         return dt;
     }
 
+    public static double calcularTotal(DefaultTableModel tablaVenta, int fila) {
+        try {
+            double cantidad = Double.parseDouble(tablaVenta.getValueAt(fila, 4).toString());
+            double precio = Double.parseDouble(tablaVenta.getValueAt(fila, 5).toString());
+            if (cantidad > 0) {
+                return Math.round(cantidad * precio * 100) / 100d;
+            } else {
+                JOptionPane.showMessageDialog(null, "La cantidad por producto debe ser mayor a 0 !!");
+                return Math.round(1 * precio * 100) / 100d;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Especifica Cantidad !!");
+            return 0;
+        }
+    }//total por un producto
+
+    public static Double calculaSumaTotal(DefaultTableModel tablaVenta, int columna) {
+        double sumaTotal = 0;
+        try {
+            for (int i = 0; i < tablaVenta.getRowCount(); i++) {
+                sumaTotal = sumaTotal + Double.parseDouble(tablaVenta.getValueAt(i, columna).toString());
+            }
+        } catch (Exception e) {
+            System.out.println("error en calcular suma total");
+        }
+        return Math.round(sumaTotal * 100) / 100d;
+    }//total por todos los producto
 }

@@ -75,4 +75,32 @@ public class mDocumentoVenta implements DocumentoVentaDao {
             return -1;
         }
     }
+
+    @Override
+    public int leerSerieDoc() {
+        int id = 0;
+        try {
+            ResultSet rs = Transaccion.consulta("SELECT MAX(serie) FROM documentoVenta");
+            while (rs.next()) {
+                id = Integer.parseInt(rs.getString(1));
+            }
+            return id;
+        } catch (Exception e) {
+            return -1;
+        }
+    }
+
+    @Override
+    public int leerNumeroDoc() {
+        int id = 0;
+        try {
+            ResultSet rs = Transaccion.consulta("SELECT MAX(numero) FROM documentoVenta");
+            while (rs.next()) {
+                id = Integer.parseInt(rs.getString(1));
+            }
+            return id;
+        } catch (Exception e) {
+            return -1;
+        }
+    }
 }

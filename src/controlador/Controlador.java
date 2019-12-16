@@ -10,5 +10,5 @@ package controlador;
  * @author Fekilo
  */
 public class Controlador {
-    
+
 }

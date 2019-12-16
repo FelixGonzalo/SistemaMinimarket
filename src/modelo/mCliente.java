@@ -1,13 +1,11 @@
 package modelo;
 
 import java.sql.ResultSet;
-import javax.swing.JOptionPane;
 import modelo.bd.Transaccion;
 import modelo.dao.ClienteDao;
 import modelo.entidad.Cliente;
 
 public class mCliente implements ClienteDao {
-
     @Override
     public Cliente leerId(int id) {
         ResultSet rs = Transaccion.consulta("SELECT idClienteDniRuc, nombres, apellidos, sexo FROM cliente WHERE idClienteDniRuc = '" + id + "'");
@@ -32,6 +30,16 @@ public class mCliente implements ClienteDao {
                 + obj.getNombres() + "','"
                 + obj.getApellidos() + "','"
                 + obj.getSexo() + "')");
+        return band;
+    }
+
+    @Override
+    public int actualizar(Cliente obj) {
+        int band = Transaccion.actualizacion("UPDATE cliente SET "
+                + " nombres ='" + obj.getNombres()+ "',"
+                + " apellidos ='" + obj.getApellidos() + "',"
+                + " sexo = " + obj.getSexo()
+                + " WHERE idClienteDniRuc = '" + obj.getIdClienteDniRuc()+"'");
         return band;
     }
 }
