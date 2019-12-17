@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import modelo.dao.DocumentoCompraDao;
 import modelo.entidad.DocumentoCompra;
+import modelo.entidad.Proveedor;
 import modelo.mDocumentoCompra;
 
 /**
@@ -56,4 +57,21 @@ public class cDocumentoCompra {
 
         return dt;
     }//compras realizas
+
+    public static int registrarDocumentoCompra(Proveedor proveedor, String fecha, String serie, String numero) {
+        int band = -1;
+        try {
+            DocumentoCompraDao documento = new mDocumentoCompra();
+            DocumentoCompra documentoCompra = new DocumentoCompra(Integer.parseInt(serie), Integer.parseInt(numero), fecha, proveedor);
+            band = documento.registrar(documentoCompra);
+        } catch (Exception e) {
+        }
+        return band;
+    }
+
+    public static int leerIdUltimoRegistro() {
+        DocumentoCompraDao documento = new mDocumentoCompra();
+        int band = documento.leerIdUltimoRegistro();
+        return band;
+    }
 }

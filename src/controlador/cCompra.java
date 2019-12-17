@@ -24,47 +24,32 @@ import modelo.entidad.Producto;
  * @author Fekilo
  */
 public class cCompra {
-    public static int registrarCompra(DefaultTableModel tablaCompra, String idProveedor) {
-        DocumentoCompraDao documento = new mDocumentoCompra();
-        DetalleCompraDao detalles = new mDetalleCompra();
 
-        Calendar c = Calendar.getInstance();
-        String dia = Integer.toString(c.get(Calendar.DATE));
-        String mes = Integer.toString(c.get(Calendar.MONTH) + 1);
-        String anio = Integer.toString(c.get(Calendar.YEAR));
-
+    public static int registrarCompra(DefaultTableModel tablaCompra, String idProveedor, String fecha, String serie, String numero) {
         Proveedor proveedor = new Proveedor();
         proveedor.setRucProveedor(idProveedor);
 
-        /*Connection con = Conexion.getConexion();123*/
         try {
-            DocumentoCompra documentocompra = new DocumentoCompra(1, 1, anio + "-" + mes + "-" + dia, proveedor);
-            documento.registrar(documentocompra);
-            /*con.setAutoCommit(false);
-            PreparedStatement ps = con.prepareStatement("INSERT INTO documentoVenta (serie,numero,fecha,igv,idClienteDniRuc) VALUES (?,?,?,?,?)");
-            ps.setInt(1, documentoVenta.getSerie());
-            ps.setInt(2, documentoVenta.getNumero());
-            ps.setString(3, documentoVenta.getFecha());
-            ps.setDouble(4, documentoVenta.getIgv());
-            ps.setString(5, documentoVenta.getCliente().getIdClienteDniRuc());
-            ps.executeUpdate();
-            con.commit();// si falla ya no realizar los detalle Venta123*/
-            
-            int id = documento.leerIdUltimoRegistro();//obteniendo el id del registro
-            documentocompra.setIdDocumentoCompra(id);
-            List<DetalleCompra> listaDetalle = new ArrayList<DetalleCompra>();
-            for (int i = 0; i < tablaCompra.getRowCount(); i++) {
-                Producto prod = new Producto();
-                prod.setIdProducto(Integer.parseInt(tablaCompra.getValueAt(i, 0).toString()));
-                DetalleCompra detalle = new DetalleCompra(documentocompra, prod, Integer.parseInt(tablaCompra.getValueAt(i, 4).toString()), Double.parseDouble(tablaCompra.getValueAt(i, 5).toString()));
-                listaDetalle.add(detalle);
-            }
-
-            int band = detalles.registrarLista(listaDetalle);
+            int band = cDocumentoCompra.registrarDocumentoCompra(proveedor, fecha, serie, numero);
             if (band != -1) {
-                return 1;
-            } else {
-                JOptionPane.showMessageDialog(null, "Error en modelo DetalleCompra -> registrarDetalles!!");
+                int id = cDocumentoCompra.leerIdUltimoRegistro();//obteniendo el id del registro
+                DocumentoCompra documentocompra = new DocumentoCompra();
+                documentocompra.setIdDocumentoCompra(id);
+                
+                List<DetalleCompra> listaDetalle = new ArrayList<DetalleCompra>();
+                for (int i = 0; i < tablaCompra.getRowCount(); i++) {
+                    Producto prod = new Producto();
+                    prod.setIdProducto(Integer.parseInt(tablaCompra.getValueAt(i, 0).toString()));
+                    DetalleCompra detalle = new DetalleCompra(documentocompra, prod, Integer.parseInt(tablaCompra.getValueAt(i, 4).toString()), Double.parseDouble(tablaCompra.getValueAt(i, 5).toString()));
+                    listaDetalle.add(detalle);
+                }
+
+                int band2 = cDetalleCompra.registrarDetallesCompra(listaDetalle);
+                if (band2 != -1) {
+                    return 1;
+                } else {
+                    //JOptionPane.showMessageDialog(null, "Error en modelo DetalleCompra -> registrarDetalles!!");
+                }
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error controlador Compra -> registrarCompra: \n" + e.getMessage());
@@ -100,8 +85,8 @@ public class cCompra {
 
     public static DefaultTableModel addProducto(Object[] obj) {
         if (!existe((String) obj[0])) {
-             dt.addRow(obj);
-        }else{
+            dt.addRow(obj);
+        } else {
             JOptionPane.showMessageDialog(null, "El producto ya ha sido seleccionado!!");
         }
         return dt;
@@ -122,4 +107,32 @@ public class cCompra {
         dt.removeRow(fila);
         return dt;
     }
+
+    public static double calcularTotal(DefaultTableModel tablacompra, int fila) {
+        try {
+            double cantidad = Double.parseDouble(tablacompra.getValueAt(fila, 4).toString());
+            double precio = Double.parseDouble(tablacompra.getValueAt(fila, 5).toString());
+            if (cantidad > 0) {
+                return Math.round(cantidad * precio * 100) / 100d;
+            } else {
+                JOptionPane.showMessageDialog(null, "La cantidad por producto debe ser mayor a 0 !!");
+                return Math.round(1 * precio * 100) / 100d;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Especifica Cantidad !!");
+            return 0;
+        }
+    }//total por un producto
+
+    public static Double calculaSumaTotal(DefaultTableModel tablacompra, int columna) {
+        double sumaTotal = 0;
+        try {
+            for (int i = 0; i < tablacompra.getRowCount(); i++) {
+                sumaTotal = sumaTotal + Double.parseDouble(tablacompra.getValueAt(i, columna).toString());
+            }
+        } catch (Exception e) {
+            System.out.println("error en calcular suma total");
+        }
+        return Math.round(sumaTotal * 100) / 100d;
+    }//total por todos los producto
 }

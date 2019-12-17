@@ -35,4 +35,15 @@ public class mProveedor implements ProveedorDao {
                 + obj.getCorreo() + "')");
         return band;
     }
+
+    @Override
+    public int actualizar(Proveedor obj) {
+        int band = Transaccion.actualizacion("UPDATE proveedor SET "
+                + " razonSocial ='" + obj.getRazonSocial()+ "',"
+                + " correo ='" + obj.getCorreo()+ "',"
+                + " telefono ='" + obj.getTelefono()+ "',"
+                + " celular = '" + obj.getCelular()+ "'"
+                + " WHERE rucProveedor = '" + obj.getRucProveedor()+"'");
+        return band;
+    }
 }

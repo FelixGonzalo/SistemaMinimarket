@@ -11,13 +11,11 @@ import java.util.Calendar;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import modelo.dao.DetalleVentaDao;
 import modelo.dao.DocumentoVentaDao;
 import modelo.entidad.Cliente;
 import modelo.entidad.DetalleVenta;
 import modelo.entidad.DocumentoVenta;
 import modelo.entidad.Producto;
-import modelo.mDetalleVenta;
 import modelo.mDocumentoVenta;
 
 /**

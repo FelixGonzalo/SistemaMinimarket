@@ -55,4 +55,22 @@ public class cProveedor {
             JOptionPane.showMessageDialog(null, "El CODIGO no acepta letras!!");
         }
     }
+    
+    public static void actualizar(String id, String razonSocial, String telefono, String celular, String correo) {
+        try {
+            int verifica = Integer.parseInt(id);//si es numero
+            if (!id.equalsIgnoreCase("") && !razonSocial.equalsIgnoreCase("") && !telefono.equalsIgnoreCase("") && !celular.equalsIgnoreCase("") && !correo.equalsIgnoreCase("") ) {
+                ProveedorDao dao = new mProveedor();
+                Proveedor obj = new Proveedor(id, razonSocial, telefono, celular, correo);
+                int band = dao.actualizar(obj);
+                if (band != -1) {
+                    JOptionPane.showMessageDialog(null, "Actualización de Proveedor listo!!");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Especifique los datos!!");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "El CODIGO no acepta letras!!");
+        }
+    }
 }

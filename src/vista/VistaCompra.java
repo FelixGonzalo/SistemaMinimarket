@@ -14,6 +14,7 @@ import controlador.cUnidadMedida;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,7 +32,7 @@ public class VistaCompra extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         eventosEscuchaComboBox();
         cCompra.controlTablaCompra();
-        actualizarTablaVenta();
+        acomodarTablaVenta();
         actualizarComboBox();
         //controlarTablaVenta();
     }
@@ -50,6 +51,8 @@ public class VistaCompra extends javax.swing.JDialog {
         jbtnEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbCompra = new javax.swing.JTable();
+        jlbTotal = new javax.swing.JLabel();
+        jlbSimboloSoles = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtbProductos = new javax.swing.JTable();
@@ -79,16 +82,21 @@ public class VistaCompra extends javax.swing.JDialog {
         jtxtCelular = new javax.swing.JTextField();
         jtxtCorreo = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
+        jbtnActualizar = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jbtnRegistrarCompra = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        jtxtFecha = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jtxtCodigoBarras = new javax.swing.JTextField();
+        jtxtNumero = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jtxtSerie = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -124,7 +132,21 @@ public class VistaCompra extends javax.swing.JDialog {
         ));
         jtbCompra.setRowHeight(35);
         jtbCompra.setSelectionBackground(new java.awt.Color(255, 102, 0));
+        jtbCompra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtbCompraKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtbCompra);
+
+        jlbTotal.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jlbTotal.setForeground(new java.awt.Color(255, 255, 255));
+        jlbTotal.setText("00.00");
+
+        jlbSimboloSoles.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jlbSimboloSoles.setForeground(new java.awt.Color(255, 255, 255));
+        jlbSimboloSoles.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jlbSimboloSoles.setText("S/");
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -133,20 +155,27 @@ public class VistaCompra extends javax.swing.JDialog {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jbtnEliminar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 827, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(jbtnEliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jlbSimboloSoles, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jlbTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jbtnEliminar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jbtnEliminar)
+                    .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jlbTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jlbSimboloSoles)))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -296,7 +325,7 @@ public class VistaCompra extends javax.swing.JDialog {
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jcboxUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 56, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -387,6 +416,14 @@ public class VistaCompra extends javax.swing.JDialog {
 
         jLabel13.setText("CORREO");
 
+        jbtnActualizar.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jbtnActualizar.setText("ACTUALIZAR");
+        jbtnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnActualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -409,10 +446,12 @@ public class VistaCompra extends javax.swing.JDialog {
                             .addComponent(jtxtTelefono)
                             .addComponent(jtxtCelular)
                             .addComponent(jtxtCorreo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jbtnBuscarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jbtnRegistrarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jbtnBuscarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jbtnRegistrarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jbtnActualizar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -425,7 +464,9 @@ public class VistaCompra extends javax.swing.JDialog {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jbtnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbtnRegistrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jbtnRegistrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbtnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
@@ -446,7 +487,7 @@ public class VistaCompra extends javax.swing.JDialog {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel13)
                             .addComponent(jtxtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         jPanel6.setBackground(new java.awt.Color(236, 236, 236));
@@ -465,7 +506,7 @@ public class VistaCompra extends javax.swing.JDialog {
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
+                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
@@ -541,6 +582,14 @@ public class VistaCompra extends javax.swing.JDialog {
             }
         });
 
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("-");
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("Serie - Num");
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -550,9 +599,17 @@ public class VistaCompra extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jtxtCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtxtSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtxtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jtxtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -563,7 +620,12 @@ public class VistaCompra extends javax.swing.JDialog {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(jtxtCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtxtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtxtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel15)
+                        .addComponent(jtxtSerie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel14)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -574,7 +636,7 @@ public class VistaCompra extends javax.swing.JDialog {
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 430, Short.MAX_VALUE)
+            .addGap(0, 437, Short.MAX_VALUE)
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -659,11 +721,13 @@ public class VistaCompra extends javax.swing.JDialog {
             obj[1] = jtbProductos.getValueAt(fila, 1).toString();//codigo barras
             obj[2] = jtbProductos.getValueAt(fila, 2).toString();//descripcion
             obj[3] = jtbProductos.getValueAt(fila, 6).toString();//unidadMedida
-            //cantidad
+            obj[4] = 1;//cantidad
             obj[5] = jtbProductos.getValueAt(fila, 3).toString();//precio
             //total
             //dtm.addRow(obj);
             jtbCompra.setModel(cCompra.addProducto(obj));
+            camposCalculados(jtbCompra.getRowCount() - 1, 6);
+            jtbCompra.getSelectionModel().setSelectionInterval(jtbCompra.getRowCount() - 1, jtbCompra.getRowCount() - 1);//pintar o seleccionar fila al agregar productos
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione un producto !!");
         }
@@ -685,7 +749,7 @@ public class VistaCompra extends javax.swing.JDialog {
             if (jtbCompra.getRowCount() > 0 && especificarCantidad > 0) {
                 String[] datosProveedor = cProveedor.leer(jtxtCodigoProveedor.getText());//Comprobar proveedor
                 if (!datosProveedor[0].equalsIgnoreCase("")) {
-                    band = cCompra.registrarCompra((DefaultTableModel) jtbCompra.getModel(), jtxtCodigoProveedor.getText());
+                    band = cCompra.registrarCompra((DefaultTableModel) jtbCompra.getModel(), jtxtCodigoProveedor.getText(),jtxtFecha.getText(),jtxtSerie.getText(),jtxtNumero.getText());
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Selecciona productos y especifique cantidad!!");
@@ -717,6 +781,20 @@ public class VistaCompra extends javax.swing.JDialog {
     private void jtxtCodigoBarrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtCodigoBarrasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxtCodigoBarrasActionPerformed
+
+    private void jbtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnActualizarActionPerformed
+        cProveedor.actualizar(jtxtCodigoProveedor.getText(), jtxtRazonSocial.getText(), jtxtTelefono.getText(), jtxtCelular.getText(), jtxtCorreo.getText());
+    }//GEN-LAST:event_jbtnActualizarActionPerformed
+
+    private void jtbCompraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtbCompraKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            int fila = jtbCompra.getSelectedRow();
+            if (fila > -1) {
+                camposCalculados(fila, 6);
+                jtbCompra.getSelectionModel().setSelectionInterval(fila - 1, fila - 1);//pintar o seleccionar fila
+            }
+        }
+    }//GEN-LAST:event_jtbCompraKeyPressed
 
     /**
      * @param args the command line arguments
@@ -767,6 +845,8 @@ public class VistaCompra extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -788,7 +868,7 @@ public class VistaCompra extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton jbtnActualizar;
     private javax.swing.JButton jbtnBuscar;
     private javax.swing.JButton jbtnBuscarCliente;
     private javax.swing.JButton jbtnEliminar;
@@ -798,23 +878,29 @@ public class VistaCompra extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> jcboxCategoria;
     private javax.swing.JComboBox<String> jcboxMarca;
     private javax.swing.JComboBox<String> jcboxUnidadMedida;
+    private javax.swing.JLabel jlbSimboloSoles;
+    private javax.swing.JLabel jlbTotal;
     public javax.swing.JTable jtbCompra;
     private javax.swing.JTable jtbProductos;
     private javax.swing.JTextField jtxtCelular;
     private javax.swing.JTextField jtxtCodigoBarras;
     private javax.swing.JTextField jtxtCodigoProveedor;
     private javax.swing.JTextField jtxtCorreo;
+    private javax.swing.JTextField jtxtFecha;
     private javax.swing.JTextField jtxtFiltroDescripcion;
+    private javax.swing.JTextField jtxtNumero;
     private javax.swing.JTextField jtxtRazonSocial;
+    private javax.swing.JTextField jtxtSerie;
     private javax.swing.JTextField jtxtTelefono;
     // End of variables declaration//GEN-END:variables
-    
-    public void actualizarTablaVenta() {
+
+    public void acomodarTablaVenta() {
         jtbCompra.getTableHeader().setFont(new Font("Verdana", 1, 18));
         jtbCompra.getColumnModel().getColumn(0).setMaxWidth(0);
         jtbCompra.getColumnModel().getColumn(0).setMinWidth(0);
         jtbCompra.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         jtbCompra.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+        jtbCompra.getColumnModel().getColumn(2).setMinWidth(400);
     }
 
     public void actualizarTablaBuscar() {
@@ -861,5 +947,12 @@ public class VistaCompra extends javax.swing.JDialog {
             }
         });
     }
-;
+
+    ;
+    
+    public void camposCalculados(int fila, int columna) {
+        jtbCompra.setValueAt(cCompra.calcularTotal((DefaultTableModel) jtbCompra.getModel(), fila), fila, columna);
+        jlbTotal.setText(Double.toString(cCompra.calculaSumaTotal((DefaultTableModel) jtbCompra.getModel(), columna)));
+        acomodarTablaVenta();
+    }
 }
