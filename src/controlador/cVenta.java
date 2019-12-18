@@ -51,8 +51,16 @@ public class cVenta {
         DecimalFormat formato1 = new DecimalFormat("0000");//solo sirve para mostrar
         DecimalFormat formato2 = new DecimalFormat("000000");//solo sirve para mostrar
         DocumentoVentaDao documento = new mDocumentoVenta();
+        int serie = documento.leerSerieDoc();
+        int numero = documento.leerNumeroDoc();
         String serieNumero = "";
-        serieNumero = formato1.format(documento.leerSerieDoc()) + " - " + formato2.format(documento.leerNumeroDoc() + 1);
+        if (serie != -1 && numero != -1) {
+            numero = numero + 1;
+            serieNumero = formato1.format(serie) + " - " + formato2.format(numero);
+        } else {
+            serieNumero = formato1.format(1) + " - " + formato2.format(1);
+        }
+        serieNumero = formato1.format(serie) + " - " + formato2.format(numero);
         return serieNumero;
     }
 

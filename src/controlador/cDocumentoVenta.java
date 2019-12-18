@@ -51,8 +51,16 @@ public class cDocumentoVenta {
 
     public static int registrarDocumentoVenta(Cliente cliente, String fecha) {
         DocumentoVentaDao documento = new mDocumentoVenta();
-        DocumentoVenta documentoVenta = new DocumentoVenta(documento.leerSerieDoc(), documento.leerNumeroDoc() + 1, fecha, 0.18, cliente);
-        int band = documento.registrar(documentoVenta);
+        int band = -1;
+        int serie = documento.leerSerieDoc();
+        int numero = documento.leerNumeroDoc();
+        if (serie != -1 && numero != -1) {
+            DocumentoVenta documentoVenta = new DocumentoVenta(serie, numero + 1, fecha, 0.18, cliente);
+            band = documento.registrar(documentoVenta);
+        } else {
+            DocumentoVenta documentoVenta = new DocumentoVenta(1, 1, fecha, 0.18, cliente);
+            band = documento.registrar(documentoVenta);
+        }
         return band;
     }
 
