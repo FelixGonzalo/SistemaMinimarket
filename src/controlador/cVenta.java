@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
 import java.text.DecimalFormat;
@@ -18,10 +13,6 @@ import modelo.entidad.DocumentoVenta;
 import modelo.entidad.Producto;
 import modelo.mDocumentoVenta;
 
-/**
- *
- * @author Fekilo
- */
 public class cVenta {
     //FALTA TRABAJAR SERIE y NUMERO
 

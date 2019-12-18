@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
 import javax.swing.JOptionPane;
@@ -10,10 +5,6 @@ import modelo.dao.ClienteDao;
 import modelo.entidad.Cliente;
 import modelo.mCliente;
 
-/**
- *
- * @author Fekilo
- */
 public class cCliente {
 
     public static String[] leerId(String id) {
@@ -25,7 +16,6 @@ public class cCliente {
             ClienteDao dao = new mCliente();
             int idCliente = Integer.parseInt(id);
             Cliente cliente = dao.leerId(idCliente);
-            int condicion = Integer.parseInt(cliente.getIdClienteDniRuc());// ID Solo debe aceptar Números
             datos[0] = cliente.getIdClienteDniRuc();
             datos[1] = cliente.getNombres();
             datos[2] = cliente.getApellidos();
@@ -36,39 +26,36 @@ public class cCliente {
         return datos;
     }
 
-    public static void registrar(String id, String nombres, String apellidos, int sexo) {
-        try {
-            int verifica = Integer.parseInt(id);//si es numero
-            if (!id.equalsIgnoreCase("") && !nombres.equalsIgnoreCase("") && sexo != 0) {
+    public static int registrar(String id, String nombres, String apellidos, int sexo) {
+        int band = -1;
+        if (Controlador.isNumeric(id)) {
+            if (!id.equalsIgnoreCase("") && !nombres.equalsIgnoreCase("") && !apellidos.equalsIgnoreCase("") || sexo != 0) {
                 ClienteDao dao = new mCliente();
                 Cliente obj = new Cliente(id, nombres, apellidos, sexo);
-                int band = dao.registrar(obj);
-                if (band != -1) {
-                    JOptionPane.showMessageDialog(null, "Registro de Cliente listo!!");
-                }
+                band = dao.registrar(obj);
             } else {
-                JOptionPane.showMessageDialog(null, "Especifique CODIGO, Nombres y Sexo!!");
+                band = 2;
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "El CODIGO no acepta letras!!");
+        } else {
+            band = 3;
         }
+        return band;
     }
 
-    public static void actualizar(String id, String nombres, String apellidos, int sexo) {
-        try {
-            int verifica = Integer.parseInt(id);//si es numero
+    public static int actualizar(String id, String nombres, String apellidos, int sexo) {
+        int band = -1;
+        if (Controlador.isNumeric(id)) {
             if (!id.equalsIgnoreCase("") && !nombres.equalsIgnoreCase("") && !apellidos.equalsIgnoreCase("") && sexo != 0) {
                 ClienteDao dao = new mCliente();
                 Cliente obj = new Cliente(id, nombres, apellidos, sexo);
-                int band = dao.actualizar(obj);
-                if (band != -1) {
-                    JOptionPane.showMessageDialog(null, "Actualización de Cliente listo!!");
-                }
+                band = dao.actualizar(obj);
             } else {
-                JOptionPane.showMessageDialog(null, "Especifique CODIGO, Nombres y Sexo!!");
+                band = 2;
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "El CODIGO no acepta letras!!");
+        } else {
+            band = 3;
         }
+        return band;
+
     }
 }

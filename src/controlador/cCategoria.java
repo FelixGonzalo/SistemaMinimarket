@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
 import java.util.List;
@@ -12,10 +7,6 @@ import modelo.dao.CategoriaDao;
 import modelo.entidad.Categoria;
 import modelo.mCategoria;
 
-/**
- *
- * @author Fekilo
- */
 public class cCategoria {
 
     public static DefaultTableModel leer() {
@@ -45,30 +36,43 @@ public class cCategoria {
         }
         return combo;
     }
-    
-    public static void registrar(String nombre){
-        CategoriaDao dao = new mCategoria();
-        try {
+
+    public static int registrar(String nombre) {
+        int band = -1;
+        if (!nombre.equalsIgnoreCase("")) {
+            CategoriaDao dao = new mCategoria();
             Categoria obj = new Categoria(nombre);
-            dao.registrar(obj);
-        } catch (Exception e) {
+            band = dao.registrar(obj);
+        } else {
+            band = 2;
         }
+        return band;
     }
-    
-    public static void actualizar(String id,String nombre){
-        CategoriaDao dao = new mCategoria();
-        try {
-            Categoria obj = new Categoria(Integer.parseInt(id),nombre);
-            dao.actualizar(obj);
-        } catch (Exception e) {
+
+    public static int actualizar(String id, String nombre) {
+        int band = -1;
+        if (!nombre.equalsIgnoreCase("")) {
+            if (Controlador.isNumeric(id)) {
+                CategoriaDao dao = new mCategoria();
+                Categoria obj = new Categoria(Integer.parseInt(id), nombre);
+                band = dao.actualizar(obj);
+            } else {
+                band = 3;
+            }
+        } else {
+            band = 2;
         }
+        return band;
     }
-    
-    public static void eliminar(String id){
-        CategoriaDao dao = new mCategoria();
-        try {
-            dao.eliminar(Integer.parseInt(id));
-        } catch (Exception e) {
+
+    public static int eliminar(String id) {
+        int band = -1;
+        if (Controlador.isNumeric(id)) {
+            CategoriaDao dao = new mCategoria();
+            band = dao.eliminar(Integer.parseInt(id));
+        } else {
+            band = 3;
         }
+        return band;
     }
 }

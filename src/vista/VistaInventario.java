@@ -348,7 +348,7 @@ public class VistaInventario extends javax.swing.JDialog {
     private void jbtnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRegistrarActionPerformed
         VistaRegistroProducto vRegistroProducto = new VistaRegistroProducto(null, rootPaneCheckingEnabled);
         vRegistroProducto.setVisible(true);
-        
+
     }//GEN-LAST:event_jbtnRegistrarActionPerformed
 
     private void jtbnRegistrarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbnRegistrarCategoriaActionPerformed
@@ -375,7 +375,15 @@ public class VistaInventario extends javax.swing.JDialog {
         int fila = jtbProductos.getSelectedRow();
         if (fila > -1) {
             String id = jtbProductos.getValueAt(fila, 0).toString();
-            cProducto.eliminar(id);
+            int band = cProducto.eliminar(id);
+            switch (band) {
+                case 1:
+                    JOptionPane.showMessageDialog(this, "Eliminación de producto correcta !!");
+                    break;
+                case 3:
+                    JOptionPane.showMessageDialog(this, "El id debe ser un Número!!");
+                    break;
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione un PRODUCTO !!");
         }
@@ -391,8 +399,18 @@ public class VistaInventario extends javax.swing.JDialog {
             String categoria = jtbProductos.getValueAt(fila, 4).toString();
             String marca = jtbProductos.getValueAt(fila, 5).toString();
             String unidadMedida = jtbProductos.getValueAt(fila, 6).toString();
-            //MODIFICAR Y HACERLO CON CONBOBOX, actualizar marca, categoria y unidad de medida no funciona---------------------------------------------------------------------------
-            cProducto.actualizar(idArticulo, descripcion, precioVenta, codigoBarras, categoria, marca, unidadMedida);
+            int band = cProducto.actualizar(idArticulo, descripcion, precioVenta, codigoBarras, categoria, marca, unidadMedida);
+            switch (band) {
+                case 1:
+                    JOptionPane.showMessageDialog(this, "Actualización de producto listo !!");
+                    break;
+                case 2:
+                    JOptionPane.showMessageDialog(null, "Especifique todos los datos!!");
+                    break;
+                case 3:
+                    JOptionPane.showMessageDialog(null, "El precio debe estar conformado por números!!");
+                    break;
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione un PRODUCTO !!");
         }
@@ -422,7 +440,7 @@ public class VistaInventario extends javax.swing.JDialog {
         if (jtxtFiltroDescripcion.getText().length() > 3) {
             actualizarTablaBuscar();
         }
-        
+
     }//GEN-LAST:event_jbtnBuscarActionPerformed
 
     private void jtxtFiltroDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtFiltroDescripcionActionPerformed
@@ -503,7 +521,7 @@ public class VistaInventario extends javax.swing.JDialog {
         jtbProductos.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         jtbProductos.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
     }
-    
+
     public void actualizarTablaFiltro() {
         this.jtbProductos.setModel(cProducto.leerFiltro(jcboxCategoria.getSelectedItem().toString(), jcboxMarca.getSelectedItem().toString(), jcboxUnidadMedida.getSelectedItem().toString()));
         jtbProductos.getTableHeader().setFont(new Font("Verdana", 1, 18));
@@ -512,7 +530,7 @@ public class VistaInventario extends javax.swing.JDialog {
         jtbProductos.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         jtbProductos.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
     }
-    
+
     public void actualizarTablaBuscar() {
         this.jtbProductos.setModel(cProducto.leerDescripcion(jtxtFiltroDescripcion.getText()));
         jtbProductos.getTableHeader().setFont(new Font("Verdana", 1, 18));
@@ -527,9 +545,9 @@ public class VistaInventario extends javax.swing.JDialog {
         jcboxMarca.setModel(cMarca.leerCombo());
         jcboxUnidadMedida.setModel(cUnidadMedida.leerCombo());
     }
-    
-    public void eventosEscuchaComboBox(){
-    jcboxCategoria.addItemListener(new ItemListener() {
+
+    public void eventosEscuchaComboBox() {
+        jcboxCategoria.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent ie) {
                 actualizarTablaFiltro();
@@ -547,9 +565,7 @@ public class VistaInventario extends javax.swing.JDialog {
                 actualizarTablaFiltro();
             }
         });
-    };
-    
-    
-   
-    
+    }
+;
+
 }

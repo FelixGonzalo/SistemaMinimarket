@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
 import java.util.List;
@@ -12,10 +7,6 @@ import modelo.entidad.Cliente;
 import modelo.entidad.DocumentoVenta;
 import modelo.mDocumentoVenta;
 
-/**
- *
- * @author Fekilo
- */
 public class cDocumentoVenta {
 
     public static DefaultTableModel leer() {
@@ -64,11 +55,11 @@ public class cDocumentoVenta {
         int band = documento.registrar(documentoVenta);
         return band;
     }
-    
-    public static int leerIdUltimoRegistro(){
+
+    public static int leerIdUltimoRegistro() {
         DocumentoVentaDao documento = new mDocumentoVenta();
         int band = documento.leerIdUltimoRegistro();
         return band;
     }
-    
+
 }

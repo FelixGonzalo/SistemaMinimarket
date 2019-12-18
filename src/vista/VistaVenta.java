@@ -80,7 +80,7 @@ public class VistaVenta extends javax.swing.JDialog {
         jbtnRegistrarCliente = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jbtnRegistrarCliente1 = new javax.swing.JButton();
+        jbtnActualizar = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jbtnVender = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
@@ -408,11 +408,11 @@ public class VistaVenta extends javax.swing.JDialog {
             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
         );
 
-        jbtnRegistrarCliente1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jbtnRegistrarCliente1.setText("ACTUALIZAR");
-        jbtnRegistrarCliente1.addActionListener(new java.awt.event.ActionListener() {
+        jbtnActualizar.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jbtnActualizar.setText("ACTUALIZAR");
+        jbtnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnRegistrarCliente1ActionPerformed(evt);
+                jbtnActualizarActionPerformed(evt);
             }
         });
 
@@ -440,7 +440,7 @@ public class VistaVenta extends javax.swing.JDialog {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jbtnBuscarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jbtnRegistrarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jbtnRegistrarCliente1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jbtnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -472,7 +472,7 @@ public class VistaVenta extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbtnRegistrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbtnRegistrarCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jbtnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
 
@@ -727,15 +727,30 @@ public class VistaVenta extends javax.swing.JDialog {
 
     private void jbtnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBuscarClienteActionPerformed
         String[] datosCliente = cCliente.leerId(jtxtCodigoCliente.getText());
-        if (!datosCliente[0].equalsIgnoreCase("")) {
-            jtxtNombreCliente.setText(datosCliente[1]);
-            jtxtApellidosCliente.setText(datosCliente[2]);
-            jcboxSexoCliente.setSelectedIndex(Integer.parseInt(datosCliente[3]));
+        try {
+            if (!datosCliente[0].equalsIgnoreCase("") || datosCliente != null) {
+                jtxtNombreCliente.setText(datosCliente[1]);
+                jtxtApellidosCliente.setText(datosCliente[2]);
+                jcboxSexoCliente.setSelectedIndex(Integer.parseInt(datosCliente[3]));
+            }
+        } catch (Exception e) {
         }
+
     }//GEN-LAST:event_jbtnBuscarClienteActionPerformed
 
     private void jbtnRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRegistrarClienteActionPerformed
-        cCliente.registrar(jtxtCodigoCliente.getText(), jtxtNombreCliente.getText(), jtxtApellidosCliente.getText(), jcboxSexoCliente.getSelectedIndex());
+        int band = cCliente.registrar(jtxtCodigoCliente.getText(), jtxtNombreCliente.getText(), jtxtApellidosCliente.getText(), jcboxSexoCliente.getSelectedIndex());
+        switch (band) {
+            case 1:
+                JOptionPane.showMessageDialog(this, "Registro de cliente lista !!");
+                break;
+            case 2:
+                JOptionPane.showMessageDialog(null, "Especifique todos los datos!!");
+                break;
+            case 3:
+                JOptionPane.showMessageDialog(null, "El CODIGO debe estar conformado por Números!!");
+                break;
+        }
     }//GEN-LAST:event_jbtnRegistrarClienteActionPerformed
 
     private void jtxtCodigoBarrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtCodigoBarrasActionPerformed
@@ -756,9 +771,20 @@ public class VistaVenta extends javax.swing.JDialog {
         jtxtFecha.setText(cVenta.mostrarFecha());
     }//GEN-LAST:event_jbtnFechaActionPerformed
 
-    private void jbtnRegistrarCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRegistrarCliente1ActionPerformed
-         cCliente.actualizar(jtxtCodigoCliente.getText(), jtxtNombreCliente.getText(), jtxtApellidosCliente.getText(), jcboxSexoCliente.getSelectedIndex());
-    }//GEN-LAST:event_jbtnRegistrarCliente1ActionPerformed
+    private void jbtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnActualizarActionPerformed
+        int band = cCliente.actualizar(jtxtCodigoCliente.getText(), jtxtNombreCliente.getText(), jtxtApellidosCliente.getText(), jcboxSexoCliente.getSelectedIndex());
+        switch (band) {
+            case 1:
+                JOptionPane.showMessageDialog(this, "Actualización de cliente lista !!");
+                break;
+            case 2:
+                JOptionPane.showMessageDialog(null, "Especifique todos los datos!!");
+                break;
+            case 3:
+                JOptionPane.showMessageDialog(null, "El CODIGO no acepta letras!!");
+                break;
+        }
+    }//GEN-LAST:event_jbtnActualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -826,12 +852,12 @@ public class VistaVenta extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton jbtnActualizar;
     private javax.swing.JButton jbtnBuscar;
     private javax.swing.JButton jbtnBuscarCliente;
     private javax.swing.JButton jbtnEliminar;
     private javax.swing.JButton jbtnFecha;
     private javax.swing.JButton jbtnRegistrarCliente;
-    private javax.swing.JButton jbtnRegistrarCliente1;
     private javax.swing.JButton jbtnSeleccionarProducto;
     private javax.swing.JButton jbtnVender;
     private javax.swing.JComboBox<String> jcboxCategoria;

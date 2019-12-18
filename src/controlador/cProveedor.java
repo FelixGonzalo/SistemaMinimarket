@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
 import javax.swing.JOptionPane;
@@ -10,11 +5,8 @@ import modelo.dao.ProveedorDao;
 import modelo.entidad.Proveedor;
 import modelo.mProveedor;
 
-/**
- *
- * @author Fekilo
- */
 public class cProveedor {
+
     public static String[] leer(String id) {
         String[] datos = new String[5];
         for (int i = 0; i < datos.length; i++) {
@@ -31,46 +23,41 @@ public class cProveedor {
             datos[3] = proveedor.getCelular();
             datos[4] = proveedor.getCorreo();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error controlador Proveedor -> leer: \n NO HAY CLIENTE!");
+            JOptionPane.showMessageDialog(null, "Error cProveedor -> leer: \n NO HAY PROVEEDOR!");
         }
         return datos;
     }
 
-    public static void registrar(String id, String razonSocial, String telefono, String celular, String correo) {
-        try {
-            int verifica = Integer.parseInt(id);//si es numero
-            if (!id.equalsIgnoreCase("") && !razonSocial.equalsIgnoreCase("")) {
+    public static int registrar(String id, String razonSocial, String telefono, String celular, String correo) {
+        int band = -1;
+        if (Controlador.isNumeric(id)) {
+            if (!id.equalsIgnoreCase("") && !razonSocial.equalsIgnoreCase("") && !telefono.equalsIgnoreCase("")) {
                 ProveedorDao dao = new mProveedor();
                 Proveedor obj = new Proveedor(id, razonSocial, telefono, celular, correo);
-                int band = dao.registrar(obj);
-                if (band != -1) {
-                    JOptionPane.showMessageDialog(null, "Registro de Proveedor listo!!");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error en modelo Proveedor -> registrar!!");
-                }
+                band = dao.registrar(obj);
             } else {
-                JOptionPane.showMessageDialog(null, "Especifique CODIGO y Razon Social!!");
+                band = 2;
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "El CODIGO no acepta letras!!");
+        } else {
+            band = 3;
         }
+        return band;
     }
-    
-    public static void actualizar(String id, String razonSocial, String telefono, String celular, String correo) {
-        try {
-            int verifica = Integer.parseInt(id);//si es numero
-            if (!id.equalsIgnoreCase("") && !razonSocial.equalsIgnoreCase("") && !telefono.equalsIgnoreCase("") && !celular.equalsIgnoreCase("") && !correo.equalsIgnoreCase("") ) {
+
+    public static int actualizar(String id, String razonSocial, String telefono, String celular, String correo) {
+        int band = -1;
+        if (Controlador.isNumeric(id)) {
+            if (!id.equalsIgnoreCase("") && !razonSocial.equalsIgnoreCase("") && !telefono.equalsIgnoreCase("")) {
                 ProveedorDao dao = new mProveedor();
                 Proveedor obj = new Proveedor(id, razonSocial, telefono, celular, correo);
-                int band = dao.actualizar(obj);
-                if (band != -1) {
-                    JOptionPane.showMessageDialog(null, "Actualización de Proveedor listo!!");
-                }
+                band = dao.actualizar(obj);
             } else {
-                JOptionPane.showMessageDialog(null, "Especifique los datos!!");
+                band = 2;
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "El CODIGO no acepta letras!!");
+        } else {
+            band = 3;
         }
+        return band;
+
     }
 }

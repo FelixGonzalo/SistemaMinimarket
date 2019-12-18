@@ -153,8 +153,15 @@ public class VistaCategoria extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardarActionPerformed
-        cCategoria.registrar(jtxtNombre.getText());
-        JOptionPane.showMessageDialog(this, "registro lista !!");
+        int band = cCategoria.registrar(jtxtNombre.getText());
+        switch (band) {
+            case 1:
+                JOptionPane.showMessageDialog(this, "Registro de categoria lista !!");
+                break;
+            case 2:
+                JOptionPane.showMessageDialog(this, "Especifique el dato!!");
+                break;
+        }
     }//GEN-LAST:event_jbtnGuardarActionPerformed
 
     private void jbtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnActualizarActionPerformed
@@ -162,8 +169,15 @@ public class VistaCategoria extends javax.swing.JDialog {
         if (fila > -1) {
             String id = jtbCategorias.getValueAt(fila, 0).toString();
             String nombre = jtbCategorias.getValueAt(fila, 1).toString();
-            cCategoria.actualizar(id, nombre);
-            JOptionPane.showMessageDialog(this, "Actualización lista !!");
+            int band = cCategoria.actualizar(id, nombre);
+            switch (band) {
+                case 1:
+                    JOptionPane.showMessageDialog(this, "Actualización de categoria lista !!");
+                    break;
+                case 3:
+                    JOptionPane.showMessageDialog(this, "El id debe ser un Número!!");
+                    break;
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione una marca !!");
         }
@@ -173,8 +187,15 @@ public class VistaCategoria extends javax.swing.JDialog {
         int fila = jtbCategorias.getSelectedRow();
         if (fila > -1) {
             String id = jtbCategorias.getValueAt(fila, 0).toString();
-            cCategoria.eliminar(id);
-            JOptionPane.showMessageDialog(this, "Eliminación correcta !!");
+            int band = cCategoria.eliminar(id);
+            switch (band) {
+                case 1:
+                    JOptionPane.showMessageDialog(this, "Eliminación de categoria correcta !!");
+                    break;
+                case 3:
+                    JOptionPane.showMessageDialog(this, "El id debe ser un Número!!");
+                    break;
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione una fila !!");
         }

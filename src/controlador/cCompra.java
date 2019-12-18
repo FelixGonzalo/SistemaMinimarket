@@ -1,28 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import modelo.dao.DetalleCompraDao;
-import modelo.dao.DocumentoCompraDao;
 import modelo.entidad.DetalleCompra;
 import modelo.entidad.DocumentoCompra;
 import modelo.entidad.Proveedor;
-import modelo.mDetalleCompra;
-import modelo.mDocumentoCompra;
 import modelo.entidad.Producto;
 
-/**
- *
- * @author Fekilo
- */
 public class cCompra {
 
     public static int registrarCompra(DefaultTableModel tablaCompra, String idProveedor, String fecha, String serie, String numero) {
@@ -35,7 +21,7 @@ public class cCompra {
                 int id = cDocumentoCompra.leerIdUltimoRegistro();//obteniendo el id del registro
                 DocumentoCompra documentocompra = new DocumentoCompra();
                 documentocompra.setIdDocumentoCompra(id);
-                
+
                 List<DetalleCompra> listaDetalle = new ArrayList<DetalleCompra>();
                 for (int i = 0; i < tablaCompra.getRowCount(); i++) {
                     Producto prod = new Producto();

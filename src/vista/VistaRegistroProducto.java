@@ -9,6 +9,7 @@ import controlador.cCategoria;
 import controlador.cMarca;
 import controlador.cProducto;
 import controlador.cUnidadMedida;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,7 +24,7 @@ public class VistaRegistroProducto extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
-        
+
     }
 
     /**
@@ -256,7 +257,21 @@ public class VistaRegistroProducto extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        cProducto.registrar(jtxtDescripcion.getText(), jtxtPrecioVenta.getText(), jtxtCodigoBarras.getText(), 0, 0, jcboxCategoria.getSelectedItem().toString(), jcboxMarca.getSelectedItem().toString(), jcboxUnidadMedida.getSelectedItem().toString());
+        int band = cProducto.registrar(jtxtDescripcion.getText(), jtxtPrecioVenta.getText(), jtxtCodigoBarras.getText(), 0, 0, jcboxCategoria.getSelectedItem().toString(), jcboxMarca.getSelectedItem().toString(), jcboxUnidadMedida.getSelectedItem().toString());
+        switch (band) {
+            case 1:
+                JOptionPane.showMessageDialog(this, "Registro de Producto lista !!");
+                jtxtDescripcion.setText("");
+                jtxtCodigoBarras.setText("");
+                jtxtPrecioVenta.setText("");
+                break;
+            case 2:
+                JOptionPane.showMessageDialog(null, "Especifique todos los datos!!");
+                break;
+            case 3:
+                JOptionPane.showMessageDialog(null, "El Precio debe estar conformado por Números!!");
+                break;
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jtbnRegistrarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbnRegistrarCategoriaActionPerformed
@@ -342,10 +357,10 @@ public class VistaRegistroProducto extends javax.swing.JDialog {
     private javax.swing.JTextField jtxtPrecioVenta;
     // End of variables declaration//GEN-END:variables
 
-    public void actualizarComboBox(){
+    public void actualizarComboBox() {
         jcboxCategoria.setModel(cCategoria.leerCombo());
         jcboxMarca.setModel(cMarca.leerCombo());
         jcboxUnidadMedida.setModel(cUnidadMedida.leerCombo());
     }
-    
+
 }

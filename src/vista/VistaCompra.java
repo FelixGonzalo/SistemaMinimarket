@@ -617,15 +617,16 @@ public class VistaCompra extends javax.swing.JDialog {
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(jtxtCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel15)
                         .addComponent(jtxtSerie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel14)))
+                        .addComponent(jLabel14))
+                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel11)
+                        .addComponent(jtxtCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jtxtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jtxtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -749,7 +750,7 @@ public class VistaCompra extends javax.swing.JDialog {
             if (jtbCompra.getRowCount() > 0 && especificarCantidad > 0) {
                 String[] datosProveedor = cProveedor.leer(jtxtCodigoProveedor.getText());//Comprobar proveedor
                 if (!datosProveedor[0].equalsIgnoreCase("")) {
-                    band = cCompra.registrarCompra((DefaultTableModel) jtbCompra.getModel(), jtxtCodigoProveedor.getText(),jtxtFecha.getText(),jtxtSerie.getText(),jtxtNumero.getText());
+                    band = cCompra.registrarCompra((DefaultTableModel) jtbCompra.getModel(), jtxtCodigoProveedor.getText(), jtxtFecha.getText(), jtxtSerie.getText(), jtxtNumero.getText());
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Selecciona productos y especifique cantidad!!");
@@ -775,7 +776,18 @@ public class VistaCompra extends javax.swing.JDialog {
     }//GEN-LAST:event_jbtnBuscarClienteActionPerformed
 
     private void jbtnRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRegistrarClienteActionPerformed
-        cProveedor.registrar(jtxtCodigoProveedor.getText(), jtxtRazonSocial.getText(), jtxtTelefono.getText(), jtxtCelular.getText(), jtxtCorreo.getText());
+        int band = cProveedor.registrar(jtxtCodigoProveedor.getText(), jtxtRazonSocial.getText(), jtxtTelefono.getText(), jtxtCelular.getText(), jtxtCorreo.getText());
+        switch (band) {
+            case 1:
+                JOptionPane.showMessageDialog(this, "Registro de Proveedorr lista !!");
+                break;
+            case 2:
+                JOptionPane.showMessageDialog(null, "Especifique todos los datos!!");
+                break;
+            case 3:
+                JOptionPane.showMessageDialog(null, "El CODIGO debe estar conformado por números!!");
+                break;
+        }
     }//GEN-LAST:event_jbtnRegistrarClienteActionPerformed
 
     private void jtxtCodigoBarrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtCodigoBarrasActionPerformed
@@ -783,7 +795,18 @@ public class VistaCompra extends javax.swing.JDialog {
     }//GEN-LAST:event_jtxtCodigoBarrasActionPerformed
 
     private void jbtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnActualizarActionPerformed
-        cProveedor.actualizar(jtxtCodigoProveedor.getText(), jtxtRazonSocial.getText(), jtxtTelefono.getText(), jtxtCelular.getText(), jtxtCorreo.getText());
+        int band = cProveedor.actualizar(jtxtCodigoProveedor.getText(), jtxtRazonSocial.getText(), jtxtTelefono.getText(), jtxtCelular.getText(), jtxtCorreo.getText());
+        switch (band) {
+            case 1:
+                JOptionPane.showMessageDialog(this, "Actualización de Proveedor lista !!");
+                break;
+            case 2:
+                JOptionPane.showMessageDialog(null, "Especifique todos los datos!!");
+                break;
+            case 3:
+                JOptionPane.showMessageDialog(null, "El CODIGO no acepta letras!!");
+                break;
+        }
     }//GEN-LAST:event_jbtnActualizarActionPerformed
 
     private void jtbCompraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtbCompraKeyPressed

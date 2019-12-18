@@ -153,8 +153,15 @@ public class VistaMarca extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardarActionPerformed
-        cMarca.registrar(jtxtNombre.getText());
-        JOptionPane.showMessageDialog(this, "registro lista !!");
+        int band = cMarca.registrar(jtxtNombre.getText());
+        switch (band) {
+            case 1:
+                JOptionPane.showMessageDialog(this, "Registro de marca lista !!");
+                break;
+            case 2:
+                JOptionPane.showMessageDialog(this, "Especifique el dato!!");
+                break;
+        }
     }//GEN-LAST:event_jbtnGuardarActionPerformed
 
     private void jbtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnActualizarActionPerformed
@@ -162,9 +169,16 @@ public class VistaMarca extends javax.swing.JDialog {
         if (fila > -1) {
             String id = jtbMarcas.getValueAt(fila, 0).toString();
             String nombre = jtbMarcas.getValueAt(fila, 1).toString();
-            cMarca.actualizar(id, nombre);
-            JOptionPane.showMessageDialog(this, "Actualización lista !!");
-        }else{
+            int band = cMarca.actualizar(id, nombre);
+            switch (band) {
+                case 1:
+                    JOptionPane.showMessageDialog(this, "Actualización de marca lista !!");
+                    break;
+                case 3:
+                    JOptionPane.showMessageDialog(this, "El id debe ser un Número!!");
+                    break;
+            }
+        } else {
             JOptionPane.showMessageDialog(this, "Seleccione una marca !!");
         }
     }//GEN-LAST:event_jbtnActualizarActionPerformed
@@ -173,15 +187,22 @@ public class VistaMarca extends javax.swing.JDialog {
         int fila = jtbMarcas.getSelectedRow();
         if (fila > -1) {
             String id = jtbMarcas.getValueAt(fila, 0).toString();
-            cMarca.eliminar(id);
-            JOptionPane.showMessageDialog(this, "Eliminación correcta !!");
-        }else{
+            int band = cMarca.eliminar(id);
+            switch (band) {
+                case 1:
+                    JOptionPane.showMessageDialog(this, "Eliminación de marca correcta !!");
+                    break;
+                case 3:
+                    JOptionPane.showMessageDialog(this, "El id debe ser un Número!!");
+                    break;
+            }
+        } else {
             JOptionPane.showMessageDialog(this, "Seleccione una fila !!");
         }
     }//GEN-LAST:event_jbtnEliminarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-         actualizarTabla();
+        actualizarTabla();
     }//GEN-LAST:event_formWindowActivated
 
     /**
@@ -237,7 +258,7 @@ public class VistaMarca extends javax.swing.JDialog {
     private javax.swing.JTextField jtxtNombre;
     // End of variables declaration//GEN-END:variables
 
-    public void actualizarTabla(){
+    public void actualizarTabla() {
         this.jtbMarcas.setModel(cMarca.leer());
         jtbMarcas.getColumnModel().getColumn(0).setMaxWidth(0);
         jtbMarcas.getColumnModel().getColumn(0).setMinWidth(0);

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
 import java.util.List;
@@ -12,10 +7,6 @@ import modelo.dao.UnidadMedidaDao;
 import modelo.entidad.UnidadMedida;
 import modelo.mUnidadMedida;
 
-/**
- *
- * @author Fekilo
- */
 public class cUnidadMedida {
 
     public static DefaultTableModel leer() {
@@ -41,37 +32,50 @@ public class cUnidadMedida {
         UnidadMedidaDao dao = new mUnidadMedida();
         List<UnidadMedida> lista = dao.leer();
         DefaultComboBoxModel combo = new DefaultComboBoxModel();
-        
+
         for (UnidadMedida obj : lista) {
             combo.addElement(obj.getNombre());
         }
         return combo;
     }
-    
-    public static void registrar(String nombre, String abreviatura){
-        UnidadMedidaDao dao = new mUnidadMedida();
-        try {
+
+    public static int registrar(String nombre, String abreviatura) {
+        int band = -1;
+        if (!nombre.equalsIgnoreCase("") || !abreviatura.equalsIgnoreCase("")) {
+            UnidadMedidaDao dao = new mUnidadMedida();
             UnidadMedida obj = new UnidadMedida(nombre, abreviatura);
-            dao.registrar(obj);
-        } catch (Exception e) {
+            band = dao.registrar(obj);
+        } else {
+            band = 2;
         }
+        return band;
     }
-    
-    public static void actualizar(String id,String nombre, String abreviatura){
-        UnidadMedidaDao dao = new mUnidadMedida();
-        try {
-            UnidadMedida obj = new UnidadMedida(Integer.parseInt(id),nombre, abreviatura);
-            dao.actualizar(obj);
-        } catch (Exception e) {
+
+    public static int actualizar(String id, String nombre, String abreviatura) {
+        int band = -1;
+        if (!nombre.equalsIgnoreCase("") && !abreviatura.equalsIgnoreCase("")) {
+            if (Controlador.isNumeric(id)) {
+                UnidadMedidaDao dao = new mUnidadMedida();
+                UnidadMedida obj = new UnidadMedida(Integer.parseInt(id), nombre, abreviatura);
+                band = dao.actualizar(obj);
+            } else {
+                band = 3;
+            }
+        } else {
+            band = 2;
         }
+        return band;
     }
-    
-    public static void eliminar(String id){
-        UnidadMedidaDao dao = new mUnidadMedida();
-        try {
-            dao.eliminar(Integer.parseInt(id));
-        } catch (Exception e) {
+
+    public static int eliminar(String id) {
+        int band = -1;
+        if (Controlador.isNumeric(id)) {
+            UnidadMedidaDao dao = new mUnidadMedida();
+            band = dao.eliminar(Integer.parseInt(id));
+        } else {
+            band = 3;
         }
+        return band;
     }
 
 }

@@ -163,8 +163,15 @@ public class VistaUnidadMedida extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardarActionPerformed
-        cUnidadMedida.registrar(jtxtNombre.getText(),jtxtAbreviatura.getText());
-        JOptionPane.showMessageDialog(this, "registro lista !!");
+        int band = cUnidadMedida.registrar(jtxtNombre.getText(), jtxtAbreviatura.getText());
+        switch (band) {
+            case 1:
+                JOptionPane.showMessageDialog(this, "Registro de Unidad de Medida lista !!");
+                break;
+            case 2:
+                JOptionPane.showMessageDialog(this, "Especifique el dato!!");
+                break;
+        }
     }//GEN-LAST:event_jbtnGuardarActionPerformed
 
     private void jbtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnActualizarActionPerformed
@@ -173,9 +180,16 @@ public class VistaUnidadMedida extends javax.swing.JDialog {
             String idArticulo = jtbUnidadesMedida.getValueAt(fila, 0).toString();
             String nombre = jtbUnidadesMedida.getValueAt(fila, 1).toString();
             String abreviatura = jtbUnidadesMedida.getValueAt(fila, 2).toString();
-            cUnidadMedida.actualizar(idArticulo,nombre,abreviatura);
-            JOptionPane.showMessageDialog(this, "Actualización lista !!");
-        }else{
+            int band = cUnidadMedida.actualizar(idArticulo, nombre, abreviatura);
+            switch (band) {
+                case 1:
+                    JOptionPane.showMessageDialog(this, "Actualización de Unidad de Medida lista !!");
+                    break;
+                case 3:
+                    JOptionPane.showMessageDialog(this, "El id debe ser un Número!!");
+                    break;
+            }
+        } else {
             JOptionPane.showMessageDialog(this, "Seleccione una marca !!");
         }
     }//GEN-LAST:event_jbtnActualizarActionPerformed
@@ -184,9 +198,16 @@ public class VistaUnidadMedida extends javax.swing.JDialog {
         int fila = jtbUnidadesMedida.getSelectedRow();
         if (fila > -1) {
             String id = jtbUnidadesMedida.getValueAt(fila, 0).toString();
-            cUnidadMedida.eliminar(id);
-            JOptionPane.showMessageDialog(this, "Eliminación correcta !!");
-        }else{
+            int band = cUnidadMedida.eliminar(id);
+            switch (band) {
+                case 1:
+                    JOptionPane.showMessageDialog(this, "Eliminación de Unidad de Medida correcta !!");
+                    break;
+                case 3:
+                    JOptionPane.showMessageDialog(this, "El id debe ser un Número!!");
+                    break;
+            }
+        } else {
             JOptionPane.showMessageDialog(this, "Seleccione una fila !!");
         }
     }//GEN-LAST:event_jbtnEliminarActionPerformed
@@ -250,7 +271,7 @@ public class VistaUnidadMedida extends javax.swing.JDialog {
     private javax.swing.JTextField jtxtNombre;
     // End of variables declaration//GEN-END:variables
 
-    public void actualizarTabla(){
+    public void actualizarTabla() {
         this.jtbUnidadesMedida.setModel(cUnidadMedida.leer());
         jtbUnidadesMedida.getColumnModel().getColumn(0).setMaxWidth(0);
         jtbUnidadesMedida.getColumnModel().getColumn(0).setMinWidth(0);
