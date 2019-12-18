@@ -6,18 +6,24 @@ public class Cliente {
     private String nombres;
     private String apellidos;
     private int sexo;
+    private String celular;
+    private String correo;
 
-    public Cliente(String idClienteDniRuc, String nombres, String apellidos, int sexo) {
+    public Cliente(String idClienteDniRuc, String nombres, String apellidos, int sexo, String celular, String correo) {
         this.idClienteDniRuc = idClienteDniRuc;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.sexo = sexo;
+        this.celular = celular;
+        this.correo = correo;
     }
 
-    public Cliente(String nombres, String apellidos, int sexo) {
+    public Cliente(String nombres, String apellidos, int sexo, String celular, String correo) {
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.sexo = sexo;
+        this.celular = celular;
+        this.correo = correo;
     }
 
     public Cliente() {
@@ -55,4 +61,19 @@ public class Cliente {
         this.sexo = sexo;
     }
 
+    public String getCelular() {
+        return celular;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
 }

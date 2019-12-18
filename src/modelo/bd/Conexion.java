@@ -8,7 +8,7 @@ public class Conexion {
 
     private static String user = "root";
     private static String password = "fekilo";
-    private static String url = "jdbc:mysql://localhost:3306/sistema_minimarket?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    private static String url = "jdbc:mysql://localhost:3306/fotofelix?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private static String driver = "com.mysql.jdbc.Driver";
 
     public static Connection getConexion() {
