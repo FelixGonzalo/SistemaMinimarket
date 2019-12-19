@@ -7,13 +7,15 @@ public class Proveedor {
     private String telefono;
     private String celular;
     private String correo;
+    private String direccion;
 
-    public Proveedor(String rucProveedor, String razonSocial, String telefono, String celular, String correo) {
+    public Proveedor(String rucProveedor, String razonSocial, String telefono, String celular, String correo, String direccion) {
         this.rucProveedor = rucProveedor;
         this.razonSocial = razonSocial;
         this.telefono = telefono;
         this.celular = celular;
         this.correo = correo;
+        this.direccion = direccion;
     }
 
     public Proveedor() {
@@ -59,4 +61,11 @@ public class Proveedor {
         this.correo = correo;
     }
 
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
 }

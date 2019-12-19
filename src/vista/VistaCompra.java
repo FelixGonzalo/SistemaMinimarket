@@ -83,6 +83,8 @@ public class VistaCompra extends javax.swing.JDialog {
         jtxtCorreo = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jbtnActualizar = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
+        jtxtDireccion = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
@@ -342,7 +344,7 @@ public class VistaCompra extends javax.swing.JDialog {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jbtnSeleccionarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 182, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -424,6 +426,10 @@ public class VistaCompra extends javax.swing.JDialog {
             }
         });
 
+        jLabel16.setText("DIRECCION");
+
+        jtxtDireccion.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -434,6 +440,7 @@ public class VistaCompra extends javax.swing.JDialog {
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -445,7 +452,8 @@ public class VistaCompra extends javax.swing.JDialog {
                             .addComponent(jtxtRazonSocial)
                             .addComponent(jtxtTelefono)
                             .addComponent(jtxtCelular)
-                            .addComponent(jtxtCorreo))
+                            .addComponent(jtxtCorreo)
+                            .addComponent(jtxtDireccion))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -487,7 +495,11 @@ public class VistaCompra extends javax.swing.JDialog {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel13)
                             .addComponent(jtxtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(jtxtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel6.setBackground(new java.awt.Color(236, 236, 236));
@@ -772,11 +784,12 @@ public class VistaCompra extends javax.swing.JDialog {
             jtxtTelefono.setText(datosProveedor[2]);
             jtxtCelular.setText(datosProveedor[3]);
             jtxtCorreo.setText(datosProveedor[4]);
+            jtxtDireccion.setText(datosProveedor[5]);
         }
     }//GEN-LAST:event_jbtnBuscarClienteActionPerformed
 
     private void jbtnRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRegistrarClienteActionPerformed
-        int band = cProveedor.registrar(jtxtCodigoProveedor.getText(), jtxtRazonSocial.getText(), jtxtTelefono.getText(), jtxtCelular.getText(), jtxtCorreo.getText());
+        int band = cProveedor.registrar(jtxtCodigoProveedor.getText(), jtxtRazonSocial.getText(), jtxtTelefono.getText(), jtxtCelular.getText(), jtxtCorreo.getText(), jtxtDireccion.getText());
         switch (band) {
             case 1:
                 JOptionPane.showMessageDialog(this, "Registro de Proveedorr lista !!");
@@ -795,7 +808,7 @@ public class VistaCompra extends javax.swing.JDialog {
     }//GEN-LAST:event_jtxtCodigoBarrasActionPerformed
 
     private void jbtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnActualizarActionPerformed
-        int band = cProveedor.actualizar(jtxtCodigoProveedor.getText(), jtxtRazonSocial.getText(), jtxtTelefono.getText(), jtxtCelular.getText(), jtxtCorreo.getText());
+        int band = cProveedor.actualizar(jtxtCodigoProveedor.getText(), jtxtRazonSocial.getText(), jtxtTelefono.getText(), jtxtCelular.getText(), jtxtCorreo.getText(), jtxtDireccion.getText());
         switch (band) {
             case 1:
                 JOptionPane.showMessageDialog(this, "Actualización de Proveedor lista !!");
@@ -870,6 +883,7 @@ public class VistaCompra extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -909,6 +923,7 @@ public class VistaCompra extends javax.swing.JDialog {
     private javax.swing.JTextField jtxtCodigoBarras;
     private javax.swing.JTextField jtxtCodigoProveedor;
     private javax.swing.JTextField jtxtCorreo;
+    private javax.swing.JTextField jtxtDireccion;
     private javax.swing.JTextField jtxtFecha;
     private javax.swing.JTextField jtxtFiltroDescripcion;
     private javax.swing.JTextField jtxtNumero;

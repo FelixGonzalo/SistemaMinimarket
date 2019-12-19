@@ -8,22 +8,26 @@ public class Cliente {
     private int sexo;
     private String celular;
     private String correo;
+    private String direccion;
 
-    public Cliente(String idClienteDniRuc, String nombres, String apellidos, int sexo, String celular, String correo) {
+    public Cliente(String idClienteDniRuc, String nombres, String apellidos, int sexo, String celular, String correo,String direccion) {
         this.idClienteDniRuc = idClienteDniRuc;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.sexo = sexo;
         this.celular = celular;
         this.correo = correo;
+        this.direccion = direccion;
+        
     }
 
-    public Cliente(String nombres, String apellidos, int sexo, String celular, String correo) {
+    public Cliente(String nombres, String apellidos, int sexo, String celular, String correo, String direccion) {
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.sexo = sexo;
         this.celular = celular;
         this.correo = correo;
+        this.direccion = direccion;
     }
 
     public Cliente() {
@@ -76,4 +80,13 @@ public class Cliente {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+    
 }

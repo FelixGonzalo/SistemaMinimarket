@@ -9,7 +9,7 @@ public class mCliente implements ClienteDao {
 
     @Override
     public Cliente leerId(int id) {
-        ResultSet rs = Transaccion.consulta("SELECT idClienteDniRuc, nombres, apellidos, sexo, celular, correo FROM cliente WHERE idClienteDniRuc = '" + id + "'");
+        ResultSet rs = Transaccion.consulta("SELECT idClienteDniRuc, nombres, apellidos, sexo, celular, correo, direccion FROM cliente WHERE idClienteDniRuc = '" + id + "'");
         Cliente cliente = new Cliente();
         try {
             while (rs.next()) {
@@ -19,6 +19,7 @@ public class mCliente implements ClienteDao {
                 cliente.setSexo(Integer.parseInt(rs.getString(4)));
                 cliente.setCelular(rs.getString(5));
                 cliente.setCorreo(rs.getString(6));
+                cliente.setDireccion(rs.getString(7));
             }
         } catch (Exception e) {
             //JOptionPane.showMessageDialog(null, "ERROR mCliente -> leerId \n" + e.getMessage());
@@ -28,13 +29,14 @@ public class mCliente implements ClienteDao {
 
     @Override
     public int registrar(Cliente obj) {
-        int band = Transaccion.actualizacion("INSERT INTO cliente (idClienteDniRuc,nombres,apellidos,sexo,celular,correo) VALUES ('"
+        int band = Transaccion.actualizacion("INSERT INTO cliente (idClienteDniRuc,nombres,apellidos,sexo,celular,correo,direccion) VALUES ('"
                 + obj.getIdClienteDniRuc() + "','"
                 + obj.getNombres() + "','"
                 + obj.getApellidos() + "','"
                 + obj.getSexo() + "','"
                 + obj.getCelular() + "','"
-                + obj.getCorreo() + "')");
+                + obj.getCorreo() + "','"
+                + obj.getDireccion() + "')");
         return band;
     }
 
@@ -45,7 +47,8 @@ public class mCliente implements ClienteDao {
                 + " apellidos ='" + obj.getApellidos() + "',"
                 + " sexo = " + obj.getSexo() + ","
                 + " celular ='" + obj.getCelular() + "',"
-                + " correo = '" + obj.getCorreo()+ "'"
+                + " correo = '" + obj.getCorreo() + "',"
+                + " direccion = '" + obj.getDireccion()+ "'"
                 + " WHERE idClienteDniRuc = '" + obj.getIdClienteDniRuc() + "'");
         return band;
     }

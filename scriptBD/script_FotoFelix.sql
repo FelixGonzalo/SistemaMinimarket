@@ -24,9 +24,9 @@ CREATE TABLE Producto (
   idProducto INT NOT NULL AUTO_INCREMENT,
   descripcion VARCHAR(45) NOT NULL,
   precioVenta DECIMAL(6,2) NOT NULL,
-  codigoBarras VARCHAR(20) NULL,
-  cantidadAlmacen INT UNSIGNED NULL,
-  cantidadMostrador INT UNSIGNED NULL,
+  codigoBarras VARCHAR(20) ,
+  cantidadAlmacen INT UNSIGNED ,
+  cantidadMostrador INT UNSIGNED ,
   idCategoria INT NOT NULL,
   idMarca INT NOT NULL,
   idUnidadMedida INT NOT NULL,
@@ -51,19 +51,21 @@ CREATE TABLE Producto (
 CREATE TABLE Proveedor (
   rucProveedor VARCHAR(15) NOT NULL,
   razonSocial VARCHAR(20) NOT NULL,
-  telefono VARCHAR(10) NULL,
-  celular VARCHAR(10) NULL,
-  correo VARCHAR(30) NULL,
+  telefono VARCHAR(10) ,
+  celular VARCHAR(10) ,
+  correo VARCHAR(30) ,
+  direccion VARCHAR(30) ,
   PRIMARY KEY (rucProveedor)
 );
 
 CREATE TABLE Cliente (
   idClienteDniRuc VARCHAR(10) NOT NULL,
   nombres VARCHAR(25) NOT NULL,
-  apellidos VARCHAR(25) NULL,
+  apellidos VARCHAR(25) ,
   sexo INT UNSIGNED NOT NULL,
-  celular VARCHAR(10) NULL,
-  correo VARCHAR(30) NULL,
+  celular VARCHAR(10) ,
+  correo VARCHAR(30) ,
+  direccion VARCHAR(30) ,
   PRIMARY KEY (idClienteDniRuc)
 );
 
