@@ -1,7 +1,5 @@
-/*CREATE DATABASE fotofelix;
-USE fotofelix;*/
-CREATE DATABASE fotofelix2;
-USE fotofelix2;
+CREATE DATABASE fotofelix;
+USE fotofelix;
 
 CREATE TABLE Categoria (
   idCategoria INT NOT NULL AUTO_INCREMENT,
@@ -135,3 +133,14 @@ CREATE TABLE DetalleCompra (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
+
+create trigger actualizaStockVenta 
+after insert on detalleventa
+for each row
+update producto set producto.cantidadAlmacen = producto.cantidadAlmacen - new.cantidad where producto.idProducto= new.idProducto;
+
+create trigger actualizaStockCompra
+after insert on detallecompra
+for each row
+update producto set producto.cantidadAlmacen = producto.cantidadAlmacen + new.cantidad where producto.idProducto= new.idProducto;
+
