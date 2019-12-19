@@ -1,5 +1,7 @@
-CREATE DATABASE fotofelix;
-USE fotofelix;
+/*CREATE DATABASE fotofelix;
+USE fotofelix;*/
+CREATE DATABASE fotofelix2;
+USE fotofelix2;
 
 CREATE TABLE Categoria (
   idCategoria INT NOT NULL AUTO_INCREMENT,

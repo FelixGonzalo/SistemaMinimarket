@@ -51,7 +51,7 @@ public class cCompra {
         dt = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int fila, int columna) {
-                if (columna == 4) {
+                if (columna == 4 || columna == 5) {
                     return true;
                 } else {
                     return false;
